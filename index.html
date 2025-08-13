@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Concierge Solutions – Transform FAQs into conversions</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f9fafb;
+    }
+    /* Header with hero content */
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40px 10%;
+      background: #fff;
+    }
+    .hero-content {
+      flex: 1 1 400px;
+      max-width: 600px;
+    }
+    .hero-content h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      color: #101828;
+    }
+    .hero-content p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      color: #6b7280;
+    }
+    .cta-btn {
+      display: inline-block;
+      margin-right: 15px;
+      padding: 12px 24px;
+      font-size: 1em;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background-color: #0E99E5;
+      color: #fff;
+    }
+    .btn-secondary {
+      background-color: #e5e7eb;
+      color: #1f2937;
+    }
+    .hero-image {
+      flex: 1 1 300px;
+      padding-top: 20px;
+      text-align: center;
+    }
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    /* Features section */
+    .features {
+      padding: 60px 10%;
+      background: #fff;
+    }
+    .features h2 {
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #101828;
+    }
+    .features ul {
+      list-style-type: none;
+      padding: 0;
+      max-width: 800px;
+      margin: auto;
+    }
+    .features li {
+      margin-bottom: 10px;
+      padding-left: 30px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%230E99E5" viewBox="0 0 24 24"><path d="M20.285 6.708l-10.285 10.292-4.285-4.292 1.285-1.292 3 3 9-9.005z"/></svg>') no-repeat left center;
+      background-size: 20px;
+      line-height: 1.4;
+    }
+    /* Pricing section */
+    .pricing {
+      background: #f9fafb;
+      padding: 60px 10%;
+    }
+    .pricing h2 {
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #101828;
+    }
+    .plans {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .plan {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 20px;
+      width: 300px;
+    }
+    .plan h3 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: #101828;
+    }
+    .plan .price {
+      font-size: 1.8em;
+      color: #0E99E5;
+      margin-bottom: 5px;
+    }
+    .plan ul {
+      list-style-type: none;
+      padding: 0;
+      margin-bottom: 20px;
+    }
+    .plan li {
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .plan .plan-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 4px;
+      background-color: #0E99E5;
+      color: #fff;
+      text-decoration: none;
+    }
+    /* CTA section */
+    .cta-section {
+      padding: 60px 10%;
+      text-align: center;
+      background: #0E99E5;
+      color: #fff;
+    }
+    .cta-section h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    .cta-section p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    /* Footer */
+    footer {
+      background: #111827;
+      color: #9CA3AF;
+      padding: 20px 10%;
+      text-align: center;
+      font-size: 0.9em;
+    }
+    footer a {
+      color: #90cdf4;
+    }
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column-reverse;
+        padding: 20px 5%;
+      }
+      .hero-content, .hero-image {
+        flex: 1 1 auto;
+        max-width: none;
+      }
+      .cta-btn {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero-content">
+      <h1>Transform FAQs into conversions</h1>
+      <p>Capture after-hours inquiries and guide visitors to bookings in minutes – live within 48 hours, no coding required.</p>
+      <a href="#demo" class="cta-btn btn-primary">Get 45‑sec demo</a>
+      <a href="#contact" class="cta-btn btn-secondary">Book 15‑min call</a>
+    </div>
+    <div class="hero-image">
+      <!-- Embed the hero image directly using a data URI so the page can live in a single file without external assets. -->
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABgAAAAQACAIAAACoEwUVAADXIWNhQlgAANchanVtYgAAAB5qdW1kYzJwYQARABCAAACqADibcQNjMnBhAAAANxNqdW1iAAAAR2p1bWRjMm1hABEAEIAAAKoAOJtxA3VybjpjMnBhOmNlN2NlNjkxLWE4ZjAtNGJkZS1hZjI2LTY4ODAxODdiNGM2MwAAAAHhanVtYgAAAClqdW1kYzJhcwARABCAAACqADibcQNjMnBhLmFzc2VydGlvbnMAAAABBWp1bWIAAAApanVtZGNib3IAEQAQgAAAqgA4m3EDYzJwYS5hY3Rpb25zLnYyAAAAANRjYm9yoWdhY3Rpb25zgqNmYWN0aW9ubGMycGEuY3JlYXRlZG1zb2Z0d2FyZUFnZW50v2RuYW1lZkdQVC00b/9xZGlnaXRhbFNvdXJjZVR5cGV4Rmh0dHA6Ly9jdi5pcHRjLm9yZy9uZXdzY29kZXMvZGlnaXRhbHNvdXJjZXR5cGUvdHJhaW5lZEFsZ29yaXRobWljTWVkaWGiZmFjdGlvbm5jMnBhLmNvbnZlcnRlZG1zb2Z0d2FyZUFnZW50v2RuYW1lak9wZW5BSSBBUEn/AAAAq2p1bWIAAAAoanVtZGNib3IAEQAQgAAAqgA4m3EDYzJwYS5oYXNoLmRhdGEAAAAAe2Nib3KlamV4Y2x1c2lvbnOBomVzdGFydBghZmxlbmd0aBk3RWRuYW1lbmp1bWJmIG1hbmlmZXN0Y2FsZ2ZzaGEyNTZkaGFzaFggu6BWTHr/TGwx1HhGZHoAQ4UdRxKnBKjg98WZbCTW1aJjcGFkSAAAAAAAAAAAAAAB5mp1bWIAAAAnanVtZGMyY2wAEQAQgAAAqgA4m3EDYzJwYS5jbGFpbS52MgAAAAG3Y2JvcqZqaW5zdGFuY2VJRHgseG1wOmlpZDphYmUyMmQ1Ny1hOGE1LTRmYTItOGM2YS1jOGU5ZTYyZTMzMTB0Y2xhaW1fZ2VuZXJhdG9yX2luZm+/ZG5hbWVnQ2hhdEdQVG9vcmcuY2FpLmMycGFfcnNmMC41MS4x/2lzaWduYXR1cmV4TXNlbGYjanVtYmY9L2MycGEvdXJuOmMycGE6Y2U3Y2U2OTEtYThmMC00YmRlLWFmMjYtNjg4MDE4N2I0YzYzL2MycGEuc2lnbmF0dXJlcmNyZWF0ZWRfYXNzZXJ0aW9uc4KiY3VybHgqc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5hY3Rpb25zLnYyZGhhc2hYIMPkU8KwXWM8GJd2TgZdAivyknNwLULr3GDz9hUureGyomN1cmx4KXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaGFzaC5kYXRhZGhhc2hYIHyW9q9cvkoAvnMipYlTKKMpX7hyQsEiJVoBQyKKr2wmaGRjOnRpdGxlaWltYWdlLnBuZ2NhbGdmc2hhMjU2AAAy/Wp1bWIAAAAoanVtZGMyY3MAEQAQgAAAqgA4m3EDYzJwYS5zaWduYXR1cmUAAAAyzWNib3LShFkHwaIBJhghglkDNzCCAzMwggIboAMCAQICFG6uKKPuxbjkKjb6HeZBFa5iFhs7MA0GCSqGSIb3DQEBDAUAMEoxGjAYBgNVBAMMEVdlYkNsYWltU2lnbmluZ0NBMQ0wCwYDVQQLDARMZW5zMRAwDgYDVQQKDAdUcnVlcGljMQswCQYDVQQGEwJVUzAeFw0yNTAxMTMyMDM2NDZaFw0yNjAxMTMyMDM2NDVaMFYxCzAJBgNVBAYTAlVTMQ8wDQYDVQQKDAZPcGVuQUkxEDAOBgNVBAsMB0NoYXRHUFQxJDAiBgNVBAMMG1RydWVwaWMgTGVucyBDTEkgaW4gQ2hhdEdQVDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABFYdeMcqUA997gTIFPWrpHZ7i+3ToyM91aZCM9lMKQlCMTAIS6U1leiR4y7w2pqjrAEK7gLZiV8M1S27LhaaN+ijgc8wgcwwDAYDVR0TAQH/BAIwADAfBgNVHSMEGDAWgBRaH2tm05TnsEGDfZwMe13Fc0tLszBNBggrBgEFBQcBAQRBMD8wPQYIKwYBBQUHMAGGMWh0dHA6Ly92YS50cnVlcGljLmNvbS9lamJjYS9wdWJsaWN3ZWIvc3RhdHVzL29jc3AwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMkMB0GA1UdDgQWBBTKXhMuLBs1om1iRU0zQwVi7JP4KjAOBgNVHQ8BAf8EBAMCB4AwDQYJKoZIhvcNAQEMBQADggEBAHloPns944Lh2V25uG67odcSRNCXFCn1B1Mt0/f6p9PyPeER6QLiRxrTkfNoXin96s18il7t60Yf8OZBSrncA2mqr8VaQ9lFywCvjfTcaq9Niy2MmwCfM9OD670t6VimNxeT76FeZ8QPQ6R2yVUgSQbfsRqNmrcXAhp9A3p8ZB+6UYag/p2BYr7cqYhJ7sDR/Ca1G40TyWtO4jBH3vSO1BH7FzworINIcUxZTGTyZMas6gOjr0u9avikKoNqk87mZYxdiSELNZVskThwcGUtpWW67sag0y7vrr2uPUYKvV8EFfQnmhDvmkSltkEIKf0viECSvC79FNRjd6loZw8YAcpZBH4wggR6MIICYqADAgECAhRp/JDEzIlQgjoeqF/Sgv8o1f2TkDANBgkqhkiG9w0BAQwFADA/MQ8wDQYDVQQDDAZSb290Q0ExDTALBgNVBAsMBExlbnMxEDAOBgNVB... data truncated for brevity ...
+    </div>
+  </header>
+  <section class="features">
+    <h2>Why choose our AI concierge?</h2>
+    <ul>
+      <li>24/7 coverage – never miss a lead again.</li>
+      <li>Increase conversions by 8–15% in the first month.</li>
+      <li>Deploy in just 48 hours – no technical integration required.</li>
+      <li>GDPR compliant with seamless human fallback when needed.</li>
+      <li>Flexible plans starting at €149/month.</li>
+    </ul>
+  </section>
+  <section class="pricing">
+    <h2>Pricing Plans</h2>
+    <div class="plans">
+      <div class="plan">
+        <h3>Starter</h3>
+        <div class="price">€149/mo</div>
+        <div class="price" style="font-size:1.2em; color:#6b7280;">Setup €299</div>
+        <ul>
+          <li>1 communication channel</li>
+          <li>7-day pilot</li>
+          <li>Standard support</li>
+        </ul>
+        <a href="#contact" class="plan-btn">Get Started</a>
+      </div>
+      <div class="plan">
+        <h3>Growth</h3>
+        <div class="price">€449/mo</div>
+        <div class="price" style="font-size:1.2em; color:#6b7280;">Setup €799</div>
+        <ul>
+          <li>Up to 3 channels</li>
+          <li>7-day pilot</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#contact" class="plan-btn">Choose Plan</a>
+      </div>
+      <div class="plan">
+        <h3>Performance</h3>
+        <div class="price">Custom</div>
+        <ul>
+          <li>Revenue share / CPA option</li>
+          <li>Enterprise integrations</li>
+          <li>Dedicated onboarding</li>
+        </ul>
+        <a href="#contact" class="plan-btn">Contact us</a>
+      </div>
+    </div>
+  </section>
+  <section class="cta-section" id="demo">
+    <h2>Ready to see it in action?</h2>
+    <p>Discover how our AI concierge can convert missed questions into booked appointments. Watch a quick demo or schedule a call.</p>
+    <a href="#contact" class="cta-btn btn-secondary" style="background-color:#fff; color:#0E99E5;">Book a call</a>
+    <a href="#contact" class="cta-btn btn-primary" style="margin-top:10px;">Get your demo video</a>
+  </section>
+  <footer id="contact">
+    <p>Get in touch: <a href="mailto:zoe.lirel@gmail.com">zoe.lirel@gmail.com</a> &nbsp;|&nbsp; WhatsApp: +370&nbsp;681&nbsp;95678</p>
+    <p>&copy; 2025 AI Concierge Solutions. All rights reserved.</p>
+  </footer>
+</body>
+</html>
