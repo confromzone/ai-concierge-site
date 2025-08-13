@@ -377,5 +377,33 @@
     sendBtn.addEventListener('click', send);
     inputEl.addEventListener('keydown', e=>{ if(e.key==='Enter') send(); });
   </script>
+  <!-- DEBUG widget: nuimsi kai baigsim testą -->
+<div id="diag" style="position:fixed;right:12px;bottom:12px;z-index:9999">
+  <button id="ping" style="padding:10px 14px;border-radius:10px;border:1px solid #1e293b;background:#0f172a;color:#cbd5e1">
+    🔧 Test AI
+  </button>
+  <div id="diag-out" style="max-width:340px;margin-top:6px;font:12px/1.4 monospace;color:#fff"></div>
+</div>
+<script>
+  document.getElementById('ping').onclick = async () => {
+    const out = document.getElementById('diag-out');
+    out.textContent = 'Testing...';
+    try {
+      const r = await fetch('/api/ai', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          messages:[{role:'user', content:'Hello!'}],
+          lang: localStorage.getItem('lang') || 'en'
+        })
+      });
+      const data = await r.json();
+      out.textContent = 'OK → ' + JSON.stringify(data);
+    } catch(e) {
+      out.textContent = 'ERR → ' + e;
+    }
+  };
+</script>
+
 </body>
 </html>
