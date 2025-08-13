@@ -74,26 +74,6 @@
       .cards,.pricing{grid-template-columns:1fr}
       form{grid-template-columns:1fr}
     }
-
-    /* ------ Chat widget ------ */
-    .chat-fab{
-      position:fixed;right:22px;bottom:22px;width:56px;height:56px;border-radius:50%;
-      background:linear-gradient(135deg,var(--brand),#7c3aed);display:grid;place-items:center;
-      color:#fff;border:none;box-shadow:0 10px 30px rgba(79,70,229,.4);cursor:pointer;z-index:30
-    }
-    .chat-win{
-      position:fixed;right:22px;bottom:90px;width:340px;max-height:70vh;background:#0f172a;border:1px solid var(--border);
-      border-radius:16px;display:none;flex-direction:column;overflow:hidden;z-index:30
-    }
-    .chat-head{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
-    .chat-head .dot{width:10px;height:10px;border-radius:50%;background:#16a34a}
-    .chat-body{padding:14px;overflow:auto;display:flex;flex-direction:column;gap:10px}
-    .msg{max-width:85%;padding:10px 12px;border-radius:12px;line-height:1.35;font-size:14px}
-    .msg.user{background:#1f2937;color:#e5eef7;margin-left:auto;border:1px solid #2b3747}
-    .msg.bot{background:#0b1220;border:1px solid var(--border)}
-    .chat-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--border);background:#0f172a}
-    .chat-input input{flex:1;border:1px solid var(--border);background:#0b1220;color:#e5eef7;border-radius:10px;padding:10px}
-    .chat-input button{border:none;background:var(--brand);color:#fff;border-radius:10px;padding:10px 12px;cursor:pointer}
   </style>
 </head>
 <body>
@@ -255,7 +235,7 @@
         <input type="hidden" name="_subject" value="New AI Concierge request">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_next" value="https://confromzone.github.io/ai-concierge-site/">
+        <input type="hidden" name="_next" value="https://ai-concierge-site.vercel.app/">
 
         <input type="text" name="name" placeholder="Full name / Vardas" required>
         <input type="email" name="email" placeholder="Email" required>
@@ -280,130 +260,75 @@
     </div>
   </footer>
 
-  <!-- Floating chat widget -->
-  <button id="chatFab" class="chat-fab" aria-label="Chat">💬</button>
-  <div id="chatWin" class="chat-win" aria-live="polite">
-    <div class="chat-head">
-      <div class="dot"></div>
-      <strong class="lang en">AI Concierge</strong>
-      <strong class="lang lt" style="display:none">AI asistentas</strong>
-    </div>
-    <div id="chatBody" class="chat-body">
-      <div class="msg bot">
-        <span class="lang en">Hi! Ask anything about plans, setup or features. I can also collect your contacts for a demo.</span>
-        <span class="lang lt" style="display:none">Sveiki! Klauskite apie planus, diegimą ar funkcijas. Galiu ir surinkti kontaktus demo pristatymui.</span>
-      </div>
-    </div>
-    <div class="chat-input">
-      <input id="chatInput" type="text" placeholder="Type a message…" />
-      <button id="chatSend">Send</button>
-    </div>
-  </div>
-
   <script>
-    /* --------- Language toggle ---------- */
+    // Kalbų perjungimas
     const $ = s => document.querySelectorAll(s);
     const setLang = lang => {
       localStorage.setItem('lang', lang);
       $('.lang').forEach(el => el.style.display = el.classList.contains(lang) ? '' : 'none');
       document.getElementById('btn-en').classList.toggle('active', lang==='en');
       document.getElementById('btn-lt').classList.toggle('active', lang==='lt');
-      // update placeholders
-      const input = document.getElementById('chatInput');
-      if(lang==='lt'){ input.placeholder = 'Rašykite žinutę…'; document.getElementById('chatSend').textContent='Siųsti'; }
-      else { input.placeholder = 'Type a message…'; document.getElementById('chatSend').textContent='Send'; }
     };
     document.getElementById('btn-en').onclick = () => setLang('en');
     document.getElementById('btn-lt').onclick = () => setLang('lt');
     setLang(localStorage.getItem('lang') || 'en');
 
-    /* --------- Chat widget ---------- */
-    const API = 'https://ai-concierge-site.vercel.app/api/ai'; // <- tavo Vercel funkcija
-    const fab = document.getElementById('chatFab');
-    const win = document.getElementById('chatWin');
-    const bodyEl = document.getElementById('chatBody');
-    const inputEl = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('chatSend');
-
-    let messages = [];
-
-    function append(role, text){
-      const div = document.createElement('div');
-      div.className = 'msg ' + (role==='user' ? 'user':'bot');
-      div.textContent = text;
-      bodyEl.appendChild(div);
-      bodyEl.scrollTop = bodyEl.scrollHeight;
-    }
-
-    async function send(){
-      const txt = inputEl.value.trim();
-      if(!txt) return;
-      append('user', txt);
-      inputEl.value = '';
-      const lang = localStorage.getItem('lang') || 'en';
-      const pending = document.createElement('div');
-      pending.className='msg bot';
-      pending.textContent = lang==='lt' ? 'Rašau atsakymą…' : 'Typing…';
-      bodyEl.appendChild(pending);
-      bodyEl.scrollTop = bodyEl.scrollHeight;
-
-      messages.push({role:'user', content: txt});
+    // Bendrinė funkcija tavo chatui
+    window.sendToAI = async function(text){
       try{
-        const res = await fetch(API, {
+        const r = await fetch('/api/ai', {
           method:'POST',
           headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({ lang, messages })
+          body: JSON.stringify({
+            messages:[{role:'user', content:text}],
+            lang: localStorage.getItem('lang') || 'lt'
+          })
         });
-        const data = await res.json();
-        pending.remove();
-        if(data && data.reply){
-          append('bot', data.reply);
-          messages.push({role:'assistant', content:data.reply});
-        }else{
-          append('bot', (lang==='lt' ? 'Atleiskite, nepavyko gauti atsakymo.' : 'Sorry, could not get a reply.'));
-        }
+        const data = await r.json().catch(async()=>({ raw: await r.text() }));
+        if(!r.ok) throw new Error(typeof data==='string'?data:JSON.stringify(data));
+        return data.reply || (data.choices?.[0]?.message?.content ?? '…');
       }catch(e){
-        pending.remove();
-        append('bot', (localStorage.getItem('lang')==='lt'
-          ? 'Klaida jungiantis prie AI. Patikrinkite ryšį arba pabandykite vėliau.'
-          : 'Error talking to AI. Please check connection or try again later.'));
+        return 'Klaida bendraujant su AI. Pabandykite dar kartą.';
       }
     }
-
-    fab.addEventListener('click', ()=>{
-      win.style.display = (win.style.display==='flex' ? 'none' : 'flex');
-      if(win.style.display==='flex') inputEl.focus();
-    });
-    sendBtn.addEventListener('click', send);
-    inputEl.addEventListener('keydown', e=>{ if(e.key==='Enter') send(); });
   </script>
-  <!-- DEBUG widget: nuimsi kai baigsim testą -->
-<div id="diag" style="position:fixed;right:12px;bottom:12px;z-index:9999">
-  <button id="ping" style="padding:10px 14px;border-radius:10px;border:1px solid #1e293b;background:#0f172a;color:#cbd5e1">
-    🔧 Test AI
-  </button>
-  <div id="diag-out" style="max-width:340px;margin-top:6px;font:12px/1.4 monospace;color:#fff"></div>
-</div>
-<script>
-  document.getElementById('ping').onclick = async () => {
-    const out = document.getElementById('diag-out');
-    out.textContent = 'Testing...';
-    try {
-      const r = await fetch('/api/ai', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({
-          messages:[{role:'user', content:'Hello!'}],
-          lang: localStorage.getItem('lang') || 'en'
-        })
-      });
-      const data = await r.json();
-      out.textContent = 'OK → ' + JSON.stringify(data);
-    } catch(e) {
-      out.textContent = 'ERR → ' + e;
-    }
-  };
-</script>
 
+  <!-- DEBUG WIDGET (laikinas – kai veiks, gali ištrinti) -->
+  <div id="dbg-wrap" style="position:fixed;left:12px;top:12px;z-index:99999;
+    background:#0f172a;border:1px solid #1e293b;border-radius:10px;padding:10px 12px;
+    color:#cbd5e1;font:13px/1.4 system-ui,Segoe UI,Arial">
+    <button id="dbg-ping" style="padding:8px 12px;border-radius:8px;border:1px solid #1e293b;
+      background:#111827;color:#e5eef7;cursor:pointer">🔧 Test AI</button>
+    <div id="dbg-out" style="margin-top:8px;max-width:380px;white-space:pre-wrap"></div>
+  </div>
+  <script>
+    document.getElementById('dbg-ping').onclick = async () => {
+      const out = document.getElementById('dbg-out');
+      out.textContent = 'Testing...';
+      try {
+        const r = await fetch('/api/ai', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({
+            messages:[{role:'user', content:'Hello!'}],
+            lang: localStorage.getItem('lang') || 'en'
+          })
+        });
+
+        let data, text;
+        if (r.headers.get('content-type')?.includes('application/json')) {
+          data = await r.json();
+        } else {
+          text = await r.text();
+        }
+        if (!r.ok) throw new Error(`API ${r.status}: ${text || JSON.stringify(data)}`);
+
+        out.textContent = 'OK → ' + JSON.stringify(data);
+      } catch (e) {
+        out.textContent = 'ERR → ' + e;
+      }
+    };
+  </script>
 </body>
 </html>
+
