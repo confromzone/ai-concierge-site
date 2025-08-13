@@ -12,6 +12,26 @@
       color: #333;
       background: #f9fafb;
     }
+    /* Language selector */
+    .language-selector {
+      text-align: right;
+      padding: 10px 10%;
+      background: #fff;
+    }
+    .language-selector button {
+      margin-left: 10px;
+      padding: 6px 12px;
+      font-size: 0.9em;
+      border: 1px solid #0E99E5;
+      border-radius: 4px;
+      background: #fff;
+      color: #0E99E5;
+      cursor: pointer;
+    }
+    .language-selector button.active {
+      background: #0E99E5;
+      color: #fff;
+    }
     /* Header with hero content */
     header {
       display: flex;
@@ -38,10 +58,12 @@
     .cta-btn {
       display: inline-block;
       margin-right: 15px;
+      margin-bottom: 10px;
       padding: 12px 24px;
       font-size: 1em;
       border-radius: 4px;
       text-decoration: none;
+      border: none;
     }
     .btn-primary {
       background-color: #0E99E5;
@@ -126,7 +148,7 @@
     }
     .plan li {
       margin-bottom: 8px;
-      line-height: 1.4;
+      line-length: 1.4;
     }
     .plan .plan-btn {
       display: inline-block;
@@ -151,6 +173,48 @@
       font-size: 1.2em;
       margin-bottom: 20px;
     }
+
+    /* Contact section */
+    .contact-section {
+      background: #f7f9fa;
+      padding: 60px 10%;
+      text-align: center;
+    }
+    .contact-section h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+      color: #101828;
+    }
+    .contact-section p {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+      color: #6b7280;
+    }
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1em;
+    }
+    .contact-form button {
+      background-color: #0E99E5;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    .contact-form button:hover {
+      opacity: 0.9;
+    }
     /* Footer */
     footer {
       background: #111827;
@@ -174,78 +238,167 @@
       .cta-btn {
         margin-bottom: 10px;
       }
+      .language-selector {
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="language-selector">
+    <button id="enBtn" class="active" onclick="setLang('en')">English</button>
+    <button id="ltBtn" onclick="setLang('lt')">Lietuviškai</button>
+  </div>
   <header>
     <div class="hero-content">
-      <h1>Transform FAQs into conversions</h1>
-      <p>Capture after-hours inquiries and guide visitors to bookings in minutes – live within 48 hours, no coding required.</p>
-      <a href="#demo" class="cta-btn btn-primary">Get 45‑sec demo</a>
-      <a href="#contact" class="cta-btn btn-secondary">Book 15‑min call</a>
+      <h1 class="lang en">Transform FAQs into conversions</h1>
+      <h1 class="lang lt" style="display:none;">Paverskite DUK į užsakymus</h1>
+      <p class="lang en">Capture after-hours inquiries and guide visitors to bookings in minutes – live within 48 hours, no coding required.</p>
+      <p class="lang lt" style="display:none;">Sugaukite užklausas po darbo valandų ir nukreipkite lankytojus į užsakymus per kelias minutes – veikia per 48 val., nereikia programavimo.</p>
+      <a href="#demo" class="cta-btn btn-primary lang en">Get 45‑sec demo</a>
+      <a href="#demo" class="cta-btn btn-primary lang lt" style="display:none;">Gauti 45 s demo</a>
+      <a href="#contact" class="cta-btn btn-secondary lang en">Book 15‑min call</a>
+      <a href="#contact" class="cta-btn btn-secondary lang lt" style="display:none;">Užsisakyti 15 min skambutį</a>
     </div>
     <div class="hero-image">
-      <!-- Embed the hero image directly using a data URI so the page can live in a single file without external assets. -->
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABgAAAAQACAIAAACoEwUVAADXIWNhQlgAANchanVtYgAAAB5qdW1kYzJwYQARABCAAACqADibcQNjMnBhAAAANxNqdW1iAAAAR2p1bWRjMm1hABEAEIAAAKoAOJtxA3VybjpjMnBhOmNlN2NlNjkxLWE4ZjAtNGJkZS1hZjI2LTY4ODAxODdiNGM2MwAAAAHhanVtYgAAAClqdW1kYzJhcwARABCAAACqADibcQNjMnBhLmFzc2VydGlvbnMAAAABBWp1bWIAAAApanVtZGNib3IAEQAQgAAAqgA4m3EDYzJwYS5hY3Rpb25zLnYyAAAAANRjYm9yoWdhY3Rpb25zgqNmYWN0aW9ubGMycGEuY3JlYXRlZG1zb2Z0d2FyZUFnZW50v2RuYW1lZkdQVC00b/9xZGlnaXRhbFNvdXJjZVR5cGV4Rmh0dHA6Ly9jdi5pcHRjLm9yZy9uZXdzY29kZXMvZGlnaXRhbHNvdXJjZXR5cGUvdHJhaW5lZEFsZ29yaXRobWljTWVkaWGiZmFjdGlvbm5jMnBhLmNvbnZlcnRlZG1zb2Z0d2FyZUFnZW50v2RuYW1lak9wZW5BSSBBUEn/AAAAq2p1bWIAAAAoanVtZGNib3IAEQAQgAAAqgA4m3EDYzJwYS5oYXNoLmRhdGEAAAAAe2Nib3KlamV4Y2x1c2lvbnOBomVzdGFydBghZmxlbmd0aBk3RWRuYW1lbmp1bWJmIG1hbmlmZXN0Y2FsZ2ZzaGEyNTZkaGFzaFggu6BWTHr/TGwx1HhGZHoAQ4UdRxKnBKjg98WZbCTW1aJjcGFkSAAAAAAAAAAAAAAB5mp1bWIAAAAnanVtZGMyY2wAEQAQgAAAqgA4m3EDYzJwYS5jbGFpbS52MgAAAAG3Y2JvcqZqaW5zdGFuY2VJRHgseG1wOmlpZDphYmUyMmQ1Ny1hOGE1LTRmYTItOGM2YS1jOGU5ZTYyZTMzMTB0Y2xhaW1fZ2VuZXJhdG9yX2luZm+/ZG5hbWVnQ2hhdEdQVG9vcmcuY2FpLmMycGFfcnNmMC41MS4x/2lzaWduYXR1cmV4TXNlbGYjanVtYmY9L2MycGEvdXJuOmMycGE6Y2U3Y2U2OTEtYThmMC00YmRlLWFmMjYtNjg4MDE4N2I0YzYzL2MycGEuc2lnbmF0dXJlcmNyZWF0ZWRfYXNzZXJ0aW9uc4KiY3VybHgqc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5hY3Rpb25zLnYyZGhhc2hYIMPkU8KwXWM8GJd2TgZdAivyknNwLULr3GDz9hUureGyomN1cmx4KXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaGFzaC5kYXRhZGhhc2hYIHyW9q9cvkoAvnMipYlTKKMpX7hyQsEiJVoBQyKKr2wmaGRjOnRpdGxlaWltYWdlLnBuZ2NhbGdmc2hhMjU2AAAy/Wp1bWIAAAAoanVtZGMyY3MAEQAQgAAAqgA4m3EDYzJwYS5zaWduYXR1cmUAAAAyzWNib3LShFkHwaIBJhghglkDNzCCAzMwggIboAMCAQICFG6uKKPuxbjkKjb6HeZBFa5iFhs7MA0GCSqGSIb3DQEBDAUAMEoxGjAYBgNVBAMMEVdlYkNsYWltU2lnbmluZ0NBMQ0wCwYDVQQLDARMZW5zMRAwDgYDVQQKDAdUcnVlcGljMQswCQYDVQQGEwJVUzAeFw0yNTAxMTMyMDM2NDZaFw0yNjAxMTMyMDM2NDVaMFYxCzAJBgNVBAYTAlVTMQ8wDQYDVQQKDAZPcGVuQUkxEDAOBgNVBAsMB0NoYXRHUFQxJDAiBgNVBAMMG1RydWVwaWMgTGVucyBDTEkgaW4gQ2hhdEdQVDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABFYdeMcqUA997gTIFPWrpHZ7i+3ToyM91aZCM9lMKQlCMTAIS6U1leiR4y7w2pqjrAEK7gLZiV8M1S27LhaaN+ijgc8wgcwwDAYDVR0TAQH/BAIwADAfBgNVHSMEGDAWgBRaH2tm05TnsEGDfZwMe13Fc0tLszBNBggrBgEFBQcBAQRBMD8wPQYIKwYBBQUHMAGGMWh0dHA6Ly92YS50cnVlcGljLmNvbS9lamJjYS9wdWJsaWN3ZWIvc3RhdHVzL29jc3AwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMkMB0GA1UdDgQWBBTKXhMuLBs1om1iRU0zQwVi7JP4KjAOBgNVHQ8BAf8EBAMCB4AwDQYJKoZIhvcNAQEMBQADggEBAHloPns944Lh2V25uG67odcSRNCXFCn1B1Mt0/f6p9PyPeER6QLiRxrTkfNoXin96s18il7t60Yf8OZBSrncA2mqr8VaQ9lFywCvjfTcaq9Niy2MmwCfM9OD670t6VimNxeT76FeZ8QPQ6R2yVUgSQbfsRqNmrcXAhp9A3p8ZB+6UYag/p2BYr7cqYhJ7sDR/Ca1G40TyWtO4jBH3vSO1BH7FzworINIcUxZTGTyZMas6gOjr0u9avikKoNqk87mZYxdiSELNZVskThwcGUtpWW67sag0y7vrr2uPUYKvV8EFfQnmhDvmkSltkEIKf0viECSvC79FNRjd6loZw8YAcpZBH4wggR6MIICYqADAgECAhRp/JDEzIlQgjoeqF/Sgv8o1f2TkDANBgkqhkiG9w0BAQwFADA/MQ8wDQYDVQQDDAZSb290Q0ExDTALBgNVBAsMBExlbnMxEDAOBgNVB... data truncated for brevity ...
+      <img src="hero.png" alt="AI assistant illustration">
     </div>
   </header>
   <section class="features">
-    <h2>Why choose our AI concierge?</h2>
-    <ul>
+    <h2 class="lang en">Why choose our AI concierge?</h2>
+    <h2 class="lang lt" style="display:none;">Kodėl verta rinktis mūsų AI asistentą?</h2>
+    <ul class="lang en">
       <li>24/7 coverage – never miss a lead again.</li>
       <li>Increase conversions by 8–15% in the first month.</li>
       <li>Deploy in just 48 hours – no technical integration required.</li>
       <li>GDPR compliant with seamless human fallback when needed.</li>
       <li>Flexible plans starting at €149/month.</li>
     </ul>
+    <ul class="lang lt" style="display:none;">
+      <li>24/7 aprėptis – nepraleiskite nė vienos užklausos.</li>
+      <li>Konversijos padidėjimas 8–15 % per pirmą mėnesį.</li>
+      <li>Diegimas vos per 48 valandas – jokių techninių integracijų nereikia.</li>
+      <li>Atitinka GDPR, su sklandžiu perėmimu žmogui, kai reikia.</li>
+      <li>Lankstūs planai nuo €149 per mėnesį.</li>
+    </ul>
+  </section>
+  <!-- Contact section -->
+  <section class="contact-section" id="contact">
+    <h2 class="lang en">Get in touch</h2>
+    <h2 class="lang lt" style="display:none;">Susisiekite</h2>
+    <p class="lang en">Fill out the form below and we’ll reach out with a customized demo and plan.</p>
+    <p class="lang lt" style="display:none;">Užpildykite formą ir susisieksime su pritaikytu demo ir planu.</p>
+    <form class="contact-form" action="https://formsubmit.co/zoe.lirel@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New lead from AI Concierge website">
+      <input type="text" name="name" placeholder="Name / Vardas" required>
+      <input type="email" name="email" placeholder="Email / El. paštas" required>
+      <input type="text" name="company" placeholder="Company / Įmonė" required>
+      <textarea name="message" rows="4" placeholder="Message / Žinutė"></textarea>
+      <button type="submit" class="lang en">Send</button>
+      <button type="submit" class="lang lt" style="display:none;">Siųsti</button>
+    </form>
   </section>
   <section class="pricing">
-    <h2>Pricing Plans</h2>
+    <h2 class="lang en">Pricing Plans</h2>
+    <h2 class="lang lt" style="display:none;">Planų kainos</h2>
     <div class="plans">
       <div class="plan">
-        <h3>Starter</h3>
+        <h3 class="lang en">Starter</h3>
+        <h3 class="lang lt" style="display:none;">Bazinis</h3>
         <div class="price">€149/mo</div>
         <div class="price" style="font-size:1.2em; color:#6b7280;">Setup €299</div>
-        <ul>
+        <ul class="lang en">
           <li>1 communication channel</li>
           <li>7-day pilot</li>
           <li>Standard support</li>
         </ul>
-        <a href="#contact" class="plan-btn">Get Started</a>
+        <ul class="lang lt" style="display:none;">
+          <li>1 komunikacijos kanalas</li>
+          <li>7 dienų bandomasis laikotarpis</li>
+          <li>Standartinis palaikymas</li>
+        </ul>
+        <a href="#contact" class="plan-btn lang en">Get Started</a>
+        <a href="#contact" class="plan-btn lang lt" style="display:none;">Pasirinkti</a>
       </div>
       <div class="plan">
-        <h3>Growth</h3>
+        <h3 class="lang en">Growth</h3>
+        <h3 class="lang lt" style="display:none;">Augimo</h3>
         <div class="price">€449/mo</div>
         <div class="price" style="font-size:1.2em; color:#6b7280;">Setup €799</div>
-        <ul>
+        <ul class="lang en">
           <li>Up to 3 channels</li>
           <li>7-day pilot</li>
           <li>Priority support</li>
         </ul>
-        <a href="#contact" class="plan-btn">Choose Plan</a>
+        <ul class="lang lt" style="display:none;">
+          <li>Iki 3 kanalų</li>
+          <li>7 dienų bandomasis laikotarpis</li>
+          <li>Prioritetinis palaikymas</li>
+        </ul>
+        <a href="#contact" class="plan-btn lang en">Choose Plan</a>
+        <a href="#contact" class="plan-btn lang lt" style="display:none;">Pasirinkti</a>
       </div>
       <div class="plan">
-        <h3>Performance</h3>
+        <h3 class="lang en">Performance</h3>
+        <h3 class="lang lt" style="display:none;">Individualus</h3>
         <div class="price">Custom</div>
-        <ul>
+        <ul class="lang en">
           <li>Revenue share / CPA option</li>
           <li>Enterprise integrations</li>
           <li>Dedicated onboarding</li>
         </ul>
-        <a href="#contact" class="plan-btn">Contact us</a>
+        <ul class="lang lt" style="display:none;">
+          <li>Pajamų dalijimosi arba CPA pasirinkimas</li>
+          <li>Įmonių integracijos</li>
+          <li>Skirtas įdiegimas ir palaikymas</li>
+        </ul>
+        <a href="#contact" class="plan-btn lang en">Contact us</a>
+        <a href="#contact" class="plan-btn lang lt" style="display:none;">Susisiekite</a>
       </div>
     </div>
   </section>
   <section class="cta-section" id="demo">
-    <h2>Ready to see it in action?</h2>
-    <p>Discover how our AI concierge can convert missed questions into booked appointments. Watch a quick demo or schedule a call.</p>
-    <a href="#contact" class="cta-btn btn-secondary" style="background-color:#fff; color:#0E99E5;">Book a call</a>
-    <a href="#contact" class="cta-btn btn-primary" style="margin-top:10px;">Get your demo video</a>
+    <h2 class="lang en">Ready to see it in action?</h2>
+    <h2 class="lang lt" style="display:none;">Pasiruošę pamatyti, kaip tai veikia?</h2>
+    <p class="lang en">Discover how our AI concierge can convert missed questions into booked appointments. Watch a quick demo or schedule a call.</p>
+    <p class="lang lt" style="display:none;">Sužinokite, kaip mūsų AI asistentas gali paversti praleistas užklausas rezervacijomis. Peržiūrėkite trumpą demonstraciją arba suplanuokite skambutį.</p>
+    <a href="#contact" class="cta-btn btn-secondary" style="background-color:#fff; color:#0E99E5;" class="lang en">Book a call</a>
+    <a href="#contact" class="cta-btn btn-secondary" style="background-color:#fff; color:#0E99E5; display:none;" class="lang lt">Užsisakyti skambutį</a>
+    <a href="#contact" class="cta-btn btn-primary" style="margin-top:10px;" class="lang en">Get your demo video</a>
+    <a href="#contact" class="cta-btn btn-primary" style="margin-top:10px; display:none;" class="lang lt">Gauti demo video</a>
   </section>
-  <footer id="contact">
-    <p>Get in touch: <a href="mailto:zoe.lirel@gmail.com">zoe.lirel@gmail.com</a> &nbsp;|&nbsp; WhatsApp: +370&nbsp;681&nbsp;95678</p>
+  <footer id="footer">
+    <p class="lang en">Get in touch: <a href="mailto:zoe.lirel@gmail.com">zoe.lirel@gmail.com</a> &nbsp;|&nbsp; WhatsApp: +370&nbsp;681&nbsp;95678</p>
+    <p class="lang lt" style="display:none;">Susisiekite: <a href="mailto:zoe.lirel@gmail.com">zoe.lirel@gmail.com</a> &nbsp;|&nbsp; WhatsApp: +370&nbsp;681&nbsp;95678</p>
     <p>&copy; 2025 AI Concierge Solutions. All rights reserved.</p>
   </footer>
+  <script>
+    function setLang(lang) {
+      // update html lang attribute
+      document.documentElement.lang = lang;
+      // toggle classes
+      document.querySelectorAll('.lang.en').forEach(function(el) {
+        el.style.display = (lang === 'en') ? '' : 'none';
+      });
+      document.querySelectorAll('.lang.lt').forEach(function(el) {
+        el.style.display = (lang === 'lt') ? '' : 'none';
+      });
+      document.getElementById('enBtn').classList.toggle('active', lang === 'en');
+      document.getElementById('ltBtn').classList.toggle('active', lang === 'lt');
+      // store preference
+      try {
+        localStorage.setItem('preferredLang', lang);
+      } catch(e) {}
+    }
+    // initialize language based on browser or stored preference
+    (function() {
+      var stored = null;
+      try { stored = localStorage.getItem('preferredLang'); } catch(e) {}
+      var browserLang = (navigator.language || navigator.userLanguage || 'en').substring(0,2).toLowerCase();
+      var lang = stored || (browserLang === 'lt' ? 'lt' : 'en');
+      setLang(lang);
+    })();
+  </script>
 </body>
 </html>
