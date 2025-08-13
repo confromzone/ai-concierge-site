@@ -74,6 +74,26 @@
       .cards,.pricing{grid-template-columns:1fr}
       form{grid-template-columns:1fr}
     }
+
+    /* ------ Chat widget ------ */
+    .chat-fab{
+      position:fixed;right:22px;bottom:22px;width:56px;height:56px;border-radius:50%;
+      background:linear-gradient(135deg,var(--brand),#7c3aed);display:grid;place-items:center;
+      color:#fff;border:none;box-shadow:0 10px 30px rgba(79,70,229,.4);cursor:pointer;z-index:30
+    }
+    .chat-win{
+      position:fixed;right:22px;bottom:90px;width:340px;max-height:70vh;background:#0f172a;border:1px solid var(--border);
+      border-radius:16px;display:none;flex-direction:column;overflow:hidden;z-index:30
+    }
+    .chat-head{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+    .chat-head .dot{width:10px;height:10px;border-radius:50%;background:#16a34a}
+    .chat-body{padding:14px;overflow:auto;display:flex;flex-direction:column;gap:10px}
+    .msg{max-width:85%;padding:10px 12px;border-radius:12px;line-height:1.35;font-size:14px}
+    .msg.user{background:#1f2937;color:#e5eef7;margin-left:auto;border:1px solid #2b3747}
+    .msg.bot{background:#0b1220;border:1px solid var(--border)}
+    .chat-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--border);background:#0f172a}
+    .chat-input input{flex:1;border:1px solid var(--border);background:#0b1220;color:#e5eef7;border-radius:10px;padding:10px}
+    .chat-input button{border:none;background:var(--brand);color:#fff;border-radius:10px;padding:10px 12px;cursor:pointer}
   </style>
 </head>
 <body>
@@ -106,15 +126,15 @@
       <div class="pill">
         <span>⚡</span>
         <span class="lang en">AI concierge for your website, social and WhatsApp</span>
-        <span class="lang lt" style="display:none">AI asistentas jūsų svetainei, socialiniams ir WhatsApp</span>
+        <span class="lang lt" style="display:none">AI asistentas jūsų svetainei, socialiniams tinklams ir WhatsApp</span>
       </div>
-      <h1 class="lang en">Turn FAQ into sales 24/7</h1>
-      <h1 class="lang lt" style="display:none">DUK paversk pardavimais 24/7</h1>
-      <p class="lead lang en">We build and run smart assistants that answer immediately, qualify leads, book calls and hand-off to your team when needed.</p>
-      <p class="lead lang lt" style="display:none">Kuriame ir prižiūrime asistentus, kurie akimirksniu atsako, kvalifikuoja užklausas, rezervuoja skambučius ir, kai reikia, perduoda jūsų komandai.</p>
+      <h1 class="lang en">Convert FAQs into sales 24/7</h1>
+      <h1 class="lang lt" style="display:none">DUK paverskite pardavimais 24/7</h1>
+      <p class="lead lang en">We build and run smart assistants that reply instantly, qualify leads, book calls, and hand off to your team when needed.</p>
+      <p class="lead lang lt" style="display:none">Kuriame ir prižiūrime išmanius asistentus, kurie akimirksniu atsako, kvalifikuoja užklausas, rezervuoja skambučius ir, prireikus, perduoda jūsų komandai.</p>
       <div class="cta">
         <a href="#contact" class="btn primary lang en">Get a free demo</a>
-        <a href="#contact" class="btn primary lang lt" style="display:none">Gauti nemokamą demo</a>
+        <a href="#contact" class="btn primary lang lt" style="display:none">Gaukite nemokamą demonstraciją</a>
         <a href="#pricing" class="btn secondary lang en">See pricing</a>
         <a href="#pricing" class="btn secondary lang lt" style="display:none">Peržiūrėti kainas</a>
       </div>
@@ -124,38 +144,39 @@
     </div>
   </section>
 
-  <!-- WHAT WE DO -->
+  <!-- WHAT WE DO / FEATURES -->
   <section id="about">
     <div class="section-wrap">
       <h2 class="lang en">What we do</h2>
       <h2 class="lang lt" style="display:none">Ką mes darome</h2>
       <p class="muted lang en">
-        We design, train and run AI assistants that plug into your site, Facebook/Instagram DM, WhatsApp and more. They greet visitors, answer 90% of repeat questions, qualify leads, book calls, collect emails/phone, and escalate to a human when needed.
+        We design, train, and operate AI assistants that plug into your site, Facebook/Instagram DMs, WhatsApp, and more. They greet visitors, answer up to 90% of repeat questions, qualify leads, book calls, collect contacts, and escalate to a human when needed.
       </p>
       <p class="muted lang lt" style="display:none">
-        Kuriame, apmokome ir prižiūrime AI asistentus, kurie veikia jūsų svetainėje, „Facebook/Instagram“ žinutėse, „WhatsApp“ ir kt. Jie pasitinka lankytojus, atsako į kartotinius klausimus, kvalifikuoja užklausas, rezervuoja skambučius, surenka kontaktus ir, prireikus, perduoda žmogui.
+        Kuriame, apmokome ir prižiūrime AI asistentus, veikiančius jūsų svetainėje, „Facebook/Instagram“ žinutėse, „WhatsApp“ ir kt. Jie pasitinka lankytojus, atsako į iki 90% pasikartojančių klausimų, kvalifikuoja užklausas, rezervuoja skambučius, surenka kontaktus ir, prireikus, perduoda žmogui.
       </p>
-      <div class="cards">
+
+      <div id="features" class="cards">
         <div class="card">
           <span class="badge">🎯</span>
           <h3 class="lang en">Lead capture & routing</h3>
           <h3 class="lang lt" style="display:none">Kontaktų surinkimas ir perdavimas</h3>
           <p class="muted lang en">Collect email/phone, score intent, and route to the right inbox or WhatsApp.</p>
-          <p class="muted lang lt" style="display:none">Surinkimas el. pašto/telefono, ketinimo įvertinimas ir perdavimas tinkamam inbox/WhatsApp.</p>
+          <p class="muted lang lt" style="display:none">Renkame el. paštą ir telefoną, įvertiname ketinimus ir perduodame į tinkamą pašto dėžutę ar WhatsApp.</p>
         </div>
         <div class="card">
           <span class="badge">📆</span>
           <h3 class="lang en">Bookings & reminders</h3>
           <h3 class="lang lt" style="display:none">Rezervacijos ir priminimai</h3>
-          <p class="muted lang en">Let prospects book a call or meeting on the spot; send confirmation flows.</p>
-          <p class="muted lang lt" style="display:none">Leiskite klientams užsirezervuoti skambutį ar susitikimą iškart; siųskite patvirtinimus.</p>
+          <p class="muted lang en">Let prospects book a call or meeting on the spot; send confirmations automatically.</p>
+          <p class="muted lang lt" style="display:none">Leiskite klientams iškart užsirezervuoti skambutį ar susitikimą; patvirtinimai siunčiami automatiškai.</p>
         </div>
         <div class="card">
           <span class="badge">🔌</span>
           <h3 class="lang en">Plug & play</h3>
           <h3 class="lang lt" style="display:none">Greitas diegimas</h3>
-          <p class="muted lang en">No-code embed snippet. We maintain the training and analytics for you.</p>
-          <p class="muted lang lt" style="display:none">Be kodo įkėlimo iškarpa. Mes prižiūrime mokymą ir analitiką už jus.</p>
+          <p class="muted lang en">No-code embed snippet. We maintain training and analytics for you.</p>
+          <p class="muted lang lt" style="display:none">Be programavimo — įterpiamas kodo fragmentas. Mūsų komanda pasirūpina mokymu ir analitika.</p>
         </div>
       </div>
     </div>
@@ -165,9 +186,10 @@
   <section id="pricing">
     <div class="section-wrap">
       <h2 class="lang en">Pricing</h2>
-      <h2 class="lang lt" style="display:none">Kainodara</h2>
+      <h2 class="lang lt" style="display:none">Kainos</h2>
       <p class="muted lang en">Transparent monthly plans in EUR. Cancel anytime.</p>
-      <p class="muted lang lt" style="display:none">Aiškūs mėnesiniai planai EUR. Galite bet kada nutraukti.</p>
+      <p class="muted lang lt" style="display:none">Aiškūs mėnesiniai planai (EUR). Galite bet kada nutraukti.</p>
+
       <div class="pricing">
         <div class="price">
           <div class="title"><span class="badge">🚀</span><strong>Starter</strong></div>
@@ -179,6 +201,7 @@
           </ul>
           <div class="num">€99 / mo</div>
         </div>
+
         <div class="price">
           <div class="title"><span class="badge">💼</span><strong>Growth</strong></div>
           <ul class="lang en">
@@ -189,10 +212,11 @@
           </ul>
           <div class="num">€249 / mo</div>
         </div>
+
         <div class="price">
           <div class="title"><span class="badge">🏢</span><strong>Scale</strong></div>
           <ul class="lang en">
-            <li>Web + WhatsApp + IG/FB DM</li><li>Up to 5 assistants</li><li>Custom flows & integrations</li><li>Priority support</li>
+            <li>Web + WhatsApp + IG/FB DMs</li><li>Up to 5 assistants</li><li>Custom flows & integrations</li><li>Priority support</li>
           </ul>
           <ul class="lang lt" style="display:none">
             <li>Svetainė + WhatsApp + IG/FB žinutės</li><li>Iki 5 asistentų</li><li>Individualūs srautai ir integracijos</li><li>Prioritetinis palaikymas</li>
@@ -200,8 +224,9 @@
           <div class="num">€499 / mo</div>
         </div>
       </div>
-      <p class="note lang en">Annual options and custom enterprise available on request.</p>
-      <p class="note lang lt" style="display:none">Metiniai planai ir individualūs pasiūlymai – pagal užklausą.</p>
+
+      <p class="note lang en">Annual options and custom enterprise plans available on request.</p>
+      <p class="note lang lt" style="display:none">Metiniai planai ir individualūs pasiūlymai — pagal užklausą.</p>
     </div>
   </section>
 
@@ -209,14 +234,14 @@
   <section class="cta-section">
     <div class="cta-box">
       <div class="flex">
-        <div class="pill">✨ <span class="lang en">Personalised 7-day pilot</span><span class="lang lt" style="display:none">Asmeninis 7 dienų pilotas</span></div>
+        <div class="pill">✨ <span class="lang en">Personalised 7-day pilot</span><span class="lang lt" style="display:none">Asmeninis 7 dienų bandomasis laikotarpis</span></div>
         <h2 class="lang en" style="margin:10px 0 4px 0">Ready to see your AI concierge in action?</h2>
         <h2 class="lang lt" style="margin:10px 0 4px 0;display:none">Pasiruošę pamatyti savo AI asistentą veiksme?</h2>
-        <p class="muted lang en">We’ll build a demo on your real content and channels — free.</p>
-        <p class="muted lang lt" style="display:none">Sukursime demo su jūsų turiniu ir kanalais — nemokamai.</p>
+        <p class="muted lang en">We’ll build a free demo using your real content and channels.</p>
+        <p class="muted lang lt" style="display:none">Sukursime nemokamą demonstraciją pagal jūsų turinį ir kanalus.</p>
       </div>
       <div class="actions">
-        <a class="btn primary" href="#contact"><span class="lang en">Request demo</span><span class="lang lt" style="display:none">Paprašyti demo</span></a>
+        <a class="btn primary" href="#contact"><span class="lang en">Request demo</span><span class="lang lt" style="display:none">Užsisakyti demo</span></a>
         <a class="btn" href="#pricing"><span class="lang en">View plans</span><span class="lang lt" style="display:none">Peržiūrėti planus</span></a>
       </div>
     </div>
@@ -246,9 +271,9 @@
           <option>&lt; €100/mo</option><option>€100–€250/mo</option>
           <option>€250–€500/mo</option><option>&gt; €500/mo</option>
         </select>
-        <input type="text" name="industry" placeholder="Industry / Sritis">
+        <input type="text" name="industry" placeholder="Industry / Veiklos sritis">
         <textarea class="full" name="message" placeholder="What problem should we solve? / Kokią problemą sprendžiame?" required></textarea>
-        <div class="full form-note">Submitting sends details to <b>zoe.lirel@gmail.com</b>. We’ll get back shortly.</div>
+        <div class="full form-note">Pateikus formą, informacija bus išsiųsta į <b>zoe.lirel@gmail.com</b>. Netrukus susisieksime.</div>
         <div class="full send"><button class="btn primary" type="submit">Send / Siųsti</button></div>
       </form>
     </div>
@@ -260,75 +285,102 @@
     </div>
   </footer>
 
+  <!-- Floating chat widget -->
+  <button id="chatFab" class="chat-fab" aria-label="Chat">💬</button>
+  <div id="chatWin" class="chat-win" aria-live="polite">
+    <div class="chat-head">
+      <div class="dot"></div>
+      <strong class="lang en">AI Concierge</strong>
+      <strong class="lang lt" style="display:none">AI asistentas</strong>
+    </div>
+    <div id="chatBody" class="chat-body">
+      <div class="msg bot">
+        <span class="lang en">Hi! Ask about plans, setup, or features. I can also take your contacts for a demo.</span>
+        <span class="lang lt" style="display:none">Sveiki! Klauskite apie planus, diegimą ar funkcijas. Taip pat galiu surinkti jūsų kontaktus demonstracijai.</span>
+      </div>
+    </div>
+    <div class="chat-input">
+      <input id="chatInput" type="text" placeholder="Type a message…" />
+      <button id="chatSend">Send</button>
+    </div>
+  </div>
+
   <script>
-    // Kalbų perjungimas
+    /* --------- Language toggle ---------- */
     const $ = s => document.querySelectorAll(s);
     const setLang = lang => {
       localStorage.setItem('lang', lang);
       $('.lang').forEach(el => el.style.display = el.classList.contains(lang) ? '' : 'none');
       document.getElementById('btn-en').classList.toggle('active', lang==='en');
       document.getElementById('btn-lt').classList.toggle('active', lang==='lt');
+      const input = document.getElementById('chatInput');
+      if(lang==='lt'){ input.placeholder = 'Rašykite žinutę…'; document.getElementById('chatSend').textContent='Siųsti'; }
+      else { input.placeholder = 'Type a message…'; document.getElementById('chatSend').textContent='Send'; }
     };
     document.getElementById('btn-en').onclick = () => setLang('en');
     document.getElementById('btn-lt').onclick = () => setLang('lt');
     setLang(localStorage.getItem('lang') || 'en');
 
-    // Bendrinė funkcija tavo chatui
-    window.sendToAI = async function(text){
+    /* --------- Chat widget ---------- */
+    const API = '/api/ai'; // ta pati kilmė (domain)
+    const fab = document.getElementById('chatFab');
+    const win = document.getElementById('chatWin');
+    const bodyEl = document.getElementById('chatBody');
+    const inputEl = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('chatSend');
+
+    let messages = [];
+
+    function append(role, text){
+      const div = document.createElement('div');
+      div.className = 'msg ' + (role==='user' ? 'user':'bot');
+      div.textContent = text;
+      bodyEl.appendChild(div);
+      bodyEl.scrollTop = bodyEl.scrollHeight;
+    }
+
+    async function send(){
+      const txt = inputEl.value.trim();
+      if(!txt) return;
+      append('user', txt);
+      inputEl.value = '';
+      const lang = localStorage.getItem('lang') || 'en';
+      const pending = document.createElement('div');
+      pending.className='msg bot';
+      pending.textContent = lang==='lt' ? 'Rašau atsakymą…' : 'Typing…';
+      bodyEl.appendChild(pending);
+      bodyEl.scrollTop = bodyEl.scrollHeight;
+
+      messages.push({role:'user', content: txt});
       try{
-        const r = await fetch('/api/ai', {
+        const res = await fetch(API, {
           method:'POST',
           headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({
-            messages:[{role:'user', content:text}],
-            lang: localStorage.getItem('lang') || 'lt'
-          })
+          body: JSON.stringify({ lang, messages })
         });
-        const data = await r.json().catch(async()=>({ raw: await r.text() }));
-        if(!r.ok) throw new Error(typeof data==='string'?data:JSON.stringify(data));
-        return data.reply || (data.choices?.[0]?.message?.content ?? '…');
+        const data = await res.json().catch(async()=>({ raw: await res.text() }));
+        pending.remove();
+        if(res.ok && (data.reply || data.choices)){
+          const text = data.reply || (data.choices?.[0]?.message?.content ?? '');
+          append('bot', text || (lang==='lt' ? 'Atsiprašau, pabandykite dar kartą.' : 'Sorry, please try again.'));
+          messages.push({role:'assistant', content: text});
+        } else {
+          append('bot', lang==='lt' ? 'Klaida jungiantis prie AI.' : 'Error talking to AI.');
+        }
       }catch(e){
-        return 'Klaida bendraujant su AI. Pabandykite dar kartą.';
+        pending.remove();
+        append('bot', (localStorage.getItem('lang')==='lt'
+          ? 'Klaida jungiantis prie AI. Pabandykite dar kartą.'
+          : 'Error talking to AI. Please try again.'));
       }
     }
-  </script>
 
-  <!-- DEBUG WIDGET (laikinas – kai veiks, gali ištrinti) -->
-  <div id="dbg-wrap" style="position:fixed;left:12px;top:12px;z-index:99999;
-    background:#0f172a;border:1px solid #1e293b;border-radius:10px;padding:10px 12px;
-    color:#cbd5e1;font:13px/1.4 system-ui,Segoe UI,Arial">
-    <button id="dbg-ping" style="padding:8px 12px;border-radius:8px;border:1px solid #1e293b;
-      background:#111827;color:#e5eef7;cursor:pointer">🔧 Test AI</button>
-    <div id="dbg-out" style="margin-top:8px;max-width:380px;white-space:pre-wrap"></div>
-  </div>
-  <script>
-    document.getElementById('dbg-ping').onclick = async () => {
-      const out = document.getElementById('dbg-out');
-      out.textContent = 'Testing...';
-      try {
-        const r = await fetch('/api/ai', {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({
-            messages:[{role:'user', content:'Hello!'}],
-            lang: localStorage.getItem('lang') || 'en'
-          })
-        });
-
-        let data, text;
-        if (r.headers.get('content-type')?.includes('application/json')) {
-          data = await r.json();
-        } else {
-          text = await r.text();
-        }
-        if (!r.ok) throw new Error(`API ${r.status}: ${text || JSON.stringify(data)}`);
-
-        out.textContent = 'OK → ' + JSON.stringify(data);
-      } catch (e) {
-        out.textContent = 'ERR → ' + e;
-      }
-    };
+    fab.addEventListener('click', ()=>{
+      win.style.display = (win.style.display==='flex' ? 'none' : 'flex');
+      if(win.style.display==='flex') inputEl.focus();
+    });
+    sendBtn.addEventListener('click', send);
+    inputEl.addEventListener('keydown', e=>{ if(e.key==='Enter') send(); });
   </script>
 </body>
 </html>
-
