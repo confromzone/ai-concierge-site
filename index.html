@@ -1,386 +1,383 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Concierge — Convert questions into customers</title>
-  <style>
-    :root{
-      --bg:#0b1220; --card:#0f172a; --muted:#9aa4b2; --text:#e5eef7; --brand:#4f46e5; --brand-2:#22c55e;
-      --border:#1e293b; --light:#f7f9fb;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:#0b1220;color:var(--text)}
-    a{color:inherit;text-decoration:none}
-    header{border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(11,18,32,.8);backdrop-filter:saturate(180%) blur(8px);z-index:10}
-    .wrap{max-width:1100px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
-    .brand{display:flex;gap:10px;align-items:center}
-    .logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--brand),#8b5cf6)}
-    nav a{color:var(--muted);margin-left:16px}
-    nav a:hover{color:#fff}
-    .lang-toggle{display:flex;gap:8px}
-    .lang-toggle button{background:#101828;color:#cbd5e1;border:1px solid var(--border);padding:6px 10px;border-radius:8px;cursor:pointer}
-    .lang-toggle button.active{background:var(--brand);border-color:var(--brand);color:#fff}
-
-    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding:48px 20px;max-width:1100px;margin:0 auto}
-    .pill{display:inline-flex;gap:8px;align-items:center;background:#0f172a;border:1px solid var(--border);padding:6px 10px;border-radius:30px;color:#a3b1c4;font-size:14px}
-    h1{margin:14px 0 10px 0;font-size:42px;line-height:1.15}
-    .lead{color:#b8c3cf;font-size:18px}
-    .cta{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
-    .btn{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#cbd5e1}
-    .btn.primary{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0;color:white}
-    .btn.secondary{background:#0f172a}
-    .hero-img img{width:100%;height:auto;border-radius:14px;border:1px solid var(--border);background:#060913}
-
-    section{padding:56px 20px}
-    .section-wrap{max-width:1100px;margin:0 auto}
-    h2{font-size:30px;margin:0 0 10px 0}
-    p.muted{color:#9aa4b2}
-
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
-    .card{background:#0f172a;border:1px solid var(--border);border-radius:14px;padding:18px}
-    .card h3{margin:0 0 8px 0}
-    .badge{display:inline-flex;gap:6px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--border);color:#a8b3c3;font-size:14px}
-
-    .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
-    .price{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:20px}
-    .price .title{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-    .price ul{margin:12px 0 0 18px;color:#b7c2cf}
-    .price .num{font-size:28px;font-weight:700;margin-top:8px}
-    .note{color:#9aa4b2;font-size:14px;margin-top:8px}
-
-    .cta-section{background:#0f172a;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:40px 20px}
-    .cta-box{max-width:980px;margin:0 auto;background:#0b1220;border:1px dashed var(--border);border-radius:16px;padding:22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-    .cta-box .flex{flex:1 1 420px}
-    .cta-box .actions{display:flex;gap:12px}
-
-    /* Contact */
-    .contact{background:#f7f9fb;color:#0b1220}
-    .contact .section-wrap{max-width:880px}
-    .contact .muted{color:#5b6573}
-    form{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    form .full{grid-column:1/-1}
-    input,textarea,select{width:100%;padding:12px 12px;border:1px solid #dbe2ea;border-radius:10px;font-size:16px}
-    textarea{min-height:120px}
-    .form-note{font-size:13px;color:#6b7280;margin-top:-6px}
-    .send{margin-top:6px}
-    .send .btn{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0;color:#fff}
-
-    footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
-    footer a{color:#cfe2ff}
-
-    @media (max-width:880px){
-      .hero{grid-template-columns:1fr}
-      .cards,.pricing{grid-template-columns:1fr}
-      form{grid-template-columns:1fr}
-    }
-
-    /* ------ Chat widget ------ */
-    .chat-fab{
-      position:fixed;right:22px;bottom:22px;width:56px;height:56px;border-radius:50%;
-      background:linear-gradient(135deg,var(--brand),#7c3aed);display:grid;place-items:center;
-      color:#fff;border:none;box-shadow:0 10px 30px rgba(79,70,229,.4);cursor:pointer;z-index:30
-    }
-    .chat-win{
-      position:fixed;right:22px;bottom:90px;width:340px;max-height:70vh;background:#0f172a;border:1px solid var(--border);
-      border-radius:16px;display:none;flex-direction:column;overflow:hidden;z-index:30
-    }
-    .chat-head{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
-    .chat-head .dot{width:10px;height:10px;border-radius:50%;background:#16a34a}
-    .chat-body{padding:14px;overflow:auto;display:flex;flex-direction:column;gap:10px}
-    .msg{max-width:85%;padding:10px 12px;border-radius:12px;line-height:1.35;font-size:14px}
-    .msg.user{background:#1f2937;color:#e5eef7;margin-left:auto;border:1px solid #2b3747}
-    .msg.bot{background:#0b1220;border:1px solid var(--border)}
-    .chat-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--border);background:#0f172a}
-    .chat-input input{flex:1;border:1px solid var(--border);background:#0b1220;color:#e5eef7;border-radius:10px;padding:10px}
-    .chat-input button{border:none;background:var(--brand);color:#fff;border-radius:10px;padding:10px 12px;cursor:pointer}
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AI Concierge — Paversk klausimus pardavimais</title>
+  <meta name="description" content="Kuriame ir prižiūrime AI asistentus svetainei, WhatsApp ir socialiniams tinklams. Atsako iškart, kvalifikuoja užklausas, rezervuoja skambučius."/>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <div class="brand">
-        <div class="logo"></div>
-        <div>AI Concierge</div>
-      </div>
-      <nav>
-        <a href="#about" class="lang en">What we do</a>
-        <a href="#about" class="lang lt" style="display:none">Ką darome</a>
-        <a href="#features" class="lang en">Features</a>
-        <a href="#features" class="lang lt" style="display:none">Funkcijos</a>
-        <a href="#pricing" class="lang en">Pricing</a>
-        <a href="#pricing" class="lang lt" style="display:none">Kainos</a>
-        <a href="#contact" class="lang en">Contact</a>
-        <a href="#contact" class="lang lt" style="display:none">Kontaktai</a>
+  <!-- HEADER -->
+  <header class="bar">
+    <div class="wrap bar__grid">
+      <a href="#" class="brand">
+        <span class="logo"></span><strong>AI Concierge</strong>
+      </a>
+      <nav class="nav">
+        <a href="#about" data-en="What we do" data-lt="Ką darome">Ką darome</a>
+        <a href="#features" data-en="Features" data-lt="Funkcijos">Funkcijos</a>
+        <a href="#use" data-en="Use cases" data-lt="Pritaikymas">Pritaikymas</a>
+        <a href="#pricing" data-en="Pricing" data-lt="Kainodara">Kainodara</a>
+        <a href="#faq" data-en="FAQ" data-lt="DUK">DUK</a>
+        <a href="#contact" class="nav__cta" data-en="Contact" data-lt="Kontaktai">Kontaktai</a>
       </nav>
-      <div class="lang-toggle">
-        <button id="btn-en" class="active">EN</button>
-        <button id="btn-lt">LT</button>
+      <div class="lang">
+        <button id="lang-en" class="pill">EN</button>
+        <button id="lang-lt" class="pill pill--active">LT</button>
       </div>
     </div>
   </header>
 
+  <!-- STICKY CTA -->
+  <a href="#contact" class="sticky-cta" data-en="Request a free demo" data-lt="Paprašyti nemokamo demo">
+    Paprašyti nemokamo demo
+  </a>
+
   <!-- HERO -->
   <section class="hero">
-    <div>
-      <div class="pill">
-        <span>⚡</span>
-        <span class="lang en">AI concierge for your website, social and WhatsApp</span>
-        <span class="lang lt" style="display:none">AI asistentas jūsų svetainei, socialiniams tinklams ir WhatsApp</span>
+    <div class="wrap hero__grid">
+      <div class="hero__txt">
+        <span class="badge" data-en="AI concierge for your website, social & WhatsApp"
+                         data-lt="AI asistentas jūsų svetainei, socialiniams ir WhatsApp">
+          AI asistentas jūsų svetainei, socialiniams ir WhatsApp
+        </span>
+        <h1 data-en="Turn FAQs into sales — 24/7"
+            data-lt="DUK paversk pardavimais — 24/7">
+          DUK paversk pardavimais — 24/7
+        </h1>
+        <p class="lead"
+           data-en="We design, train and run assistants that answer immediately, qualify leads, book calls, and hand off to your team when needed."
+           data-lt="Kuriame, apmokome ir prižiūrime asistentus, kurie akimirksniu atsako, kvalifikuoja užklausas, rezervuoja skambučius ir, kai reikia, perduoda jūsų komandai.">
+          Kuriame, apmokome ir prižiūrime asistentus, kurie akimirksniu atsako, kvalifikuoja užklausas, rezervuoja skambučius ir, kai reikia, perduoda jūsų komandai.
+        </p>
+        <div class="row">
+          <a class="btn btn--primary" href="#contact"
+             data-en="Get a free demo" data-lt="Gauti nemokamą demo">Gauti nemokamą demo</a>
+          <a class="btn" href="#pricing" data-en="View pricing" data-lt="Peržiūrėti kainas">Peržiūrėti kainas</a>
+        </div>
       </div>
-      <h1 class="lang en">Convert FAQs into sales 24/7</h1>
-      <h1 class="lang lt" style="display:none">DUK paverskite pardavimais 24/7</h1>
-      <p class="lead lang en">We build and run smart assistants that reply instantly, qualify leads, book calls, and hand off to your team when needed.</p>
-      <p class="lead lang lt" style="display:none">Kuriame ir prižiūrime išmanius asistentus, kurie akimirksniu atsako, kvalifikuoja užklausas, rezervuoja skambučius ir, prireikus, perduoda jūsų komandai.</p>
-      <div class="cta">
-        <a href="#contact" class="btn primary lang en">Get a free demo</a>
-        <a href="#contact" class="btn primary lang lt" style="display:none">Gaukite nemokamą demonstraciją</a>
-        <a href="#pricing" class="btn secondary lang en">See pricing</a>
-        <a href="#pricing" class="btn secondary lang lt" style="display:none">Peržiūrėti kainas</a>
+      <div class="hero__img">
+        <img src="hero.png" alt="AI assistant illustration"/>
       </div>
-    </div>
-    <div class="hero-img">
-      <img src="hero.png" alt="AI assistant illustration">
     </div>
   </section>
 
-  <!-- WHAT WE DO / FEATURES -->
-  <section id="about">
-    <div class="section-wrap">
-      <h2 class="lang en">What we do</h2>
-      <h2 class="lang lt" style="display:none">Ką mes darome</h2>
-      <p class="muted lang en">
-        We design, train, and operate AI assistants that plug into your site, Facebook/Instagram DMs, WhatsApp, and more. They greet visitors, answer up to 90% of repeat questions, qualify leads, book calls, collect contacts, and escalate to a human when needed.
-      </p>
-      <p class="muted lang lt" style="display:none">
-        Kuriame, apmokome ir prižiūrime AI asistentus, veikiančius jūsų svetainėje, „Facebook/Instagram“ žinutėse, „WhatsApp“ ir kt. Jie pasitinka lankytojus, atsako į iki 90% pasikartojančių klausimų, kvalifikuoja užklausas, rezervuoja skambučius, surenka kontaktus ir, prireikus, perduoda žmogui.
+  <!-- TRUST / LOGOS -->
+  <section class="trust">
+    <div class="wrap trust__grid">
+      <div class="trust__item">fintech<span>•</span>retail<span>•</span>health</div>
+      <div class="trust__logos">
+        <i class="logo-dot"></i><i class="logo-dot"></i><i class="logo-dot"></i>
+        <i class="logo-dot"></i><i class="logo-dot"></i>
+      </div>
+      <div class="trust__kicker" data-en="Built for speed, privacy & results"
+                                  data-lt="Sukurta greičiui, privatumui ir rezultatams">
+        Sukurta greičiui, privatumui ir rezultatams
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="wrap stats__grid">
+      <div class="stat">
+        <div class="num" data-count="93">93%</div>
+        <div class="lbl" data-en="FAQ auto-resolution" data-lt="DUK auto-sprendimai">DUK auto-sprendimai</div>
+      </div>
+      <div class="stat">
+        <div class="num" data-count="2.1">2.1×</div>
+        <div class="lbl" data-en="More qualified leads" data-lt="Daugiau kvalifikuotų užklausų">Daugiau kvalifikuotų užklausų</div>
+      </div>
+      <div class="stat">
+        <div class="num" data-count="24">24/7</div>
+        <div class="lbl" data-en="Instant responses" data-lt="Akimirksni atsakymai">Akimirksni atsakymai</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section id="about" class="section">
+    <div class="wrap">
+      <h2 data-en="What we do" data-lt="Ką mes darome">Ką mes darome</h2>
+      <p class="muted"
+         data-en="We build assistants for your site, Facebook/Instagram DMs and WhatsApp. They greet visitors, answer 90% of repeated questions, qualify leads, book calls, capture contacts and escalate to a human when needed."
+         data-lt="Kuriame asistentus jūsų svetainei, Facebook/Instagram žinutėms ir WhatsApp. Jie pasitinka lankytojus, atsako į 90% kartotinių klausimų, kvalifikuoja užklausas, rezervuoja skambučius, surenka kontaktus ir prireikus perduoda žmogui.">
+        Kuriame asistentus jūsų svetainei, Facebook/Instagram žinutėms ir WhatsApp. Jie pasitinka lankytojus, atsako į 90% kartotinių klausimų, kvalifikuoja užklausas, rezervuoja skambučius, surenka kontaktus ir prireikus perduoda žmogui.
       </p>
 
-      <div id="features" class="cards">
+      <div class="grid">
         <div class="card">
-          <span class="badge">🎯</span>
-          <h3 class="lang en">Lead capture & routing</h3>
-          <h3 class="lang lt" style="display:none">Kontaktų surinkimas ir perdavimas</h3>
-          <p class="muted lang en">Collect email/phone, score intent, and route to the right inbox or WhatsApp.</p>
-          <p class="muted lang lt" style="display:none">Renkame el. paštą ir telefoną, įvertiname ketinimus ir perduodame į tinkamą pašto dėžutę ar WhatsApp.</p>
+          <div class="badge">🎯</div>
+          <h3 data-en="Lead capture & routing" data-lt="Kontaktų surinkimas ir perdavimas">Kontaktų surinkimas ir perdavimas</h3>
+          <p class="muted" data-en="Collect email/phone, score intent and route to the right inbox or WhatsApp."
+                          data-lt="Surinkimas el. pašto/telefono, ketinimo įvertinimas ir perdavimas tinkamam inbox ar WhatsApp.">
+            Surinkimas el. pašto/telefono, ketinimo įvertinimas ir perdavimas tinkamam inbox ar WhatsApp.
+          </p>
         </div>
         <div class="card">
-          <span class="badge">📆</span>
-          <h3 class="lang en">Bookings & reminders</h3>
-          <h3 class="lang lt" style="display:none">Rezervacijos ir priminimai</h3>
-          <p class="muted lang en">Let prospects book a call or meeting on the spot; send confirmations automatically.</p>
-          <p class="muted lang lt" style="display:none">Leiskite klientams iškart užsirezervuoti skambutį ar susitikimą; patvirtinimai siunčiami automatiškai.</p>
+          <div class="badge">📆</div>
+          <h3 data-en="Bookings & reminders" data-lt="Rezervacijos ir priminimai">Rezervacijos ir priminimai</h3>
+          <p class="muted" data-en="Let prospects book a call or a meeting instantly; send confirmations and reminders."
+                          data-lt="Leiskite klientams akimirksniu užsirezervuoti skambutį ar susitikimą; siųskite patvirtinimus ir priminimus.">
+            Leiskite klientams akimirksniu užsirezervuoti skambutį ar susitikimą; siųskite patvirtinimus ir priminimus.
+          </p>
         </div>
         <div class="card">
-          <span class="badge">🔌</span>
-          <h3 class="lang en">Plug & play</h3>
-          <h3 class="lang lt" style="display:none">Greitas diegimas</h3>
-          <p class="muted lang en">No-code embed snippet. We maintain training and analytics for you.</p>
-          <p class="muted lang lt" style="display:none">Be programavimo — įterpiamas kodo fragmentas. Mūsų komanda pasirūpina mokymu ir analitika.</p>
+          <div class="badge">🔌</div>
+          <h3 data-en="Plug & play" data-lt="Greitas diegimas">Greitas diegimas</h3>
+          <p class="muted" data-en="No-code embed. We maintain training and analytics for you."
+                          data-lt="Be kodo įkėlimų. Mes prižiūrime mokymą ir analitiką už jus.">
+            Be kodo įkėlimų. Mes prižiūrime mokymą ir analitiką už jus.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="section section--soft">
+    <div class="wrap">
+      <h2 data-en="Features" data-lt="Funkcijos">Funkcijos</h2>
+      <div class="grid grid--4">
+        <div class="card small"><h4>⚡ Instant</h4><p class="muted" data-en="Replies in under a second." data-lt="Atsakymai per <1s.">Atsakymai per &lt;1s.</p></div>
+        <div class="card small"><h4>🧠 Smart</h4><p class="muted" data-en="Understands context, routes to human when needed." data-lt="Supranta kontekstą, prireikus perduoda žmogui.">Supranta kontekstą, prireikus perduoda žmogui.</p></div>
+        <div class="card small"><h4>🔒 Private</h4><p class="muted" data-en="Data stays yours." data-lt="Duomenys lieka jūsų.">Duomenys lieka jūsų.</p></div>
+        <div class="card small"><h4>📊 Insights</h4><p class="muted" data-en="Simple analytics and improvement loops." data-lt="Paprasta analitika ir gerinimo ciklai.">Paprasta analitika ir gerinimo ciklai.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USE CASES -->
+  <section id="use" class="section">
+    <div class="wrap">
+      <h2 data-en="Popular use cases" data-lt="Dažniausi pritaikymai">Dažniausi pritaikymai</h2>
+      <div class="grid grid--3">
+        <div class="card">
+          <h3 data-en="E-commerce" data-lt="E-komercija">E-komercija</h3>
+          <ul class="muted">
+            <li data-en="Product Q&A, returns, delivery ETA" data-lt="Produktų Q&A, grąžinimai, pristatymo terminai">Produktų Q&A, grąžinimai, pristatymo terminai</li>
+            <li data-en="Size & fit recommendations" data-lt="Dydžio ir pritaikymo rekomendacijos">Dydžio ir pritaikymo rekomendacijos</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 data-en="Services & clinics" data-lt="Paslaugos ir klinikos">Paslaugos ir klinikos</h3>
+          <ul class="muted">
+            <li data-en="Booking, reminders, pre-screening" data-lt="Rezervacijos, priminimai, išankstinė atranka">Rezervacijos, priminimai, išankstinė atranka</li>
+            <li data-en="Collect insurance details" data-lt="Draudimo duomenų surinkimas">Draudimo duomenų surinkimas</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 data-en="B2B lead gen" data-lt="B2B leadai">B2B leadai</h3>
+          <ul class="muted">
+            <li data-en="Qualify prospects 24/7" data-lt="Kvalifikuokite užklausas 24/7">Kvalifikuokite užklausas 24/7</li>
+            <li data-en="Auto-book discovery calls" data-lt="Automatinės discovery skambučio rezervacijos">Automatinės discovery skambučio rezervacijos</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section section--soft">
+    <div class="wrap">
+      <h2 data-en="How it works" data-lt="Kaip tai veikia">Kaip tai veikia</h2>
+      <div class="steps">
+        <div class="step"><span>1</span><h4 data-en="Content & goals" data-lt="Turinys ir tikslai">Turinys ir tikslai</h4><p class="muted" data-en="Send your FAQ, docs, links." data-lt="Atsiunčiate DUK, dokumentus, nuorodas.">Atsiunčiate DUK, dokumentus, nuorodas.</p></div>
+        <div class="step"><span>2</span><h4 data-en="Setup & training" data-lt="Nustatymai ir mokymas">Nustatymai ir mokymas</h4><p class="muted" data-en="We configure flows and branding." data-lt="Sukonfigūruojame srautus ir įvaizdį.">Sukonfigūruojame srautus ir įvaizdį.</p></div>
+        <div class="step"><span>3</span><h4 data-en="Launch & improve" data-lt="Startas ir gerinimai">Startas ir gerinimai</h4><p class="muted" data-en="Go live in days; we keep improving." data-lt="Startas per kelias dienas; nuolat geriname.">Startas per kelias dienas; nuolat geriname.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS / CASES -->
+  <section class="section">
+    <div class="wrap">
+      <h2 data-en="Customers say" data-lt="Klientai sako">Klientai sako</h2>
+      <div class="grid">
+        <div class="card quote">
+          <p>„Per dvi savaites sumažėjo pasikartojančių užklausų, o pardavimo pokalbių kokybė pakilo.“</p>
+          <div class="by">— Lina, e-komercija</div>
+        </div>
+        <div class="card quote">
+          <p>„Registracijų kalendorius prisipildė, o mūsų komandai liko tik svarbiausi atvejai.“</p>
+          <div class="by">— Tomas, klinika</div>
+        </div>
+        <div class="card quote">
+          <p>„24/7 kvalifikavimas iškart padvigubino MQL kiekį. Įdiegimas be IT resursų.“</p>
+          <div class="by">— Greta, B2B SaaS</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- PRICING -->
-  <section id="pricing">
-    <div class="section-wrap">
-      <h2 class="lang en">Pricing</h2>
-      <h2 class="lang lt" style="display:none">Kainos</h2>
-      <p class="muted lang en">Transparent monthly plans in EUR. Cancel anytime.</p>
-      <p class="muted lang lt" style="display:none">Aiškūs mėnesiniai planai (EUR). Galite bet kada nutraukti.</p>
-
-      <div class="pricing">
+  <section id="pricing" class="section section--soft">
+    <div class="wrap">
+      <h2 data-en="Pricing" data-lt="Kainodara">Kainodara</h2>
+      <p class="muted center" data-en="Transparent monthly plans in EUR. Cancel anytime."
+                              data-lt="Aiškūs mėnesiniai planai EUR. Galite bet kada nutraukti.">
+        Aiškūs mėnesiniai planai EUR. Galite bet kada nutraukti.
+      </p>
+      <div class="grid grid--3">
         <div class="price">
           <div class="title"><span class="badge">🚀</span><strong>Starter</strong></div>
-          <ul class="lang en">
-            <li>Website chat widget</li><li>Up to 1 assistant</li><li>Basic FAQ training</li><li>Email lead capture</li>
+          <ul>
+            <li>Website chat widget</li>
+            <li>1 asistentas</li>
+            <li>DUK mokymas</li>
+            <li>El. pašto surinkimas</li>
           </ul>
-          <ul class="lang lt" style="display:none">
-            <li>Pokalbių valdiklis svetainėje</li><li>Iki 1 asistento</li><li>Pagrindinis DUK mokymas</li><li>El. pašto surinkimas</li>
-          </ul>
-          <div class="num">€99 / mo</div>
+          <div class="num">€99 / mėn</div>
         </div>
-
-        <div class="price">
+        <div class="price price--pro">
           <div class="title"><span class="badge">💼</span><strong>Growth</strong></div>
-          <ul class="lang en">
-            <li>Website + WhatsApp</li><li>2 assistants</li><li>Bookings & reminders</li><li>Lead scoring & routing</li>
+          <ul>
+            <li>Website + WhatsApp</li>
+            <li>2 asistentai</li>
+            <li>Rezervacijos ir priminimai</li>
+            <li>Lead scoring & routing</li>
           </ul>
-          <ul class="lang lt" style="display:none">
-            <li>Svetainė + WhatsApp</li><li>2 asistentai</li><li>Rezervacijos ir priminimai</li><li>Kontaktų vertinimas ir perdavimas</li>
-          </ul>
-          <div class="num">€249 / mo</div>
+          <div class="num">€249 / mėn</div>
         </div>
-
         <div class="price">
           <div class="title"><span class="badge">🏢</span><strong>Scale</strong></div>
-          <ul class="lang en">
-            <li>Web + WhatsApp + IG/FB DMs</li><li>Up to 5 assistants</li><li>Custom flows & integrations</li><li>Priority support</li>
+          <ul>
+            <li>Web + WhatsApp + IG/FB DM</li>
+            <li>Iki 5 asistentų</li>
+            <li>Custom flows</li>
+            <li>Prioritetinis palaikymas</li>
           </ul>
-          <ul class="lang lt" style="display:none">
-            <li>Svetainė + WhatsApp + IG/FB žinutės</li><li>Iki 5 asistentų</li><li>Individualūs srautai ir integracijos</li><li>Prioritetinis palaikymas</li>
-          </ul>
-          <div class="num">€499 / mo</div>
+          <div class="num">€499 / mėn</div>
         </div>
       </div>
-
-      <p class="note lang en">Annual options and custom enterprise plans available on request.</p>
-      <p class="note lang lt" style="display:none">Metiniai planai ir individualūs pasiūlymai — pagal užklausą.</p>
+      <p class="muted center" data-en="Annual & enterprise on request" data-lt="Metiniai ir enterprise pagal užklausą">
+        Metiniai ir enterprise pagal užklausą
+      </p>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="cta-box">
-      <div class="flex">
-        <div class="pill">✨ <span class="lang en">Personalised 7-day pilot</span><span class="lang lt" style="display:none">Asmeninis 7 dienų bandomasis laikotarpis</span></div>
-        <h2 class="lang en" style="margin:10px 0 4px 0">Ready to see your AI concierge in action?</h2>
-        <h2 class="lang lt" style="margin:10px 0 4px 0;display:none">Pasiruošę pamatyti savo AI asistentą veiksme?</h2>
-        <p class="muted lang en">We’ll build a free demo using your real content and channels.</p>
-        <p class="muted lang lt" style="display:none">Sukursime nemokamą demonstraciją pagal jūsų turinį ir kanalus.</p>
+  <!-- FAQ -->
+  <section id="faq" class="section">
+    <div class="wrap">
+      <h2>DUK</h2>
+      <div class="faq">
+        <details>
+          <summary>Per kiek laiko paleidžiate?</summary>
+          <p>Dažniausiai per 3–7 darbo dienas, priklausomai nuo turinio apimties.</p>
+        </details>
+        <details>
+          <summary>Ar reikia programuotojų?</summary>
+          <p>Ne. Įterpiame be kodo — užtenka trumpo „snippet“ arba nukreipimo į mūsų mini puslapį.</p>
+        </details>
+        <details>
+          <summary>Kaip su duomenų sauga?</summary>
+          <p>Naudojame privatumo-pirmas praktiką, laikomės GDPR. Duomenys lieka jūsų.</p>
+        </details>
       </div>
-      <div class="actions">
-        <a class="btn primary" href="#contact"><span class="lang en">Request demo</span><span class="lang lt" style="display:none">Užsisakyti demo</span></a>
-        <a class="btn" href="#pricing"><span class="lang en">View plans</span><span class="lang lt" style="display:none">Peržiūrėti planus</span></a>
+    </div>
+  </section>
+
+  <!-- CTA WIDE -->
+  <section class="cta">
+    <div class="wrap cta__box">
+      <div>
+        <div class="badge">✨</div>
+        <h3 data-en="Personalised 7-day pilot" data-lt="Asmeninis 7 dienų pilotas">Asmeninis 7 dienų pilotas</h3>
+        <p class="muted" data-en="We build a tailored demo on your real content — free."
+                        data-lt="Sukursime pritaikytą demo su jūsų realiu turiniu — nemokamai.">
+          Sukursime pritaikytą demo su jūsų realiu turiniu — nemokamai.
+        </p>
       </div>
+      <a class="btn btn--primary" href="#contact" data-en="Request demo" data-lt="Paprašyti demo">Paprašyti demo</a>
     </div>
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="contact">
-    <div class="section-wrap">
-      <h2 class="lang en">Contact us</h2>
-      <h2 class="lang lt" style="display:none">Susisiekite</h2>
-      <p class="muted lang en">Tell us briefly about your business. We’ll reply with a tailored plan and a booking link.</p>
-      <p class="muted lang lt" style="display:none">Trumpai aprašykite savo verslą. Atsiųsime pritaikytą planą ir rezervacijos nuorodą.</p>
+  <section id="contact" class="section section--soft">
+    <div class="wrap">
+      <h2 data-en="Contact us" data-lt="Susisiekite">Susisiekite</h2>
+      <p class="muted" data-en="Tell us briefly about your business. We’ll reply with a tailored plan and a booking link."
+                      data-lt="Trumpai aprašykite savo verslą. Atsiųsime pritaikytą planą ir rezervacijos nuorodą.">
+        Trumpai aprašykite savo verslą. Atsiųsime pritaikytą planą ir rezervacijos nuorodą.
+      </p>
 
-      <form action="https://formsubmit.co/zoe.lirel@gmail.com" method="POST">
-        <!-- FormSubmit options -->
+      <form action="https://formsubmit.co/zoe.lirel@gmail.com" method="POST" class="form">
         <input type="hidden" name="_subject" value="New AI Concierge request">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_next" value="https://ai-concierge-site.vercel.app/">
 
-        <input type="text" name="name" placeholder="Full name / Vardas" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="tel" name="phone" placeholder="Phone / Telefonas">
-        <input type="text" name="company" placeholder="Company / Įmonė">
+        <input type="text" name="name" placeholder="Vardas / Full name" required>
+        <input type="email" name="email" placeholder="El. paštas" required>
+        <input type="tel" name="phone" placeholder="Telefonas">
+        <input type="text" name="company" placeholder="Įmonė">
         <select name="budget">
-          <option value="" selected>Budget / Biudžetas</option>
-          <option>&lt; €100/mo</option><option>€100–€250/mo</option>
-          <option>€250–€500/mo</option><option>&gt; €500/mo</option>
+          <option value="" selected>Biudžetas / Budget</option>
+          <option>&lt; €100/mėn</option><option>€100–€250/mėn</option>
+          <option>€250–€500/mėn</option><option>&gt; €500/mėn</option>
         </select>
-        <input type="text" name="industry" placeholder="Industry / Veiklos sritis">
-        <textarea class="full" name="message" placeholder="What problem should we solve? / Kokią problemą sprendžiame?" required></textarea>
-        <div class="full form-note">Pateikus formą, informacija bus išsiųsta į <b>zoe.lirel@gmail.com</b>. Netrukus susisieksime.</div>
-        <div class="full send"><button class="btn primary" type="submit">Send / Siųsti</button></div>
+        <input type="text" name="industry" placeholder="Sritis / Industry">
+        <textarea name="message" class="full" placeholder="Kokią problemą sprendžiame?" required></textarea>
+        <div class="full form-note">Pateikę formą, gausite atsakymą į <b>zoe.lirel@gmail.com</b> per 1–2 darbo dienas.</div>
+        <div class="full"><button class="btn btn--primary" type="submit">Siųsti</button></div>
       </form>
     </div>
   </section>
 
-  <footer>
-    <div class="section-wrap">
-      <div>© 2025 AI Concierge. WhatsApp: +370 681 95678 · Email: <a href="mailto:zoe.lirel@gmail.com">zoe.lirel@gmail.com</a></div>
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>© 2025 AI Concierge</div>
+      <div>WhatsApp: +370 681 95678</div>
+      <div><a href="mailto:zoe.lirel@gmail.com">zoe.lirel@gmail.com</a></div>
     </div>
   </footer>
 
-  <!-- Floating chat widget -->
-  <button id="chatFab" class="chat-fab" aria-label="Chat">💬</button>
-  <div id="chatWin" class="chat-win" aria-live="polite">
-    <div class="chat-head">
-      <div class="dot"></div>
-      <strong class="lang en">AI Concierge</strong>
-      <strong class="lang lt" style="display:none">AI asistentas</strong>
-    </div>
-    <div id="chatBody" class="chat-body">
-      <div class="msg bot">
-        <span class="lang en">Hi! Ask about plans, setup, or features. I can also take your contacts for a demo.</span>
-        <span class="lang lt" style="display:none">Sveiki! Klauskite apie planus, diegimą ar funkcijas. Taip pat galiu surinkti jūsų kontaktus demonstracijai.</span>
-      </div>
-    </div>
-    <div class="chat-input">
-      <input id="chatInput" type="text" placeholder="Type a message…" />
-      <button id="chatSend">Send</button>
-    </div>
-  </div>
-
   <script>
-    /* --------- Language toggle ---------- */
-    const $ = s => document.querySelectorAll(s);
-    const setLang = lang => {
+    // 1) Kalbų perjungimas
+    const applyLang = (lang) => {
       localStorage.setItem('lang', lang);
-      $('.lang').forEach(el => el.style.display = el.classList.contains(lang) ? '' : 'none');
-      document.getElementById('btn-en').classList.toggle('active', lang==='en');
-      document.getElementById('btn-lt').classList.toggle('active', lang==='lt');
-      const input = document.getElementById('chatInput');
-      if(lang==='lt'){ input.placeholder = 'Rašykite žinutę…'; document.getElementById('chatSend').textContent='Siųsti'; }
-      else { input.placeholder = 'Type a message…'; document.getElementById('chatSend').textContent='Send'; }
+      document.querySelectorAll('[data-en]').forEach(el=>{
+        el.textContent = lang === 'en' ? el.dataset.en : (el.dataset.lt || el.textContent);
+      });
+      document.getElementById('lang-en').classList.toggle('pill--active', lang==='en');
+      document.getElementById('lang-lt').classList.toggle('pill--active', lang==='lt');
     };
-    document.getElementById('btn-en').onclick = () => setLang('en');
-    document.getElementById('btn-lt').onclick = () => setLang('lt');
-    setLang(localStorage.getItem('lang') || 'en');
+    document.getElementById('lang-en').onclick = ()=>applyLang('en');
+    document.getElementById('lang-lt').onclick = ()=>applyLang('lt');
+    applyLang(localStorage.getItem('lang') || 'lt');
 
-    /* --------- Chat widget ---------- */
-    const API = '/api/ai'; // ta pati kilmė (domain)
-    const fab = document.getElementById('chatFab');
-    const win = document.getElementById('chatWin');
-    const bodyEl = document.getElementById('chatBody');
-    const inputEl = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('chatSend');
+    // 2) „Reveal on scroll“
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('reveal--in'); io.unobserve(e.target); }
+      });
+    }, { threshold:.15 });
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    let messages = [];
+    // pažymim elementus kuriuos animuosim
+    document.querySelectorAll('.section .card, .section h2, .steps .step, .price, .quote, .stat, .hero__txt, .hero__img')
+      .forEach(el => el.classList.add('reveal'));
 
-    function append(role, text){
-      const div = document.createElement('div');
-      div.className = 'msg ' + (role==='user' ? 'user':'bot');
-      div.textContent = text;
-      bodyEl.appendChild(div);
-      bodyEl.scrollTop = bodyEl.scrollHeight;
-    }
-
-    async function send(){
-      const txt = inputEl.value.trim();
-      if(!txt) return;
-      append('user', txt);
-      inputEl.value = '';
-      const lang = localStorage.getItem('lang') || 'en';
-      const pending = document.createElement('div');
-      pending.className='msg bot';
-      pending.textContent = lang==='lt' ? 'Rašau atsakymą…' : 'Typing…';
-      bodyEl.appendChild(pending);
-      bodyEl.scrollTop = bodyEl.scrollHeight;
-
-      messages.push({role:'user', content: txt});
-      try{
-        const res = await fetch(API, {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({ lang, messages })
-        });
-        const data = await res.json().catch(async()=>({ raw: await res.text() }));
-        pending.remove();
-        if(res.ok && (data.reply || data.choices)){
-          const text = data.reply || (data.choices?.[0]?.message?.content ?? '');
-          append('bot', text || (lang==='lt' ? 'Atsiprašau, pabandykite dar kartą.' : 'Sorry, please try again.'));
-          messages.push({role:'assistant', content: text});
-        } else {
-          append('bot', lang==='lt' ? 'Klaida jungiantis prie AI.' : 'Error talking to AI.');
-        }
-      }catch(e){
-        pending.remove();
-        append('bot', (localStorage.getItem('lang')==='lt'
-          ? 'Klaida jungiantis prie AI. Pabandykite dar kartą.'
-          : 'Error talking to AI. Please try again.'));
-      }
-    }
-
-    fab.addEventListener('click', ()=>{
-      win.style.display = (win.style.display==='flex' ? 'none' : 'flex');
-      if(win.style.display==='flex') inputEl.focus();
+    // 3) „skaičiuoklės“ animacija
+    const nums = document.querySelectorAll('.num[data-count]');
+    const ioc = new IntersectionObserver(es=>{
+      es.forEach(e=>{
+        if(!e.isIntersecting) return;
+        const n = e.target, target = n.dataset.count, dur = 900;
+        const start = (target.includes('×')||target.includes('/')) ? target : parseFloat(target) || 0;
+        if(typeof start!=='number'){ n.textContent = target; return; }
+        const t0 = performance.now();
+        const tick = (t)=>{
+          const p = Math.min(1,(t-t0)/dur);
+          n.textContent = (start*p).toFixed(target%1?1:0) + (target.toString().endsWith('%')?'%':'');
+          if(p<1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        ioc.unobserve(n);
+      });
     });
-    sendBtn.addEventListener('click', send);
-    inputEl.addEventListener('keydown', e=>{ if(e.key==='Enter') send(); });
+    nums.forEach(n=>ioc.observe(n));
   </script>
 </body>
 </html>
