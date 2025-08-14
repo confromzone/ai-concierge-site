@@ -55,8 +55,8 @@
     .pricing{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     .price{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:20px}
     .price .title{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-    .price ul{margin:12px 0 0 18px;color:#b7c2cf}.price .num{font-size:28px;font-weight:700;margin-top:8px}
-    .note{color:var(--muted);font-size:14px;margin-top:8px}
+    .price ul{margin:12px 0 0 18px;color:#b7c3cf}.price .num{font-size:28px;font-weight:700;margin-top:8px}
+    .note{color:{var(--muted)};font-size:14px;margin-top:8px}
     .cta-section{background:#0f172a;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
     .cta-box{max-width:990px;margin:0 auto;display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:#0b1220;border:1px dashed var(--border);border-radius:16px;padding:22px}
     .cta-box .flex{flex:1 1 420px}.cta-box .actions{display:flex;gap:12px}
@@ -154,36 +154,106 @@
     </div>
   </section>
 
+  <!-- NEW PRICING -->
   <section id="pricing">
     <div class="section-wrap">
       <h2 data-lang="en">Pricing</h2>
       <h2 data-lang="lt" style="display:none">Kainodara</h2>
-      <p class="muted" data-lang="en">Transparent monthly plans in EUR. Cancel anytime.</p>
+      <p class="muted" data-lang="en">Clear monthly plans in EUR. Cancel anytime.</p>
       <p class="muted" data-lang="lt" style="display:none">Aiškūs mėnesiniai planai EUR. Galite bet kada nutraukti.</p>
 
       <div class="pricing">
+        <!-- FLEX (PAYG) -->
+        <div class="price">
+          <div class="title"><span class="badge">🧩</span><strong>Flex (Pay-as-you-go)</strong></div>
+          <ul data-lang="en">
+            <li>Web chat widget</li>
+            <li>1 assistant</li>
+            <li>Pay only for what you use</li>
+            <li>€0.15 per conversation</li>
+            <li>Basic FAQ + email lead capture</li>
+            <li>WhatsApp/IG/FB DM not included</li>
+          </ul>
+          <ul data-lang="lt" style="display:none">
+            <li>Pokalbių valdiklis svetainėje</li>
+            <li>1 asistentas</li>
+            <li>Moki tik už naudojimą</li>
+            <li>€0.15 už pokalbį</li>
+            <li>Pagrindinis DUK + el. pašto surinkimas</li>
+            <li>WhatsApp/IG/FB žinutės neįtrauktos</li>
+          </ul>
+          <div class="num">€0 / mo</div>
+        </div>
+
+        <!-- STARTER -->
         <div class="price">
           <div class="title"><span class="badge">🚀</span><strong>Starter</strong></div>
-          <ul data-lang="en"><li>Website chat widget</li><li>Up to 1 assistant</li><li>Basic FAQ training</li><li>Email lead capture</li></ul>
-          <ul data-lang="lt" style="display:none"><li>Pokalbių valdiklis svetainėje</li><li>Iki 1 asistento</li><li>Pagrindinis DUK mokymas</li><li>El. pašto surinkimas</li></ul>
-          <div class="num">€99 / mo</div>
+          <ul data-lang="en">
+            <li>Web chat widget</li>
+            <li>Up to 1 assistant</li>
+            <li>Included: 200 conversations / mo</li>
+            <li>Basic FAQ training, email lead capture</li>
+            <li>1× content update / mo</li>
+          </ul>
+          <ul data-lang="lt" style="display:none">
+            <li>Pokalbių valdiklis svetainėje</li>
+            <li>Iki 1 asistento</li>
+            <li>Įskaičiuota: 200 pokalbių / mėn.</li>
+            <li>Pagrindinis DUK, el. pašto surinkimas</li>
+            <li>1× turinio atnaujinimas / mėn.</li>
+          </ul>
+          <div class="num">€149 / mo</div>
         </div>
+
+        <!-- GROWTH -->
         <div class="price">
           <div class="title"><span class="badge">💼</span><strong>Growth</strong></div>
-          <ul data-lang="en"><li>Website + WhatsApp</li><li>2 assistants</li><li>Bookings & reminders</li><li>Lead scoring & routing</li></ul>
-          <ul data-lang="lt" style="display:none"><li>Svetainė + WhatsApp</li><li>2 asistentai</li><li>Rezervacijos ir priminimai</li><li>Kontaktų vertinimas ir perdavimas</li></ul>
-          <div class="num">€249 / mo</div>
+          <ul data-lang="en">
+            <li>Web + optional WhatsApp*</li>
+            <li>Up to 2 assistants</li>
+            <li>Included: 600 conversations / mo</li>
+            <li>Bookings & reminders, lead scoring & routing</li>
+            <li>1× optimization / mo</li>
+          </ul>
+          <ul data-lang="lt" style="display:none">
+            <li>Svetainė + pasirinktinai WhatsApp*</li>
+            <li>Iki 2 asistentų</li>
+            <li>Įskaičiuota: 600 pokalbių / mėn.</li>
+            <li>Rezervacijos, kontaktų vertinimas ir perdavimas</li>
+            <li>1× optimizacija / mėn.</li>
+          </ul>
+          <div class="num">€349 / mo</div>
         </div>
+
+        <!-- SCALE+ -->
         <div class="price">
-          <div class="title"><span class="badge">🏢</span><strong>Scale</strong></div>
-          <ul data-lang="en"><li>Web + WhatsApp + IG/FB DM</li><li>Up to 5 assistants</li><li>Custom flows & integrations</li><li>Priority support</li></ul>
-          <ul data-lang="lt" style="display:none"><li>Svetainė + WhatsApp + IG/FB žinutės</li><li>Iki 5 asistentų</li><li>Individualūs srautai ir integracijos</li><li>Prioritetinis palaikymas</li></ul>
-          <div class="num">€499 / mo</div>
+          <div class="title"><span class="badge">🏢</span><strong>Scale+</strong></div>
+          <ul data-lang="en">
+            <li>Web + WhatsApp + IG/FB DM</li>
+            <li>Up to 5 assistants</li>
+            <li>Included: 1,500 conversations / mo</li>
+            <li>Custom flows & integrations</li>
+            <li>Priority support, 2× optimizations / mo</li>
+          </ul>
+          <ul data-lang="lt" style="display:none">
+            <li>Svetainė + WhatsApp + IG/FB žinutės</li>
+            <li>Iki 5 asistentų</li>
+            <li>Įskaičiuota: 1 500 pokalbių / mėn.</li>
+            <li>Individualūs srautai ir integracijos</li>
+            <li>Prioritetinis palaikymas, 2× optimizacijos / mėn.</li>
+          </ul>
+          <div class="num">€699 / mo</div>
         </div>
       </div>
 
-      <p class="note" data-lang="en">Annual and enterprise options on request.</p>
-      <p class="note" data-lang="lt" style="display:none">Metiniai ir individualūs sprendimai — pagal užklausą.</p>
+      <p class="note" data-lang="en">
+        Overage: €0.10 / conversation. WhatsApp billed at official rates + 20% admin. Extra assistant: €50 / mo.
+        Custom integrations billed separately.
+      </p>
+      <p class="note" data-lang="lt" style="display:none">
+        Viršijus limitą: €0.10 / pokalbį. WhatsApp mokesčiai pagal oficialius įkainius + 20% administravimas.
+        Papildomas asistentas: €50 / mėn. Integracijos – pagal sąmatą.
+      </p>
     </div>
   </section>
 
@@ -212,7 +282,7 @@
       <p class="muted" data-lang="en">Tell us about your business — we’ll reply with a tailored plan and a booking link.</p>
       <p class="muted" data-lang="lt" style="display:none">Trumpai apie jūsų verslą — atsiųsime pritaikytą planą ir rezervacijos nuorodą.</p>
 
-      <!-- Gmail per FormSubmit -->
+      <!-- Gmail per FormSubmit (palikta kaip buvo) -->
       <form action="https://formsubmit.co/zoe.lirel@gmail.com" method="POST" accept-charset="UTF-8">
         <input type="hidden" name="_subject" value="Nova Concierge — Nauja užklausa">
         <input type="hidden" name="_template" value="table">
@@ -261,4 +331,3 @@
   </script>
 </body>
 </html>
-
