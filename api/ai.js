@@ -1,56 +1,96 @@
-// Vercel Serverless Function: /api/ai
-// Node 18+ (fetch yra global)
-export default async function handler(req, res) {
-  // CORS preflight
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    return res.status(204).end();
-  }
-  if (req.method !== 'POST') return res.status(405).send('Only POST allowed');
+// api/ai.js
+// Vercel Edge Function – greita, paprasta, be papildomų framework'ų.
+import OpenAI from "openai";
 
-  // Leidžiami origin'ai (iš ENV, kableliais). Fallback – tavo GitHub Pages URL'ai.
-  const envList = (process.env.ALLOWED_ORIGINS
-      || 'https://confromzone.github.io,https://confromzone.github.io/ai-concierge-site')
-    .split(',').map(s => s.trim()).filter(Boolean);
+export const config = { runtime: "edge" };
 
-  const origin = String(req.headers.origin || '');
-  if (!envList.some(a => origin.startsWith(a))) {
-    return res.status(403).send('Forbidden');
-  }
+// Aiški sisteminė rolė: LT + EN, be halucinacijų, mandagus, trumpi atsakymai,
+// kai reikia – surenka kontaktus arba nukreipia į formą.
+const SYSTEM_PROMPT = `
+You are "AI Concierge" for a lead-generation website. 
+Goals:
+- Answer briefly, clearly, and helpfully in the user's language (lt or en).
+- If the user asks about plans, features, setup, or a demo — explain and offer to collect contact details (name, email, phone, company, use case).
+- Be factual. If not sure — say so briefly and propose a demo.
+- Never invent prices or private facts. Use the site's public copy (pricing tiers, benefits) and generic knowledge only.
+- Tone: friendly, concise, confident. Avoid jargon.
 
+Lietuviškai:
+- Atsakyk trumpai, aiškiai, mandagiai.
+- Jei žmogus prašo demo arba kainodaros, pasiūlyk palikti kontaktus (vardas, el. paštas, tel., įmonė, poreikis).
+- Jei trūksta informacijos – pasakyk atvirai ir pasiūlyk demo.
+
+Always keep answers 1–4 trumpų pastraipų. 
+If the user sends greetings or short tests, reply in 1–2 sakiniais.
+`;
+
+function jsonResponse(obj, status = 200) {
+  return new Response(JSON.stringify(obj), {
+    status,
+    headers: { "content-type": "application/json; charset=utf-8" },
+  });
+}
+
+export default async function handler(req) {
   try {
-    const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
-    const messages = Array.isArray(body.messages) ? body.messages : [];
-    const lang = body.lang === 'lt' ? 'lt' : 'en';
+    if (req.method !== "POST") {
+      return new Response("Only POST allowed", { status: 405 });
+    }
 
-    const system = {
-      role: 'system',
-      content:
-        lang === 'lt'
-          ? 'Tu esi AI asistentas, padedantis parduoti AI concierge. Atsakinėk aiškiai ir trumpai. Jei tinka — pasiūlyk demo ir paprašyk kontakto.'
-          : 'You are an AI concierge for sales. Be clear and concise. Offer a demo and ask for contact when relevant.',
-    };
+    const body = await req.json().catch(() => ({}));
+    const msgs = Array.isArray(body?.messages) ? body.messages : [];
+    const lang = (body?.lang || "en").toLowerCase().startsWith("lt") ? "lt" : "en";
 
-    const r = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, // ← ENV
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: [system, ...messages],
-        temperature: 0.6,
-        max_tokens: 600
-      })
+    if (!process.env.OPENAI_API_KEY) {
+      return jsonResponse(
+        {
+          error: true,
+          message:
+            "Server is missing OPENAI_API_KEY. Add it in Vercel → Project → Settings → Environment Variables, then redeploy.",
+        },
+        500
+      );
+    }
+    if (!msgs.length) {
+      return jsonResponse({ error: true, message: "messages[] is required" }, 400);
+    }
+
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+    // Modelis: gpt-4o-mini – geras balansas tarp kokybės/greičio/kainos.
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      temperature: 0.6,
+      max_tokens: 600,
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "system", content: `User interface language: ${lang}` },
+        // paskutinių 20 žinučių, jei ateina ilga istorija
+        ...msgs.slice(-20),
+      ],
     });
 
-    const data = await r.json();
-    res.setHeader('Access-Control-Allow-Origin', origin);
-    res.status(r.status).json(data);
-  } catch (e) {
-    res.status(500).json({ error: e?.message || 'AI error' });
+    const text =
+      completion?.choices?.[0]?.message?.content?.trim() ||
+      (lang === "lt"
+        ? "Atsiprašau, šiuo metu negaliu atsakyti. Pabandykite dar kartą."
+        : "Sorry, I can’t answer right now. Please try again.");
+
+    return jsonResponse({ reply: text });
+  } catch (err) {
+    // 401/403 – dažniausiai dėl rakto ar prieigos; parodyk aiškų msg.
+    const m = String(err || "");
+    const isAuth = /401|403/.test(m) || /Unauthorized|Forbidden/i.test(m);
+
+    return jsonResponse(
+      {
+        error: true,
+        message: isAuth
+          ? "OpenAI API rejected the request (check API key / model access)."
+          : "Internal error. Please try again in a moment.",
+        detail: m,
+      },
+      isAuth ? 403 : 500
+    );
   }
 }
