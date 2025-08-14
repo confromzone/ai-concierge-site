@@ -5,96 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Nova Concierge — AI asistentai, kurie paverčia klausimus pardavimais</title>
   <meta name="description" content="Kuriame ir prižiūrime AI asistentus, kurie 24/7 atsako klientams, renka kontaktus, kvalifikuoja užklausas ir rezervuoja skambučius. 683 įmonės mumis pasitiki."/>
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.svg?v=3" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="favicon.svg?v=3">
+  <link rel="canonical" href="https://novaconcierge.online/"/>
+
+  <!-- Favicon / App Icons -->
+  <link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml">
+  <link rel="mask-icon" href="/favicon.svg?v=4" color="#4f46e5">
+  <link rel="apple-touch-icon" href="/favicon.svg?v=4">
   <meta name="theme-color" content="#0b1220"/>
 
-  <style>
-    :root{
-      --bg:#0b1220; --card:#0f172a; --muted:#9aa4b2; --text:#e5eef7;
-      --brand:#4f46e5; --brand-2:#22c55e; --border:#1e293b; --light:#f7f9fb;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
+  <!-- Social preview (Snapchat, FB, X, etc.) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Nova Concierge">
+  <meta property="og:title" content="Nova Concierge — AI asistentai 24/7"/>
+  <meta property="og:description" content="Greiti atsakymai, kontaktų rinkimas, kvalifikavimas ir skambučių rezervacijos."/>
+  <meta property="og:url" content="https://novaconcierge.online/"/>
+  <meta property="og:image" content="https://novaconcierge.online/hero.png"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nova Concierge — AI asistentai 24/7">
+  <meta name="twitter:description" content="Greiti atsakymai, kontaktų rinkimas, kvalifikavimas ir skambučių rezervacijos.">
+  <meta name="twitter:image" content="https://novaconcierge.online/hero.png"/>
 
+  <style>
+    :root{--bg:#0b1220;--card:#0f172a;--muted:#9aa4b2;--text:#e5eef7;--brand:#4f46e5;--brand-2:#22c55e;--border:#1e293b;--light:#f7f9fb}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
     header{position:sticky;top:0;z-index:20;background:rgba(11,18,32,.85);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
     .wrap{max-width:1120px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:18px;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:10px}
-    .brand img{width:28px;height:28px;border-radius:7px}
-    nav{display:flex;gap:16px;align-items:center}
-    nav a{color:var(--muted)}
-    nav a:hover{color:#fff}
+    .brand{display:flex;align-items:center;gap:10px}.brand img{width:28px;height:28px;border-radius:7px}
+    nav{display:flex;gap:16px;align-items:center} nav a{color:var(--muted)} nav a:hover{color:#fff}
     .lang-toggle{display:flex;gap:8px}
     .lang-toggle button{padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:#111827;color:#cbd5e1;cursor:pointer}
     .lang-toggle button.active{background:var(--brand);border-color:var(--brand);color:#fff}
-
     .hero{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding:48px 20px}
     .pill{display:inline-flex;gap:8px;align-items:center;background:#0f172a;border:1px solid var(--border);padding:6px 10px;border-radius:999px;color:#a3b1c4;font-size:14px}
-    h1{margin:14px 0 10px;font-size:42px;line-height:1.12}
-    .lead{color:#b8c3cf;font-size:18px}
+    h1{margin:14px 0 10px;font-size:42px;line-height:1.12}.lead{color:#b8c3cf;font-size:18px}
     .cta{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap}
     .btn{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#cbd5e1}
-    .btn.primary{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0;color:#fff}
-    .btn.secondary{background:#0f172a}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0;color:#fff}.btn.secondary{background:#0f172a}
     .hero-img img{border-radius:14px;border:1px solid var(--border);background:#060913}
-
     .trust{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#0f172a}
     .trust-wrap{max-width:1120px;margin:0 auto;padding:16px 20px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
     .trust .badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);border-radius:999px;padding:8px 12px;color:#cfe3ff;background:#0b1220}
     .trust .stat{margin-left:auto;color:#9fb3ff}
-
-    section{padding:56px 20px}
-    .section-wrap{max-width:1120px;margin:0 auto}
-    h2{font-size:30px;margin:0 0 10px}
-    p.muted{color:var(--muted)}
-
+    section{padding:56px 20px}.section-wrap{max-width:1120px;margin:0 auto}
+    h2{font-size:30px;margin:0 0 10px} p.muted{color:var(--muted)}
     .cards{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .card{background:#0f172a;border:1px solid var(--border);border-radius:14px;padding:18px}
-    .card h3{margin:0 0 8px}
+    .card{background:#0f172a;border:1px solid var(--border);border-radius:14px;padding:18px}.card h3{margin:0 0 8px}
     .badge{display:inline-flex;gap:6px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--border);color:#a8b3c3;font-size:14px}
-
     .pricing{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     .price{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:20px}
     .price .title{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-    .price ul{margin:12px 0 0 18px;color:#b7c2cf}
-    .price .num{font-size:28px;font-weight:700;margin-top:8px}
+    .price ul{margin:12px 0 0 18px;color:#b7c2cf}.price .num{font-size:28px;font-weight:700;margin-top:8px}
     .note{color:var(--muted);font-size:14px;margin-top:8px}
-
     .cta-section{background:#0f172a;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
     .cta-box{max-width:990px;margin:0 auto;display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:#0b1220;border:1px dashed var(--border);border-radius:16px;padding:22px}
-    .cta-box .flex{flex:1 1 420px}
-    .cta-box .actions{display:flex;gap:12px}
-
-    .contact{background:var(--light);color:#0b1220}
-    .contact .section-wrap{max-width:880px}
-    .contact .muted{color:#5b6573}
-    form{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    form .full{grid-column:1/-1}
-    input,select,textarea{width:100%;padding:12px;border:1px solid #dbe2ea;border-radius:10px;font-size:16px;background:#fff}
-    textarea{min-height:120px}
-    .form-note{font-size:13px;color:#6b7280;margin-top:-6px}
-    .send .btn{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0;color:#fff}
-
-    footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
-    footer a{color:#cfe2ff}
-
-    @media (max-width:960px){
-      .hero{grid-template-columns:1fr}
-      .cards,.pricing{grid-template-columns:1fr}
-      .trust .stat{margin-left:0}
-      form{grid-template-columns:1fr}
-      nav{display:none}
-    }
+    .cta-box .flex{flex:1 1 420px}.cta-box .actions{display:flex;gap:12px}
+    .contact{background:var(--light);color:#0b1220}.contact .section-wrap{max-width:880px}
+    .contact .muted{color:#5b6573} form{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    form .full{grid-column:1/-1} input,select,textarea{width:100%;padding:12px;border:1px solid #dbe2ea;border-radius:10px;font-size:16px;background:#fff}
+    textarea{min-height:120px}.form-note{font-size:13px;color:#6b7280;margin-top:-6px}.send .btn{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0;color:#fff}
+    footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1} footer a{color:#cfe2ff}
+    @media (max-width:960px){.hero{grid-template-columns:1fr}.cards,.pricing{grid-template-columns:1fr}.trust .stat{margin-left:0}form{grid-template-columns:1fr}nav{display:none}}
   </style>
 </head>
 <body>
   <header>
     <div class="wrap">
       <div class="brand">
-        <img src="favicon.svg?v=3" alt="Nova Concierge">
+        <img src="/favicon.svg?v=4" alt="Nova Concierge">
         <strong>Nova Concierge</strong>
       </div>
       <nav>
@@ -130,7 +108,7 @@
       </div>
     </div>
     <div class="hero-img">
-      <img src="hero.png" alt="AI assistant illustration">
+      <img src="/hero.png" alt="AI assistant illustration">
     </div>
   </section>
 
@@ -234,16 +212,18 @@
       <p class="muted" data-lang="en">Tell us about your business — we’ll reply with a tailored plan and a booking link.</p>
       <p class="muted" data-lang="lt" style="display:none">Trumpai apie jūsų verslą — atsiųsime pritaikytą planą ir rezervacijos nuorodą.</p>
 
-      <form action="https://formsubmit.co/zoe.lirel@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="New Nova Concierge request">
-        <input type="hidden" name="_captcha" value="false">
+      <!-- Gmail per FormSubmit -->
+      <form action="https://formsubmit.co/zoe.lirel@gmail.com" method="POST" accept-charset="UTF-8">
+        <input type="hidden" name="_subject" value="Nova Concierge — Nauja užklausa">
         <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_next" value="https://novaconcierge.online/">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://novaconcierge.online/?sent=1">
+        <input type="text" name="_honey" style="display:none">
 
-        <input type="text" name="name" placeholder="Vardas / Full name" required>
-        <input type="email" name="email" placeholder="El. paštas / Email" required>
-        <input type="tel" name="phone" placeholder="Telefonas / Phone">
-        <input type="text" name="company" placeholder="Įmonė / Company">
+        <input type="text"  name="name"     placeholder="Vardas / Full name" required>
+        <input type="email" name="email"    placeholder="El. paštas / Email" required>
+        <input type="tel"   name="phone"    placeholder="Telefonas / Phone">
+        <input type="text"  name="company"  placeholder="Įmonė / Company">
         <select name="budget">
           <option value="" selected>Biudžetas / Budget</option>
           <option>&lt; €100/mo</option><option>€100–€250/mo</option>
@@ -281,3 +261,4 @@
   </script>
 </body>
 </html>
+
