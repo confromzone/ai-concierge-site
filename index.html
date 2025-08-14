@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" href="/favicon.svg?v=4">
   <meta name="theme-color" content="#0b1220"/>
 
-  <!-- Social preview (Snapchat, FB, X, etc.) -->
+  <!-- Social preview -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Nova Concierge">
   <meta property="og:title" content="Nova Concierge — AI asistentai 24/7"/>
@@ -27,45 +27,79 @@
 
   <style>
     :root{--bg:#0b1220;--card:#0f172a;--muted:#9aa4b2;--text:#e5eef7;--brand:#4f46e5;--brand-2:#22c55e;--border:#1e293b;--light:#f7f9fb}
-    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    a{color:inherit;text-decoration:none} img{max-width:100%;display:block}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
     header{position:sticky;top:0;z-index:20;background:rgba(11,18,32,.85);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
     .wrap{max-width:1120px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:18px;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:10px}.brand img{width:28px;height:28px;border-radius:7px}
-    nav{display:flex;gap:16px;align-items:center} nav a{color:var(--muted)} nav a:hover{color:#fff}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{width:28px;height:28px;border-radius:7px}
+    nav{display:flex;gap:16px;align-items:center}
+    nav a{color:var(--muted)}
+    nav a:hover{color:#fff}
     .lang-toggle{display:flex;gap:8px}
     .lang-toggle button{padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:#111827;color:#cbd5e1;cursor:pointer}
     .lang-toggle button.active{background:var(--brand);border-color:var(--brand);color:#fff}
+
     .hero{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding:48px 20px}
     .pill{display:inline-flex;gap:8px;align-items:center;background:#0f172a;border:1px solid var(--border);padding:6px 10px;border-radius:999px;color:#a3b1c4;font-size:14px}
-    h1{margin:14px 0 10px;font-size:42px;line-height:1.12}.lead{color:#b8c3cf;font-size:18px}
+    h1{margin:14px 0 10px;font-size:42px;line-height:1.12}
+    .lead{color:#b8c3cf;font-size:18px}
     .cta{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap}
     .btn{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#cbd5e1}
-    .btn.primary{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0;color:#fff}.btn.secondary{background:#0f172a}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0;color:#fff}
+    .btn.secondary{background:#0f172a}
     .hero-img img{border-radius:14px;border:1px solid var(--border);background:#060913}
+
     .trust{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#0f172a}
     .trust-wrap{max-width:1120px;margin:0 auto;padding:16px 20px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
     .trust .badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);border-radius:999px;padding:8px 12px;color:#cfe3ff;background:#0b1220}
     .trust .stat{margin-left:auto;color:#9fb3ff}
-    section{padding:56px 20px}.section-wrap{max-width:1120px;margin:0 auto}
-    h2{font-size:30px;margin:0 0 10px} p.muted{color:var(--muted)}
+
+    section{padding:56px 20px}
+    .section-wrap{max-width:1120px;margin:0 auto}
+    h2{font-size:30px;margin:0 0 10px}
+    p.muted{color:var(--muted)}
+
     .cards{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .card{background:#0f172a;border:1px solid var(--border);border-radius:14px;padding:18px}.card h3{margin:0 0 8px}
+    .card{background:#0f172a;border:1px solid var(--border);border-radius:14px;padding:18px}
+    .card h3{margin:0 0 8px}
     .badge{display:inline-flex;gap:6px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--border);color:#a8b3c3;font-size:14px}
+
     .pricing{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     .price{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:20px}
     .price .title{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-    .price ul{margin:12px 0 0 18px;color:#b7c3cf}.price .num{font-size:28px;font-weight:700;margin-top:8px}
-    .note{color:{var(--muted)};font-size:14px;margin-top:8px}
+    .price ul{margin:12px 0 0 18px;color:#b7c3cf}
+    .price .num{font-size:28px;font-weight:700;margin-top:8px}
+    .note{color:var(--muted);font-size:14px;margin-top:8px}
+
     .cta-section{background:#0f172a;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
     .cta-box{max-width:990px;margin:0 auto;display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:#0b1220;border:1px dashed var(--border);border-radius:16px;padding:22px}
-    .cta-box .flex{flex:1 1 420px}.cta-box .actions{display:flex;gap:12px}
-    .contact{background:var(--light);color:#0b1220}.contact .section-wrap{max-width:880px}
-    .contact .muted{color:#5b6573} form{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    form .full{grid-column:1/-1} input,select,textarea{width:100%;padding:12px;border:1px solid #dbe2ea;border-radius:10px;font-size:16px;background:#fff}
-    textarea{min-height:120px}.form-note{font-size:13px;color:#6b7280;margin-top:-6px}.send .btn{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0;color:#fff}
-    footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1} footer a{color:#cfe2ff}
-    @media (max-width:960px){.hero{grid-template-columns:1fr}.cards,.pricing{grid-template-columns:1fr}.trust .stat{margin-left:0}form{grid-template-columns:1fr}nav{display:none}}
+    .cta-box .flex{flex:1 1 420px}
+    .cta-box .actions{display:flex;gap:12px}
+
+    .contact{background:var(--light);color:#0b1220}
+    .contact .section-wrap{max-width:880px}
+    .contact .muted{color:#5b6573}
+    form{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    form .full{grid-column:1/-1}
+    input,select,textarea{width:100%;padding:12px;border:1px solid #dbe2ea;border-radius:10px;font-size:16px;background:#fff}
+    textarea{min-height:120px}
+    .form-note{font-size:13px;color:#6b7280;margin-top:-6px}
+    .send .btn{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0;color:#fff}
+
+    footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
+    footer a{color:#cfe2ff}
+
+    @media (max-width:960px){
+      .hero{grid-template-columns:1fr}
+      .cards,.pricing{grid-template-columns:1fr}
+      .trust .stat{margin-left:0}
+      form{grid-template-columns:1fr}
+      nav{display:none}
+    }
   </style>
 </head>
 <body>
@@ -90,16 +124,17 @@
     </div>
   </header>
 
+  <!-- HERO -->
   <section class="hero">
     <div>
       <div class="pill">
-        ⚡ <span data-lang="en">AI concierge for your website, social & WhatsApp</span>
-        <span data-lang="lt" style="display:none">AI asistentas jūsų svetainei, socialiniams ir WhatsApp</span>
+        ⚡ <span data-lang="en">AI assistant for your website & messages</span>
+        <span data-lang="lt" style="display:none">AI asistentas jūsų svetainei ir žinutėms</span>
       </div>
-      <h1 data-lang="en">Turn questions into sales — 24/7</h1>
-      <h1 data-lang="lt" style="display:none">Klausimus paverskite pardavimais — 24/7</h1>
-      <p class="lead" data-lang="en">We build assistants that reply instantly, qualify leads, collect contacts and book calls.</p>
-      <p class="lead" data-lang="lt" style="display:none">Kuriame asistentus, kurie akimirksniu atsako, kvalifikuoja užklausas, renka kontaktus ir rezervuoja skambučius.</p>
+      <h1 data-lang="en">More leads. Faster replies. Less support work.</h1>
+      <h1 data-lang="lt" style="display:none">Daugiau užklausų. Greitesni atsakymai. Mažiau rutinos.</h1>
+      <p class="lead" data-lang="en">We install and run an AI assistant that answers instantly, captures contacts, qualifies intent and books calls.</p>
+      <p class="lead" data-lang="lt" style="display:none">Įdiegiame ir prižiūrime AI asistentą, kuris akimirksniu atsako, surenka kontaktus, įvertina ketinimą ir rezervuoja skambučius.</p>
       <div class="cta">
         <a href="#contact" class="btn primary" data-lang="en">Get a free demo</a>
         <a href="#contact" class="btn primary" data-lang="lt" style="display:none">Gauti nemokamą demo</a>
@@ -112,6 +147,7 @@
     </div>
   </section>
 
+  <!-- TRUST -->
   <div class="trust">
     <div class="trust-wrap">
       <div class="badge">✅ <span data-lang="en">Fast setup</span><span data-lang="lt" style="display:none">Greitas diegimas</span></div>
@@ -121,12 +157,13 @@
     </div>
   </div>
 
+  <!-- ABOUT -->
   <section id="about">
     <div class="section-wrap">
       <h2 data-lang="en">What we do</h2>
       <h2 data-lang="lt" style="display:none">Ką mes darome</h2>
-      <p class="muted" data-lang="en">Assistants for your site, WhatsApp and IG/FB DMs. They answer 60–80% repeat questions, collect contacts, qualify intent, book calls and hand over to a human when needed.</p>
-      <p class="muted" data-lang="lt" style="display:none">Asistentai svetainei, WhatsApp ir IG/FB žinutėms. Jie atsako į 60–80% pasikartojančių klausimų, renka kontaktus, vertina ketinimą, rezervuoja skambučius ir prireikus perduoda žmogui.</p>
+      <p class="muted" data-lang="en">Your assistant lives on your site and (optionally) WhatsApp/IG/FB DM. It handles 60–80% repeat questions, collects email/phone, routes to the right inbox and books meetings. When needed—hands off to a human.</p>
+      <p class="muted" data-lang="lt" style="display:none">Asistentas veikia jūsų svetainėje ir (pasirinktinai) WhatsApp/IG/FB žinutėse. Jis atsako į 60–80% pasikartojančių klausimų, surenka el. paštą/telefoną, perduoda į teisingą pašto dėžutę ir rezervuoja susitikimus. Prireikus perduoda žmogui.</p>
 
       <div class="cards" id="features">
         <div class="card">
@@ -154,33 +191,31 @@
     </div>
   </section>
 
-  <!-- NEW PRICING -->
+  <!-- PRICING -->
   <section id="pricing">
     <div class="section-wrap">
       <h2 data-lang="en">Pricing</h2>
       <h2 data-lang="lt" style="display:none">Kainodara</h2>
-      <p class="muted" data-lang="en">Clear monthly plans in EUR. Cancel anytime.</p>
-      <p class="muted" data-lang="lt" style="display:none">Aiškūs mėnesiniai planai EUR. Galite bet kada nutraukti.</p>
+      <p class="muted" data-lang="en">Simple monthly plans in EUR. Clear limits, easy upgrades.</p>
+      <p class="muted" data-lang="lt" style="display:none">Paprasti mėnesiniai planai EUR. Aiškios ribos ir lengvi atnaujinimai.</p>
 
       <div class="pricing">
-        <!-- FLEX (PAYG) -->
+        <!-- FLEX (PAYG) with setup -->
         <div class="price">
-          <div class="title"><span class="badge">🧩</span><strong>Flex (Pay-as-you-go)</strong></div>
+          <div class="title"><span class="badge">🧩</span><strong>Flex (PAYG)</strong></div>
           <ul data-lang="en">
-            <li>Web chat widget</li>
-            <li>1 assistant</li>
-            <li>Pay only for what you use</li>
-            <li>€0.15 per conversation</li>
-            <li>Basic FAQ + email lead capture</li>
-            <li>WhatsApp/IG/FB DM not included</li>
+            <li>Web chat widget (1 site), 1 assistant</li>
+            <li>Pay-as-you-go: €0.20 / conversation</li>
+            <li>Minimum monthly charge: €29</li>
+            <li>Email lead capture</li>
+            <li>One-time setup: €179</li>
           </ul>
           <ul data-lang="lt" style="display:none">
-            <li>Pokalbių valdiklis svetainėje</li>
-            <li>1 asistentas</li>
-            <li>Moki tik už naudojimą</li>
-            <li>€0.15 už pokalbį</li>
-            <li>Pagrindinis DUK + el. pašto surinkimas</li>
-            <li>WhatsApp/IG/FB žinutės neįtrauktos</li>
+            <li>Pokalbių valdiklis (1 svetainė), 1 asistentas</li>
+            <li>Moki pagal naudojimą: €0.20 / pokalbį</li>
+            <li>Minimalus mėnesio mokestis: €29</li>
+            <li>El. pašto kontaktų surinkimas</li>
+            <li>Vienkartinis įdiegimas: €179</li>
           </ul>
           <div class="num">€0 / mo</div>
         </div>
@@ -189,20 +224,18 @@
         <div class="price">
           <div class="title"><span class="badge">🚀</span><strong>Starter</strong></div>
           <ul data-lang="en">
-            <li>Web chat widget</li>
-            <li>Up to 1 assistant</li>
-            <li>Included: 200 conversations / mo</li>
-            <li>Basic FAQ training, email lead capture</li>
+            <li>Web chat widget, up to 1 assistant</li>
+            <li>Included: 300 conversations / mo</li>
+            <li>Basic FAQ training + email capture</li>
             <li>1× content update / mo</li>
           </ul>
           <ul data-lang="lt" style="display:none">
-            <li>Pokalbių valdiklis svetainėje</li>
-            <li>Iki 1 asistento</li>
-            <li>Įskaičiuota: 200 pokalbių / mėn.</li>
-            <li>Pagrindinis DUK, el. pašto surinkimas</li>
+            <li>Pokalbių valdiklis, iki 1 asistento</li>
+            <li>Įskaičiuota: 300 pokalbių / mėn.</li>
+            <li>Pagrindinis DUK + el. pašto surinkimas</li>
             <li>1× turinio atnaujinimas / mėn.</li>
           </ul>
-          <div class="num">€149 / mo</div>
+          <div class="num">€199 / mo</div>
         </div>
 
         <!-- GROWTH -->
@@ -211,18 +244,18 @@
           <ul data-lang="en">
             <li>Web + optional WhatsApp*</li>
             <li>Up to 2 assistants</li>
-            <li>Included: 600 conversations / mo</li>
-            <li>Bookings & reminders, lead scoring & routing</li>
+            <li>Included: 800 conversations / mo</li>
+            <li>Bookings, lead scoring & routing</li>
             <li>1× optimization / mo</li>
           </ul>
           <ul data-lang="lt" style="display:none">
             <li>Svetainė + pasirinktinai WhatsApp*</li>
             <li>Iki 2 asistentų</li>
-            <li>Įskaičiuota: 600 pokalbių / mėn.</li>
-            <li>Rezervacijos, kontaktų vertinimas ir perdavimas</li>
+            <li>Įskaičiuota: 800 pokalbių / mėn.</li>
+            <li>Rezervacijos, vertinimas ir perdavimas</li>
             <li>1× optimizacija / mėn.</li>
           </ul>
-          <div class="num">€349 / mo</div>
+          <div class="num">€399 / mo</div>
         </div>
 
         <!-- SCALE+ -->
@@ -247,20 +280,26 @@
       </div>
 
       <p class="note" data-lang="en">
-        Overage: €0.10 / conversation. WhatsApp billed at official rates + 20% admin. Extra assistant: €50 / mo.
-        Custom integrations billed separately.
+        Overage: €0.12 / conversation (Starter/Growth) and €0.10 / conversation (Scale+).
+        WhatsApp billed at official rates + 20% admin. Extra assistant: €50 / mo.
+        Auto-upgrade is recommended when usage exceeds your plan for 2 consecutive months.
       </p>
       <p class="note" data-lang="lt" style="display:none">
-        Viršijus limitą: €0.10 / pokalbį. WhatsApp mokesčiai pagal oficialius įkainius + 20% administravimas.
-        Papildomas asistentas: €50 / mėn. Integracijos – pagal sąmatą.
+        Viršijus limitą: €0.12 / pokalbį (Starter/Growth) ir €0.10 / pokalbį (Scale+).
+        WhatsApp mokesčiai pagal oficialius įkainius + 20% administravimas. Papildomas asistentas: €50 / mėn.
+        Jei 2 mėn. iš eilės viršijate planą, rekomenduojamas automatinis atnaujinimas į aukštesnį.
       </p>
     </div>
   </section>
 
+  <!-- CTA -->
   <section class="cta-section">
     <div class="cta-box">
       <div class="flex">
-        <div class="pill">✨ <span data-lang="en">Personalised 7-day pilot</span><span data-lang="lt" style="display:none">Asmeninis 7 dienų pilotas</span></div>
+        <div class="pill">✨ 
+          <span data-lang="en">Personalised 7-day pilot</span>
+          <span data-lang="lt" style="display:none">Asmeninis 7 dienų pilotas</span>
+        </div>
         <h2 style="margin:10px 0 6px" data-lang="en">Ready to see your AI concierge in action?</h2>
         <h2 style="margin:10px 0 6px;display:none" data-lang="lt">Pasiruošę pamatyti savo AI asistentą veiksme?</h2>
         <p class="muted" data-lang="en">We’ll build a free demo on your real content and channels.</p>
@@ -275,6 +314,7 @@
     </div>
   </section>
 
+  <!-- CONTACT -->
   <section id="contact" class="contact">
     <div class="section-wrap">
       <h2 data-lang="en">Contact us</h2>
