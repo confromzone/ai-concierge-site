@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Įmonės registracija — Nova Concierge</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="theme-color" content="#0b1220">
+<style>
+:root{--bg:#0b1220;--card:#0f172a;--border:#1e293b;--text:#e5eef7;--muted:#9aa4b2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui}
+.wrap{max-width:900px;margin:0 auto;padding:18px 20px}
+.card{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px;margin:14px 0}
+input,select,textarea{width:100%;padding:12px;border:1px solid #203049;border-radius:10px;background:#0b1220;color:#eaf0ff}
+.btn{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#fff;cursor:pointer}
+.small{color:#98a6be;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div style="display:flex;align-items:center;gap:10px"><img src="/favicon.svg" width="28" height="28" alt=""><strong>Nova Concierge — Įmonės registracija</strong></div>
+
+  <div class="card">
+    <form action="https://formsubmit.co/zoe.lirel@gmail.com" method="POST" id="f">
+      <input type="hidden" name="_subject" value="Nauja įmonės registracija (Nova Concierge)">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://novaconcierge.online/?sent=1">
+      <input type="hidden" name="affiliate_ref" id="ref">
+      <input type="text" name="_honey" style="display:none">
+
+      <label>Įmonės pavadinimas</label>
+      <input name="company" required placeholder="UAB Pavyzdys">
+      <div style="height:8px"></div>
+      <label>Svetainė</label>
+      <input name="website" required type="url" placeholder="https://...">
+      <div style="height:8px"></div>
+      <label>Kontaktinis asmuo</label>
+      <input name="name" required placeholder="Vardas Pavardė">
+      <div style="height:8px"></div>
+      <label>El. paštas</label>
+      <input name="email" required type="email" placeholder="vardas@imone.lt">
+      <div style="height:8px"></div>
+      <label>Telefonas</label>
+      <input name="phone" placeholder="+370 ...">
+      <div style="height:8px"></div>
+      <label>Planą domina</label>
+      <select name="plan">
+        <option>Flex (PAYG)</option><option>Starter</option><option>Growth</option><option>Scale+</option>
+      </select>
+      <div style="height:8px"></div>
+      <label>Žinutė</label>
+      <textarea name="message" rows="4" placeholder="Trumpai apie poreikį..."></textarea>
+      <div style="height:12px"></div>
+      <button class="btn" type="submit">Siųsti</button>
+      <div class="small" style="margin-top:6px">Formą gavę patvirtinsime el. paštu. Affiliate ID pridedamas automatiškai.</div>
+    </form>
+  </div>
+</div>
+
+<script>
+// paimam ?ref ir išsaugom į hidden
+const url=new URL(location.href); const ref=url.searchParams.get('ref') || localStorage.getItem('nc_aff_ref') || '';
+document.getElementById('ref').value=ref;
+</script>
+</body>
+</html>
