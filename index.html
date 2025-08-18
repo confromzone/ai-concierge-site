@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Nova Concierge — Prisijungimas / Registracija</title>
-  <meta name="description" content="Prisijunkite arba susikurkite paskyrą. Virš formos — mini žaidimas: įveik bosą ir gauk −20% pirmajam užsakymui (kodas NOVA20)."/>
+  <meta name="description" content="Prisijunkite arba susikurkite paskyrą. Virš formos — mini žaidimas: įveik bosą ir gauk −20% (kodas NOVA20)."/>
   <link rel="canonical" href="https://novaconcierge.online/auth.html"/>
 
   <!-- Favicon / App Icons -->
@@ -26,7 +26,6 @@
   <meta name="twitter:image" content="https://novaconcierge.online/hero.png"/>
 
   <style>
-    /* ====== Brand tema (tokie pat stiliai kaip tavo index) ====== */
     :root{--bg:#0b1220;--card:#0f172a;--muted:#9aa4b2;--text:#e5eef7;--brand:#4f46e5;--brand-2:#7c3aed;--accent:#22c55e;--border:#1e293b;--light:#f7f9fb}
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
@@ -47,28 +46,33 @@
     main{max-width:960px;margin:0 auto;padding:36px 20px 64px;display:grid;gap:20px}
     .pill{display:inline-flex;gap:8px;align-items:center;background:#0f172a;border:1px solid var(--border);padding:6px 10px;border-radius:999px;color:#a3b1c4;font-size:14px}
 
-    /* ====== Mini žaidimas (virš formų) – priderinta prie temos ====== */
+    /* === Mini žaidimas === */
     #nc-game-wrap{position:relative;margin:0 auto;max-width:min(100%, 960px);isolation:isolate;}
-    /* gradientas kaip svetainės */
     #nc-game{width:100%;height:auto;aspect-ratio: 940/320;display:block;border-radius:16px;
       background:linear-gradient(180deg,#090e1a,#11192e);
       box-shadow:0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.04)}
-    .nc-banner{position:absolute;left:12px;top:-18px;z-index:2;background:linear-gradient(180deg, rgba(34,43,72,.95), rgba(25,32,60,.92));
+    .nc-banner{position:absolute;left:12px;top:-18px;z-index:3;background:linear-gradient(180deg, rgba(34,43,72,.95), rgba(25,32,60,.92));
       color:#e8ecff;border:1px solid rgba(120,130,160,.35);padding:8px 12px;border-radius:10px;font:600 13px/1.2 system-ui}
     .nc-banner b{color:var(--brand-2)}
-    .nc-hud{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:8px;min-width:220px;font:600 14px/1.3 system-ui;z-index:2}
+    .nc-hud{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:8px;min-width:220px;font:600 14px/1.3 system-ui;z-index:3}
     .nc-hud-row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;background:rgba(20,28,52,.55);
       border:1px solid rgba(120,130,160,.35);padding:8px 10px;border-radius:10px;color:#e8ecff;backdrop-filter:saturate(120%) blur(4px)}
     .nc-hud .bar{height:10px;background:rgba(255,255,255,.08);border-radius:20px;overflow:hidden}
     .nc-hud .bar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--brand-2),#22d3ee)}
     .nc-hint{position:absolute;left:14px;bottom:10px;color:#aeb7d6;background:rgba(27,36,64,.6);
-      padding:8px 12px;border-radius:10px;border:1px solid rgba(120,130,160,.3);font:500 13px;z-index:2}
-    .nc-win{position:absolute;right:16px;bottom:16px;max-width:360px;z-index:3;background:rgba(18,24,46,.96);color:#e8ecff;
+      padding:8px 12px;border-radius:10px;border:1px solid rgba(120,130,160,.3);font:500 13px;z-index:3}
+
+    /* Pilno ekrano mygtukas */
+    .nc-fs{position:absolute;right:10px;bottom:10px;z-index:3;display:flex;gap:8px;align-items:center}
+    .nc-fs button{cursor:pointer;border-radius:10px;border:1px solid rgba(120,130,160,.35);background:#0f172a;color:#e5eef7;padding:8px 10px}
+
+    .nc-win{position:absolute;right:16px;bottom:16px;max-width:360px;z-index:4;background:rgba(18,24,46,.96);color:#e8ecff;
       border:1px solid rgba(120,130,160,.35);padding:14px 16px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.35);font:500 14px}
     .nc-win code{background:rgba(124,58,237,.18);border:1px solid rgba(124,58,237,.45);padding:2px 6px;border-radius:6px;color:#fff;font-weight:700}
+
     @media(max-width:640px){#nc-game{border-radius:12px}.nc-hud{min-width:200px}.nc-hint{font-size:12px}}
 
-    /* ====== Auth kortelė ====== */
+    /* === Auth kortelė === */
     .auth-card{margin:10px auto 0;background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px 18px 22px;max-width:680px}
     .auth-tabs{display:flex;gap:8px;border-bottom:1px solid var(--border);margin-bottom:12px}
     .auth-tabs button{background:#101828;border:1px solid var(--border);color:#cbd5e1;padding:10px 14px;border-radius:10px 10px 0 0;cursor:pointer}
@@ -90,7 +94,6 @@
   </style>
 </head>
 <body>
-  <!-- Header (tas pats brand) -->
   <header>
     <div class="wrap">
       <div class="brand">
@@ -113,11 +116,10 @@
   </header>
 
   <main>
-    <!-- Info pill (pasirinktinai) -->
     <div class="pill" data-lang="en">Sign in or create your account — beat the boss above and grab <b>−20%</b> with code NOVA20</div>
     <div class="pill" data-lang="lt" style="display:none">Prisijunkite arba susikurkite paskyrą — įveikite bosą viršuje ir gaukite <b>−20%</b> su kodu NOVA20</div>
 
-    <!-- MINI ŽAIDIMAS virš formų -->
+    <!-- MINI ŽAIDIMAS -->
     <section id="nc-game-wrap" aria-label="Nova Concierge mini-game">
       <div class="nc-banner">🎯 Įveik bosą – gauk <b>−20%</b> pirmajam užsakymui</div>
       <canvas id="nc-game" data-css-width="940" data-css-height="320"></canvas>
@@ -130,19 +132,20 @@
       </div>
       <div class="nc-hint" data-lang="en">Click to shoot. Don’t want to play? Just sign in or register below.</div>
       <div class="nc-hint" data-lang="lt" style="display:none">Spustelk — šūvis. Nenori žaisti? Žemiau tiesiog prisijunk arba registruokis.</div>
+      <div class="nc-fs"><button id="btn-fs" title="Full Screen">⤢ Full screen</button></div>
       <div class="nc-win" hidden>
         <strong>🎉 Sveikiname! Bosas nugalėtas.</strong><br>
         Pritaikykite kodą <code>NOVA20</code> ir gaukite <b>−20%</b> pirmajam užsakymui.
       </div>
     </section>
 
-    <!-- AUTH kortelė su prisijungimu ir registracija -->
+    <!-- AUTH -->
     <section class="auth-card" id="auth">
       <div class="auth-tabs">
-        <button id="tab-login" class="active" data-lang="en">Sign in</button>
-        <button id="tab-login" class="active" data-lang="lt" style="display:none">Prisijungti</button>
-        <button id="tab-register" data-lang="en">Create account</button>
-        <button id="tab-register" data-lang="lt" style="display:none">Registruotis</button>
+        <button id="tab-login-en" class="active" data-lang="en">Sign in</button>
+        <button id="tab-login-lt" class="active" data-lang="lt" style="display:none">Prisijungti</button>
+        <button id="tab-register-en" data-lang="en">Create account</button>
+        <button id="tab-register-lt" data-lang="lt" style="display:none">Registruotis</button>
       </div>
 
       <div class="auth-forms">
@@ -162,8 +165,8 @@
             <a href="#" data-lang="en">Forgot password?</a>
             <a href="#" data-lang="lt" style="display:none">Pamiršai slaptažodį?</a>
             <div>
-              <a id="switch-to-register" href="#" data-lang="en">Create account</a>
-              <a id="switch-to-register" href="#" data-lang="lt" style="display:none">Sukurti paskyrą</a>
+              <a class="to-register" href="#" data-lang="en">Create account</a>
+              <a class="to-register" href="#" data-lang="lt" style="display:none">Sukurti paskyrą</a>
             </div>
           </div>
           <div class="actions full">
@@ -212,7 +215,7 @@
             <button class="btn primary" type="submit" data-lang="en">Create account</button>
             <button class="btn primary" type="submit" data-lang="lt" style="display:none">Sukurti paskyrą</button>
             <a class="btn ghost" id="switch-to-login-2" href="#" data-lang="en">Have an account? Sign in</a>
-            <a class="btn ghost" id="switch-to-login-2" href="#" data-lang="lt" style="display:none">Turi paskyrą? Prisijunk</a>
+            <a class="btn ghost" id="switch-to-login-2-lt" href="#" data-lang="lt" style="display:none">Turi paskyrą? Prisijunk</a>
           </div>
           <p class="note full" data-lang="en">We’ll never share your data. You can delete your account anytime.</p>
           <p class="note full" data-lang="lt" style="display:none">Jūsų duomenų niekada neplatinsime. Paskyrą galite ištrinti bet kada.</p>
@@ -228,7 +231,6 @@
     </div>
   </footer>
 
-  <!-- Kalbos valdymas (tas pats principas kaip index) -->
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
     const $ = s => document.querySelector(s);
@@ -244,22 +246,23 @@
     $('#btn-lt').onclick = () => setLang('lt');
     setLang(localStorage.getItem('lang') || 'lt');
 
-    // Auth tab'ai
+    // Auth tab switch
     const loginForm = $('#form-login');
     const regForm   = $('#form-register');
     function showLogin(){ loginForm.style.display='grid'; regForm.style.display='none'; }
     function showRegister(){ loginForm.style.display='none'; regForm.style.display='grid'; }
-    $$('#switch-to-register').forEach(a => a.addEventListener('click', e => { e.preventDefault(); showRegister(); }));
-    $('#switch-to-login-2').addEventListener('click', e => { e.preventDefault(); showLogin(); });
+    $$('.to-register').forEach(a => a.addEventListener('click', e => { e.preventDefault(); showRegister(); }));
+    $('#switch-to-login-2')?.addEventListener('click', e => { e.preventDefault(); showLogin(); });
+    $('#switch-to-login-2-lt')?.addEventListener('click', e => { e.preventDefault(); showLogin(); });
 
-    // Validacija (paprasta kliento pusėje)
+    // Simple register validation
     regForm?.addEventListener('submit', (e) => {
       const p1 = $('#reg-pass').value, p2 = $('#reg-pass2').value;
       if(p1 !== p2){ e.preventDefault(); alert('Slaptažodžiai nesutampa.'); }
     });
   </script>
 
-  <!-- Mini-žaidimas (pelė šauna tik SPAUSTELĖJUS; boso HP nerodomas; −20% NOVA20 laimėjus) -->
+  <!-- Mini-žaidimas: BOSO AKYS seka pelę (kūnas nestebi); fullscreen; širdelės po 10 hit; ugninis kamuolys -->
   <script>
   (() => {
     const wrap = document.getElementById('nc-game-wrap');
@@ -267,14 +270,19 @@
     const ctx  = C.getContext('2d');
     const HUD  = { mouseHP:document.getElementById('mouseHP'), mouseBar:document.getElementById('mouseBar') };
     const WIN  = wrap.querySelector('.nc-win');
+    const BTN_FS = document.getElementById('btn-fs');
 
     const CFG = {
-      LOGO_HP_MAX: 1_000_000,
-      MOUSE_HP_MAX: 100,
-      LOGO_DMG_PCT: 1.0,     // logo -> 1% nuo pelės max HP
-      MOUSE_DMG_PCT: 0.0001, // pelė -> 0.0001% nuo logo max HP (1HP)
-      LOGO_FIRE_MS: 450,
-      BULLET_SPEED: 560,
+      BOSS_HP_MAX: 1000,      // bosas (logo)
+      MOUSE_HP_MAX: 100,      // žaidėjas (pelė) – rodomas HUD
+      MOUSE_DMG: 0.5,         // pelės šūvio žala (absoliuti)
+      BOSS_BULLET_DMG: 1,     // paprasta boso kulka atima 1 HP
+      LOGO_FIRE_MS: 500,      // normali boso ugnis
+      FIREBALL_MIN_MS: 6000,  // ugninio kamuolio intervalas (min..max)
+      FIREBALL_MAX_MS: 12000,
+      BULLET_SPEED: 560,      // px/s
+      FIREBALL_SPEED: 420,    // px/s (lėtesnis, bet pavojingas)
+      HEART_TTL_MS: 9000,     // širdelė dings po 9 s
       WIN_SHOW_MS: 6000
     };
 
@@ -288,28 +296,44 @@
     }
     resizeCanvas(); addEventListener('resize', resizeCanvas);
 
-    let engaged = false;
-    let mouse = { x: cssW*0.8, y: cssH*0.6, hp: CFG.MOUSE_HP_MAX };
-    let logo  = { x: cssW*0.22, y: cssH*0.5, hp: CFG.LOGO_HP_MAX };
-    let bullets = [];
-    let lastL = 0, then = performance.now(), boom = 0, winTimer = null;
+    // Fullscreen
+    BTN_FS.addEventListener('click', async () => {
+      try{
+        if(!document.fullscreenElement){ await wrap.requestFullscreen(); BTN_FS.textContent = '⤡ Exit full screen'; }
+        else { await document.exitFullscreen(); BTN_FS.textContent = '⤢ Full screen'; }
+      }catch(e){ console.warn(e); }
+    });
 
+    // Būsena
+    let engaged = false;                   // pradeda veikti tik paspaudus
+    let mouse = { x: cssW*0.8, y: cssH*0.6, hp: CFG.MOUSE_HP_MAX };
+    let boss  = { x: cssW*0.2, y: cssH*0.5, hp: CFG.BOSS_HP_MAX }; // bosas nesiseka pelės (stovi)
+    let bullets = [];     // {x,y,vx,vy,from:'mouse'|'boss',type:'bullet'|'fireball',r}
+    let hearts  = [];     // {x,y,expire}
+    let then = performance.now(), lastBossShot=0, nextFireballAt=performance.now()+randInt(CFG.FIREBALL_MIN_MS, CFG.FIREBALL_MAX_MS);
+    let hitsOnBoss = 0;
+    let boom = 0, winTimer = null;
+
+    // Įvestis
     function toCanvas(e){
       const r = C.getBoundingClientRect();
       return { x:(e.clientX-r.left)/(r.width/cssW), y:(e.clientY-r.top)/(r.height/cssH) };
     }
     C.addEventListener('mousemove', e => { const p=toCanvas(e); mouse.x=p.x; mouse.y=p.y; });
     function shootOnce(){
-      engaged = true; // nuo pirmo paspaudimo pradeda šaudyti ir bosas
-      spawnBullet('mouse', logo.x, logo.y);
+      engaged = true;
+      spawnBullet('mouse', boss.x, boss.y, 'bullet');
     }
     C.addEventListener('mousedown', shootOnce);
     C.addEventListener('touchstart', e => { e.preventDefault(); shootOnce(); }, {passive:false});
 
-    function spawnBullet(from, tx, ty){
-      const s = (from==='logo')? {x:logo.x,y:logo.y} : {x:mouse.x,y:mouse.y};
-      const dx = tx - s.x, dy = ty - s.y, d = Math.hypot(dx,dy)||1, v = CFG.BULLET_SPEED;
-      bullets.push({x:s.x,y:s.y,vx:dx/d*v,vy:dy/d*v,from, r:(from==='logo'?4:3)});
+    // Helpers
+    function randInt(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
+    function spawnBullet(from, tx, ty, type='bullet'){
+      const s = (from==='boss') ? {x:boss.x,y:boss.y} : {x:mouse.x,y:mouse.y};
+      const dx = tx - s.x, dy = ty - s.y, d = Math.hypot(dx,dy)||1;
+      const v  = (type==='fireball') ? CFG.FIREBALL_SPEED : CFG.BULLET_SPEED;
+      bullets.push({x:s.x,y:s.y,vx:dx/d*v,vy:dy/d*v,from,type,r:(type==='fireball'? 8 : (from==='boss'?4:3))});
     }
     function updateHP(target, dmg){
       target.hp = Math.max(0, target.hp - dmg);
@@ -319,7 +343,7 @@
       }
       if(target.hp<=0){
         boom = 1;
-        if(target===logo){
+        if(target===boss){
           WIN.hidden = false; clearTimeout(winTimer);
           winTimer = setTimeout(()=> WIN.hidden = true, CFG.WIN_SHOW_MS);
         }
@@ -327,26 +351,36 @@
       }
     }
     function resetRound(){
-      mouse.hp = CFG.MOUSE_HP_MAX; logo.hp = CFG.LOGO_HP_MAX; bullets = []; boom = 0;
+      mouse.hp = CFG.MOUSE_HP_MAX; boss.hp = CFG.BOSS_HP_MAX;
+      bullets.length=0; hearts.length=0; hitsOnBoss=0; boom=0;
       HUD.mouseHP.textContent = CFG.MOUSE_HP_MAX; HUD.mouseBar.style.width = '100%';
+      nextFireballAt = performance.now()+randInt(CFG.FIREBALL_MIN_MS, CFG.FIREBALL_MAX_MS);
     }
+    function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
 
+    // Piešimas
     function glow(x,y,r,c1=[124,58,237],c2=[34,211,238],a1=.7,a2=.06){
       const g = ctx.createRadialGradient(x,y,4,x,y,r);
       g.addColorStop(0,`rgba(${c1[0]},${c1[1]},${c1[2]},${a1})`);
       g.addColorStop(1,`rgba(${c2[0]},${c2[1]},${c2[2]},${a2})`);
       ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,r,0,6.283); ctx.fill();
     }
-    function drawGhost(x,y,tx,ty){
+    function drawBoss(x,y,tx,ty){
       ctx.save(); ctx.translate(x,y);
-      glow(0,0,80);
+      glow(0,0,80); // aura
+      // kūnas (stovi vietoje)
       ctx.fillStyle='#f5f7ff';
       ctx.beginPath(); ctx.roundRect(-30,-34,60,48,18); ctx.fill();
       ctx.beginPath(); ctx.moveTo(-30,14);
-      ctx.quadraticCurveTo(-18,28,-6,14); ctx.quadraticCurveTo(6,28,18,14);
-      ctx.quadraticCurveTo(28,24,30,18); ctx.lineTo(30,34); ctx.lineTo(-30,34); ctx.closePath(); ctx.fill();
-      const v = Math.atan2(ty-y, tx-x), ex=Math.cos(v)*5, ey=Math.sin(v)*5;
-      ctx.fillStyle='#2d3748'; ctx.beginPath(); ctx.arc(-10+ex,-12+ey,4,0,6.283); ctx.arc(10+ex,-12+ey,4,0,6.283); ctx.fill();
+      ctx.quadraticCurveTo(-18,28,-6,14);
+      ctx.quadraticCurveTo(6,28,18,14);
+      ctx.quadraticCurveTo(28,24,30,18);
+      ctx.lineTo(30,34); ctx.lineTo(-30,34); ctx.closePath(); ctx.fill();
+      // akys seka pelę (pupils)
+      const ang = Math.atan2(ty-y, tx-x);
+      const ex = Math.cos(ang)*5, ey = Math.sin(ang)*5;
+      ctx.fillStyle='#2d3748';
+      ctx.beginPath(); ctx.arc(-10+ex,-12+ey,4,0,6.283); ctx.arc(10+ex,-12+ey,4,0,6.283); ctx.fill();
       ctx.restore();
     }
     function drawMouse(x,y){
@@ -354,56 +388,98 @@
       ctx.fillStyle='#a0b4ff'; ctx.beginPath(); ctx.arc(x,y,10,0,6.283); ctx.fill();
       ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.lineWidth=2; ctx.stroke();
     }
-    function drawExplosion(x,y,t){
-      for(let i=0;i<40;i++){
-        const a=(i/40)*Math.PI*2, r=8+t*90;
-        const px=x+Math.cos(a)*r, py=y+Math.sin(a)*r;
-        ctx.fillStyle=`rgba(${200+t*55|0},${80+t*140|0},255,${1-t})`;
-        ctx.fillRect(px,py,2,2);
-      }
+    function drawHeart(h){
+      ctx.save(); ctx.translate(h.x,h.y);
+      ctx.fillStyle='#ff4d6d';
+      ctx.beginPath();
+      ctx.moveTo(0,6);
+      ctx.bezierCurveTo(0,0,-12,-10,-20,-4);
+      ctx.bezierCurveTo(-30,4,-18,20,0,28);
+      ctx.bezierCurveTo(18,20,30,4,20,-4);
+      ctx.bezierCurveTo(12,-10,0,0,0,6);
+      ctx.fill();
+      ctx.restore();
     }
 
     function loop(now){
       const dt = Math.min(0.04,(now-then)/1000); then = now;
       ctx.clearRect(0,0,cssW,cssH);
 
-      // sklandus bosso sekimas
-      const lerp = 1 - Math.pow(0.0001, dt);
-      logo.x += (mouse.x - logo.x)*lerp*0.6;
-      logo.y += (mouse.y - logo.y)*lerp*0.6;
+      // Bosas nesiseka pelės – tik žvilgsnis (akys) orientuojasi į pelę
 
-      // bosas pradeda šaudyti tik po pirmo spustelėjimo
-      if(engaged && now - lastL > CFG.LOGO_FIRE_MS){ lastL = now; spawnBullet('logo', mouse.x, mouse.y); }
+      // Bosas: paprasti šūviai (tik kai įsitraukta)
+      if(engaged && now - lastBossShot > CFG.LOGO_FIRE_MS){
+        lastBossShot = now; spawnBullet('boss', mouse.x, mouse.y, 'bullet');
+      }
+      // Ugninis kamuolys kas 6–12 s
+      if(engaged && now >= nextFireballAt){
+        spawnBullet('boss', mouse.x, mouse.y, 'fireball');
+        nextFireballAt = now + randInt(CFG.FIREBALL_MIN_MS, CFG.FIREBALL_MAX_MS);
+      }
 
-      // kulkos
+      // Kulkos
       for(let i=bullets.length-1;i>=0;i--){
-        const b=bullets[i]; b.x += b.vx*dt; b.y += b.vy*dt;
-        ctx.fillStyle = (b.from==='logo') ? '#7c3aed' : '#22d3ee';
+        const b = bullets[i];
+        b.x += b.vx*dt; b.y += b.vy*dt;
+        // spalvos
+        if(b.type==='fireball'){
+          const grd = ctx.createRadialGradient(b.x,b.y,1, b.x,b.y,16);
+          grd.addColorStop(0,'#ffdd55'); grd.addColorStop(1,'#ff5a2c');
+          ctx.fillStyle = grd;
+        }else{
+          ctx.fillStyle = (b.from==='boss') ? '#7c3aed' : '#22d3ee';
+        }
         ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,6.283); ctx.fill();
-        if(b.from==='logo'){
-          if(Math.hypot(b.x-mouse.x, b.y-mouse.y) < 12){
-            bullets.splice(i,1); updateHP(mouse, CFG.MOUSE_HP_MAX*(CFG.LOGO_DMG_PCT/100)); continue;
+
+        // hit test
+        if(b.from==='boss'){
+          const hit = Math.hypot(b.x-mouse.x, b.y-mouse.y) < (b.type==='fireball' ? 16 : 12);
+          if(hit){
+            bullets.splice(i,1);
+            if(b.type==='fireball'){ updateHP(mouse, mouse.hp); } // visos gyvybės
+            else { updateHP(mouse, CFG.BOSS_BULLET_DMG); }
+            continue;
           }
         } else {
-          if(Math.hypot(b.x-logo.x, b.y-logo.y) < 22){
-            bullets.splice(i,1); updateHP(logo, CFG.LOGO_HP_MAX*(CFG.MOUSE_DMG_PCT/100)); continue;
+          if(Math.hypot(b.x-boss.x, b.y-boss.y) < 26){
+            bullets.splice(i,1);
+            // pelės žala absoliuti
+            updateHP(boss, CFG.MOUSE_DMG);
+            hitsOnBoss++;
+            if(hitsOnBoss % 10 === 0){ // kas 10 pataikymų – širdelė
+              const hx = clamp(Math.random()*cssW, 40, cssW-40);
+              const hy = clamp(Math.random()*cssH, 40, cssH-40);
+              hearts.push({x:hx,y:hy,expire: now + CFG.HEART_TTL_MS});
+            }
+            continue;
           }
         }
+        // out of bounds
         if(b.x<0||b.y<0||b.x>cssW||b.y>cssH) bullets.splice(i,1);
       }
 
-      drawGhost(logo.x,logo.y, mouse.x,mouse.y);
+      // Širdelės rodymas/pasėmimas
+      for(let i=hearts.length-1;i>=0;i--){
+        const h = hearts[i];
+        if(now > h.expire){ hearts.splice(i,1); continue; }
+        drawHeart(h);
+        if(Math.hypot(mouse.x-h.x, mouse.y-h.y) < 20){
+          // +1 gyvybė (iki max)
+          mouse.hp = Math.min(CFG.MOUSE_HP_MAX, mouse.hp + 1);
+          HUD.mouseHP.textContent = Math.ceil(mouse.hp);
+          HUD.mouseBar.style.width = (mouse.hp/CFG.MOUSE_HP_MAX*100)+'%';
+          hearts.splice(i,1);
+        }
+      }
+
+      // Piešimas
+      drawBoss(boss.x,boss.y, mouse.x,mouse.y);
       drawMouse(mouse.x,mouse.y);
 
-      if(boom){
-        const t=Math.min(1,(performance.now()-(then-now))/800);
-        const ex=(mouse.hp<=0)?{x:mouse.x,y:mouse.y}:{x:logo.x,y:logo.y};
-        drawExplosion(ex.x,ex.y,t);
-      }
       requestAnimationFrame(loop);
     }
 
-    // start
+    // Start
     HUD.mouseHP.textContent = CFG.MOUSE_HP_MAX; HUD.mouseBar.style.width = '100%';
     document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible'){ then = performance.now(); }});
     requestAnimationFrame(t=>{ then=t; loop(t); });
