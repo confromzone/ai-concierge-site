@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nova Concierge — AI asistentai</title>
+
+<!-- Favicon / Social -->
 <link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml">
 <link rel="mask-icon" href="/favicon.svg?v=4" color="#4f46e5">
 <link rel="apple-touch-icon" href="/favicon.png?v=4">
@@ -19,10 +21,13 @@
 <meta name="twitter:title" content="Nova Concierge — AI asistentai 24/7">
 <meta name="twitter:description" content="Greiti atsakymai, kontaktų rinkimas, kvalifikavimas ir skambučių rezervacijos.">
 <meta name="twitter:image" content="https://novaconcierge.online/hero.png">
+
 <style>
 :root{--bg:#0b1220;--card:#0f172a;--border:#1e293b;--text:#e5eef7;--muted:#9aa4b2;--brand:#6b5cff;--brand2:#22d3ee}
-*{box-sizing:border-box}html,body{margin:0}body{font-family:Inter,system-ui,Segoe UI,Arial;background:var(--bg);color:var(--text)}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:Inter,system-ui,Segoe UI,Arial;background:var(--bg);color:var(--text)}
 a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+
 /* header + drawer */
 header{position:sticky;top:0;z-index:40;background:rgba(11,18,32,.85);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
 .wrap{max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:12px;justify-content:space-between}
@@ -51,10 +56,20 @@ h1{margin:12px 0 10px;font-size:42px;line-height:1.1}.lead{color:#b8c3cf;font-si
 .cta{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
 .hero-img img{border:1px solid var(--border);border-radius:14px;background:#060913}
 
-/* cards */
+/* feature cards */
 .cards{max-width:1100px;margin:0 auto 42px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 20px}
 .card{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px;transition:transform .2s}
 .card:hover{transform:translateY(-4px)} .muted{color:#9aa4b2}
+
+/* Custom bots sekcija */
+.custom{max-width:1100px;margin:0 auto;padding:42px 20px}
+.custom h2{margin:0 0 10px;font-size:30px}
+.custom .muted{color:var(--muted)}
+.custom .grid{display:grid;grid-template-columns:2fr 2fr 1.2fr;gap:16px;margin-top:16px}
+.custom .card{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px}
+.custom ul{margin:8px 0 0 18px;color:#b8c3cf}
+.custom .pricebox{display:flex;flex-direction:column;gap:10px}
+.custom .note{color:#9aa4b2;font-size:13px}
 
 /* footer */
 footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
@@ -75,8 +90,9 @@ footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
 .account .menu a,.account .menu button{display:block;width:100%;text-align:left;background:none;border:0;color:#e7eefb;padding:10px 12px;cursor:pointer}
 .account .menu a:hover,.account .menu button:hover{background:#0b1220}
 
-/* === MOBILE POLISH (≤ 720px) === */
-@media (max-width: 720px){
+/* === MOBILE POLISH (≤ 980px / 720px / 420px) === */
+@media (max-width:980px){ .custom .grid{grid-template-columns:1fr} }
+@media (max-width:720px){
   .wrap{padding:12px 14px}
   .hero{grid-template-columns:1fr; gap:18px; padding:28px 14px}
   h1{font-size:30px; line-height:1.15}
@@ -90,16 +106,18 @@ footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
   .pill{font-size:13px}
   footer .wrap{flex-direction:column; align-items:flex-start}
 }
-@media (max-width: 420px){
+@media (max-width:420px){
   #header-actions{display:flex; gap:8px}
   #header-actions .btn{padding:10px 12px; font-size:14px}
 }
 </style>
+
 <script src="/nc-app.js"></script>
 </head>
 <body>
 <div class="bgfx"></div>
 
+<!-- Drawer -->
 <div class="drawer-backdrop" id="bd"></div>
 <aside class="drawer" id="dw">
   <a class="brand" href="/"><img src="/favicon.svg?v=4" alt="Nova Concierge"><strong>Nova Concierge</strong></a>
@@ -108,12 +126,14 @@ footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
     <a href="/pricing-details.html">💳 Kainų aprašymas</a>
     <a href="/privacy.html">🔒 Privatumas</a>
     <a href="/policy.html">📜 Taisyklės</a>
+    <a href="#custom-bots">🤖 Custom botai</a>
     <a href="/affiliate.html">🤝 Afilija (Workspace)</a>
     <a href="/company.html">🏢 Įmonės registracija</a>
     <a href="/auth.html">🔐 Prisijungti</a>
   </div>
 </aside>
 
+<!-- Header -->
 <header>
   <div class="wrap">
     <button class="burger" id="b"><i></i></button>
@@ -122,6 +142,7 @@ footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
   </div>
 </header>
 
+<!-- Hero -->
 <section class="hero">
   <div>
     <div class="pill">⚡ AI asistentas jūsų svetainei ir žinutėms</div>
@@ -130,17 +151,88 @@ footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
     <div class="cta">
       <a class="btn primary" href="/company.html">Startuoti dabar</a>
       <a class="btn" href="/pricing-details.html">Kainų aprašymas</a>
+      <a class="btn" href="#custom-bots">Custom botai</a>
     </div>
   </div>
   <div class="hero-img"><img src="/hero.png" alt=""></div>
 </section>
 
+<!-- Feature cards -->
 <section class="cards">
   <div class="card"><h3>🎯 Kontaktų surinkimas</h3><p class="muted">El. paštas/telefonas, ketinimo įvertinimas, perdavimas tinkamam žmogui ar WhatsApp.</p></div>
   <div class="card"><h3>📆 Rezervacijos</h3><p class="muted">Skambučių rezervavimas vietoje, automatiniai patvirtinimai, perdavimas žmogui prireikus.</p></div>
   <div class="card"><h3>🔌 Greitas diegimas</h3><p class="muted">Vienos eilutės įterpimas per GTM/CMS; WhatsApp kaštai klientui (+20% admin).</p></div>
 </section>
 
+<!-- Custom Bots -->
+<section id="custom-bots" class="custom">
+  <div class="pill">🤖 Custom botai pagal užsakymą</div>
+  <h2>Kuriame specializuotus botus — nuo CRM iki (paper) trading</h2>
+  <p class="muted">Išplečiame standartinį asistento funkcionalumą. <b>Kaina pagal susitarimą</b>, greitas pilotas, aiškūs terminai.</p>
+
+  <div class="grid">
+    <!-- 1) Verslas + RPA -->
+    <div class="card">
+      <h3>🔧 Verslo automatizavimas</h3>
+      <ul>
+        <li>Lead → CRM sinchronizacija (HubSpot, Pipedrive, Zoho, Airtable)</li>
+        <li>Užklausų triage + routing į el. paštą/WhatsApp/Slack</li>
+        <li>Booking botai (Calendly/Google) su priminimais</li>
+        <li>Dokumentų/DUK botai (PDF, svetainės, Notion, GDrive)</li>
+        <li>NLP „inbox assistant“: klasifikavimas, santraukos, atsakymų juodraščiai</li>
+        <li>e-komercija: prekių Q&A, likučiai, užsakymo statusas</li>
+        <li>HR/vidiniai botai: onboarding, žinių bazės paieška</li>
+      </ul>
+
+      <h3 style="margin-top:16px">📡 Stebėjimo ir RPA botai</h3>
+      <ul>
+        <li>Web scraping + kainų/konkurentų monitoringas</li>
+        <li>Alertai (el. paštas, Telegram, Slack) su suvestinėm</li>
+        <li>„No-code“ RPA: Sheets ↔ Gmail ↔ Drive ↔ Webhooks</li>
+      </ul>
+    </div>
+
+    <!-- 2) Trading / Market data -->
+    <div class="card">
+      <h3>📈 Trading / „paper“ botai*</h3>
+      <ul>
+        <li>Strategijos: DCA, „grid“, paprastas momentum/mean-reversion</li>
+        <li>Backtest + „paper trading“ sandbox (be realių lėšų)</li>
+        <li>API: biržų REST/WebSocket (pvz., Binance/Bybit), kainų tiekėjai</li>
+        <li>Rizikos taisyklės: stop-loss/TP, max pozicija, laiko langai</li>
+        <li>Pranešimai: P/L suvestinės į el. paštą/Telegram</li>
+      </ul>
+      <div class="note" style="margin-top:8px">
+        *Ne finansinė konsultacija. Pagal nutylėjimą diegiame tik <b>paper trading</b> (simuliaciją).
+        Jei klientas vėliau pats jungia „live“, rekomenduojame <b>„withdrawal disabled“</b> API raktus, limitus ir auditą. Rizika – kliento.
+      </div>
+
+      <h3 style="margin-top:16px">🗣️ Voice & kanalai</h3>
+      <ul>
+        <li>Telefoniniai agentai (in/outbound) su skambučio santraukomis</li>
+        <li>WhatsApp/IG/FB DM integracijos (oficialūs tarifai + 20% admin)</li>
+        <li>Webhook’ų tiltas į vidines sistemas</li>
+      </ul>
+    </div>
+
+    <!-- 3) Kainodara / CTA -->
+    <div class="card pricebox">
+      <h3>💼 Kaina pagal susitarimą</h3>
+      <ul>
+        <li>Nemokamas pirminis įvertinimas (15–30 min)</li>
+        <li>MVP pilotas: dažniausiai 1–2 sav.</li>
+        <li>SLA ir priežiūra pagal poreikį</li>
+        <li>Atsiskaitymas: mėnesinis arba fiksuota už MVP</li>
+      </ul>
+      <div class="note">Pateikus jūsų poreikį, atsiųsime pasiūlymą su gairėmis, terminais ir etapuotu biudžetu.</div>
+      <div style="height:10px"></div>
+      <a class="btn primary" href="/company.html">Paprašyti pasiūlymo</a>
+      <a class="btn" href="/affiliate.html" style="margin-top:8px">Tapti partneriu (afilija)</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
 <footer>
   <div class="wrap" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
     <div>© <span id="y"></span> Nova Concierge · WhatsApp: +370 681 95678 · <a href="mailto:zoe.lirel@gmail.com">zoe.lirel@gmail.com</a></div>
@@ -155,6 +247,10 @@ const b=document.getElementById('b'), bd=document.getElementById('bd'), dw=docum
 function close(){dw.classList.remove('open');bd.classList.remove('show');b.classList.remove('active');}
 b.onclick=()=>{dw.classList.toggle('open');bd.classList.toggle('show');b.classList.toggle('active');};
 bd.onclick=close; addEventListener('keydown',e=>{if(e.key==='Escape') close();});
+// smooth scroll to #custom-bots if came from menu
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+  const id=a.getAttribute('href'); if(id.startsWith('#')){ e.preventDefault(); close(); document.querySelector(id)?.scrollIntoView({behavior:'smooth'}); }
+}));
 </script>
 </body>
 </html>
