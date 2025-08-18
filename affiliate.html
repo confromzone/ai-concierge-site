@@ -11,31 +11,26 @@ a{color:#cfe2ff;text-decoration:none}
 .wrap{max-width:1100px;margin:0 auto;padding:18px 20px}
 .card{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px;margin:14px 0}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-input,textarea,select{width:100%;padding:12px;border-radius:10px;border:1px solid #203049;background:#0b1220;color:#eaf0ff}
+input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #203049;background:#0b1220;color:#eaf0ff}
 .btn{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#fff;cursor:pointer}
 .btn.primary{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0}
 .small{color:#98a6be;font-size:13px}
-.hidden{display:none}
+.account{position:relative}
+.avatar{width:36px;height:36px;border-radius:999px;background:#1f2a44;border:1px solid #2b3b5a;color:#dbe7ff;font-weight:700;display:grid;place-items:center;cursor:pointer}
+.account .menu{position:absolute;right:0;top:44px;background:#0f172a;border:1px solid #1e293b;border-radius:12px;min-width:220px;display:none;z-index:50}
+.account .menu.open{display:block}
+.account .menu .email{padding:10px 12px;color:#aab5c7;border-bottom:1px solid #1e293b}
+.account .menu a,.account .menu button{display:block;width:100%;text-align:left;background:none;border:0;color:#e7eefb;padding:10px 12px;cursor:pointer}
+.account .menu a:hover,.account .menu button:hover{background:#0b1220}
 </style>
+<script src="/nc-app.js"></script>
+<script>NC.ncRequireAuth();</script>
 </head>
 <body>
-<!-- guard -->
-<script>
-(function(){
-  const open=['/auth.html','/company.html','/privacy.html','/policy.html'];
-  if(!open.includes(location.pathname) && !localStorage.getItem('nc_user')){
-    location.href='/auth.html?next='+encodeURIComponent(location.pathname+location.search);
-  }
-})();
-</script>
-
 <div class="wrap">
   <div class="row" style="justify-content:space-between">
     <div class="row"><img src="/favicon.svg" width="28" height="28" alt=""><strong>Nova Concierge — Affiliate Workspace</strong></div>
-    <div class="row">
-      <a class="btn" href="/">Pagrindinis</a>
-      <button class="btn" id="logout">Atsijungti</button>
-    </div>
+    <div id="header-actions"></div>
   </div>
 
   <div class="card">
@@ -47,54 +42,31 @@ input,textarea,select{width:100%;padding:12px;border-radius:10px;border:1px soli
       <button class="btn" id="send">Siųsti į Gmail</button>
       <a class="btn" id="share" href="#" target="_blank">Dalintis WhatsApp</a>
     </div>
-    <div class="small">Šią nuorodą siųskite įmonėms. Kai jos registruosis, mes gausime el. laišką su jūsų ID ir galėsime priskaičiuoti išmokas.</div>
-  </div>
-
-  <div class="card">
-    <h2>Įmonės registracija (per jūsų nuorodą)</h2>
-    <div class="small">Tai yra įmonės pildoma forma (viešas puslapis): <b>/company.html</b>. Jūsų nuoroda automatiškai perduoda <code>affiliate_ref</code>.</div>
-    <div class="row"><a class="btn" href="/company.html" target="_blank">Peržiūrėti /company.html</a></div>
+    <div class="small">Šią nuorodą siųskite įmonėms. Kai jos registruosis, laiške matysime jūsų <code>affiliate_ref</code> ir galėsime priskaičiuoti išmokas.</div>
   </div>
 
   <div class="card">
     <h2>Greita žinutė pakvietimui</h2>
-    <textarea id="msg" rows="4">Sveiki! Turime AI asistentą svetainei/WhatsApp, kuris akimirksniu atsako, renka kontaktus ir rezervuoja skambučius. Čia registracija startui (7 d. pilotas): {{LINK}}</textarea>
+    <textarea id="msg" rows="4">Sveiki! Turime AI asistentą svetainei/WhatsApp, kuris akimirksniu atsako, renka kontaktus ir rezervuoja skambučius. 7 d. pilotas čia: {{LINK}}</textarea>
     <div class="row"><button class="btn" id="apply">Įkelti nuorodą į žinutę</button></div>
   </div>
 
   <div class="card">
-    <h2>Kas nutiks toliau?</h2>
-    <ul class="small">
-      <li>Įmonė užpildo <b>/company.html</b> formą (automatiškai pridedame <code>affiliate_ref</code>).</li>
-      <li>Tu gauni kopiją (jei nori – atsidaro Gmail langas su paruošta žinute), o mes – laišką į <b>zoe.lirel@gmail.com</b>.</li>
-      <li>Po mokėjimo plano pasirinkimo priskaičiuojame <b>10–100€/mėn.</b> pagal planą.</li>
-    </ul>
+    <h2>Įmonės registracija (viešas puslapis)</h2>
+    <div class="small">Forma: <b>/company.html</b>. Jūsų nuoroda automatiškai perduoda <code>?ref=ID</code>.</div>
+    <div class="row"><a class="btn" href="/company.html" target="_blank">Atverti /company.html</a></div>
   </div>
 </div>
 
 <script>
-// user & affiliate link
-const user = JSON.parse(localStorage.getItem('nc_user')||'{}');
-const base = location.origin + '/company.html';
-const affId = (user.affiliateId || localStorage.getItem('nc_aff_ref') || 'PARTNER');
-document.getElementById('who').textContent = `Prisijungęs: ${user.email||'partneris'} · ID: ${affId}`;
-const link = `${base}?ref=${encodeURIComponent(affId)}`;
-document.getElementById('aff').value = link;
-
+NC.ncRenderHeaderActions();
+const u=NC.ncGetUser(); const link=NC.ncAffiliateLink();
+document.getElementById('who').textContent=`Prisijungęs: ${u?.email||'partneris'} · ID: ${u?.affiliateId||'PARTNER'}`;
+document.getElementById('aff').value=link;
 document.getElementById('copy').onclick=()=>{navigator.clipboard.writeText(link); document.getElementById('copy').textContent='Nukopijuota ✓'; setTimeout(()=>document.getElementById('copy').textContent='Kopijuoti',1200);};
-document.getElementById('send').onclick=()=>{
-  const mail = user.email || '';
-  const subj = encodeURIComponent('Jūsų affiliate nuoroda — Nova Concierge');
-  const body = encodeURIComponent(`Sveiki,\n\nJūsų nuoroda į įmonės registraciją:\n${link}\n\nSėkmės!`);
-  if(mail) location.href=`mailto:${mail}?subject=${subj}&body=${body}`;
-  else location.href=`mailto:?subject=${subj}&body=${body}`;
-};
-document.getElementById('share').href = `https://wa.me/?text=${encodeURIComponent(link)}`;
-document.getElementById('apply').onclick=()=>{
-  const t=document.getElementById('msg').value;
-  document.getElementById('msg').value=t.replace('{{LINK}}', link);
-};
-document.getElementById('logout').onclick=()=>{localStorage.removeItem('nc_user'); location.href='/auth.html';};
+document.getElementById('send').onclick=()=>{const mail=u?.email||''; const subj=encodeURIComponent('Jūsų affiliate nuoroda — Nova Concierge'); const body=encodeURIComponent(`Sveiki,\n\nJūsų nuoroda į įmonės registraciją:\n${link}\n\nSėkmės!`); location.href=`mailto:${mail}?subject=${subj}&body=${body}`;};
+document.getElementById('share').href=`https://wa.me/?text=${encodeURIComponent(link)}`;
+document.getElementById('apply').onclick=()=>{msg.value=msg.value.replace('{{LINK}}',link);}
 </script>
 </body>
 </html>
