@@ -51,15 +51,15 @@ input,select,textarea{width:100%;padding:12px;border:1px solid #203049;border-ra
       <textarea name="message" rows="4" placeholder="Trumpai apie poreikį..."></textarea>
       <div style="height:12px"></div>
       <button class="btn" type="submit">Siųsti</button>
-      <div class="small" style="margin-top:6px">Formą gavę patvirtinsime el. paštu. Affiliate ID pridedamas automatiškai.</div>
+      <div class="small" style="margin-top:6px">Affiliate ID (kas pakvietė) pridedamas automatiškai.</div>
     </form>
   </div>
 </div>
 
 <script>
-// paimam ?ref ir išsaugom į hidden
 const url=new URL(location.href); const ref=url.searchParams.get('ref') || localStorage.getItem('nc_aff_ref') || '';
 document.getElementById('ref').value=ref;
 </script>
 </body>
 </html>
+
