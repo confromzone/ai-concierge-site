@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nova Concierge — Affiliate Workspace</title>
+<link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml">
+<meta name="theme-color" content="#0b1220">
+<style>
+:root{--bg:#0b1220;--card:#0f172a;--muted:#9aa4b2;--text:#e5eef7;--brand:#4f46e5;--brand2:#7c3aed;--brand3:#22d3ee;--border:#1e293b;--green:#22c55e}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+a{color:inherit;text-decoration:none}
+header{position:sticky;top:0;z-index:20;background:rgba(11,18,32,.85);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
+.wrap{max-width:1100px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px}.brand img{width:28px;height:28px;border-radius:7px}
+.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);border-radius:999px;padding:6px 10px;background:#0b1220;color:#cfe3ff}
+
+main{max-width:1100px;margin:0 auto;padding:26px 20px 60px}
+.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+@media(max-width:960px){.grid{grid-template-columns:1fr}}
+.card{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px}
+h1{margin:6px 0 12px;font-size:34px}
+h2{margin:0 0 8px;font-size:22px}
+.muted{color:var(--muted)} .row{display:flex;gap:10px;flex-wrap:wrap}
+.input{display:flex;gap:8px} .input input{padding:12px;border:1px solid #203049;background:#0b1220;color:#eaf0ff;border-radius:10px}
+.btn{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#cbd5e1;cursor:pointer}
+.btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));border:0;color:#fff}
+.kbd{padding:2px 6px;border:1px solid #32415e;border-radius:6px;background:#0b1220}
+ul{margin:8px 0 0 18px;color:#bcd}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid #22304a;padding:10px 12px;border-radius:6px}
+th{background:#0c1426}
+.copy{display:inline-flex;gap:8px;align-items:center}
+.small{font-size:13px;color:#98a6be}
+
+.live{display:inline-flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:999px;background:var(--green);box-shadow:0 0 14px rgba(34,197,94,.8), 0 0 2px #000}
+
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.formgrid .full{grid-column:1/-1}
+input,select,textarea{width:100%;padding:12px;border:1px solid #203049;background:#0b1220;color:#eaf0ff;border-radius:10px}
+textarea{min-height:120px}
+.note{font-size:13px;color:#8ea0b8;margin-top:6px}
+
+.footer{border-top:1px solid var(--border);padding:20px;color:#a7b2c1}
+.footer a{color:#cfe2ff}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand"><img src="/favicon.svg?v=4" alt="Nova Concierge"><strong>Nova Concierge</strong></div>
+    <div class="row">
+      <a class="badge" href="/">← Pagrindinis</a>
+      <a class="badge" href="/pricing-details.html">Kainų aprašymas</a>
+      <a class="badge" href="/privacy.html">Privatumas</a>
+      <a class="badge" href="/policy.html">Taisyklės</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <h1>Affiliate Workspace</h1>
+  <p class="muted">Gaukite mėnesines išmokas už kiekvieną jūsų atvestą įmonę. Pasirinkus planą, mokame <b>10–100 € / mėn.</b> pagal kliento planą. Žemiau – jūsų nuoroda, mokymai, įmonių pridėjimas ir gyva lyderių lenta.</p>
+
+  <div class="grid">
+    <!-- Generatorius + mokymai -->
+    <section class="card">
+      <h2>1) Generuok savo nuorodą</h2>
+      <div class="input">
+        <input id="aff-email" type="email" placeholder="tavo@pastas.com">
+        <button id="btn-gen" class="btn primary">Generuoti</button>
+      </div>
+      <div id="gen-out" style="margin-top:10px;display:none">
+        <div class="copy">
+          <span>Jūsų ID:</span> <code id="aff-id"></code>
+          <button id="btn-copy" class="btn">Kopijuoti</button>
+        </div>
+        <div class="small" style="margin-top:6px">Dalinkitės: <a id="aff-link" href="/" target="_blank"></a></div>
+        <p class="note">Nuoroda prideda <code>?ref=ID</code>. Kontaktų formos ir auth puslapis perduos ID į mūsų el. paštą.</p>
+      </div>
+
+      <h2 style="margin-top:16px">2) Kaip kviesti įmones</h2>
+      <ul>
+        <li>Trumpa žinutė DM/Email su aiškia nauda: <span class="kbd">Daugiau užklausų. Greitesni atsakymai. Mažiau rutinos.</span></li>
+        <li>Pasiūlykite 7 d. pilotą, diegimą be kodo (per GTM/CMS), WhatsApp kaštai klientui (+20% admin).</li>
+        <li>Jei sutinka — pridėkite įmonę forma žemiau (gauname el. laišką).</li>
+      </ul>
+
+      <h2 style="margin-top:16px">3) Komisijos</h2>
+      <table>
+        <thead><tr><th>Planas</th><th>€ / mėn. partneriui</th><th>Pastabos</th></tr></thead>
+        <tbody>
+          <tr><td>Flex (PAYG)</td><td>10</td><td>jei pasiektas min. €29/mėn.</td></tr>
+          <tr><td>Starter</td><td>20</td><td>€199/mėn.</td></tr>
+          <tr><td>Growth</td><td>50</td><td>€399/mėn.</td></tr>
+          <tr><td>Scale+</td><td>100</td><td>€699/mėn.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Lyderių lenta -->
+    <section class="card" id="leaders-card">
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <h2>Lyderių lenta</h2>
+        <div class="live"><span class="dot"></span> LIVE</div>
+      </div>
+      <div id="leaders" class="small">Kraunama…</div>
+      <p class="note">Jei duomenų nėra — lenta nerodoma.</p>
+    </section>
+  </div>
+
+  <!-- Įmonės pridėjimas -->
+  <section class="card" style="margin-top:18px">
+    <h2>Pridėti įmonę</h2>
+    <p class="muted">Kai įmonė sutinka bandomąjį, užpildykite formą. Gauname laišką į <b>zoe.lirel@gmail.com</b> ir pradedame diegimą.</p>
+
+    <form id="aff-form" class="formgrid" action="https://formsubmit.co/zoe.lirel@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Affiliate lead (Nova Concierge)">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://novaconcierge.online/affiliate.html?sent=1">
+
+      <!-- Anti-spam -->
+      <input type="text" name="_honey" style="display:none">
+      <input type="hidden" name="time_on_page_sec" id="f-time">
+      <input type="hidden" name="fingerprint" id="f-fp">
+      <input type="hidden" name="affiliate_ref" id="f-ref">
+
+      <div>
+        <label>Įmonės pavadinimas</label>
+        <input name="company" required placeholder="UAB Pavyzdys">
+      </div>
+      <div>
+        <label>Svetainė</label>
+        <input name="website" type="url" required placeholder="https://...">
+      </div>
+      <div>
+        <label>Kontaktinis asmuo</label>
+        <input name="contact_name" required placeholder="Vardas Pavardė">
+      </div>
+      <div>
+        <label>Kontaktinis el. paštas</label>
+        <input name="contact_email" type="email" required placeholder="vardas@imone.lt">
+      </div>
+      <div>
+        <label>Kontaktinis tel.</label>
+        <input name="contact_phone" placeholder="+370...">
+      </div>
+      <div>
+        <label>Planas</label>
+        <select name="plan" required>
+          <option value="">Pasirinkite...</option>
+          <option>Flex (PAYG)</option>
+          <option>Starter</option>
+          <option>Growth</option>
+          <option>Scale+</option>
+        </select>
+      </div>
+      <div class="full">
+        <label>Pastabos</label>
+        <textarea name="notes" placeholder="Kokie tikslai? Kanalai? Deadline?"></textarea>
+      </div>
+
+      <div class="full small">
+        <input type="checkbox" id="confirm" required>
+        <label for="confirm">Patvirtinu, kad ši įmonė davė sutikimą gauti pasiūlymą ir tai nėra šlamštas.</label>
+      </div>
+
+      <div class="full row">
+        <button class="btn primary" type="submit">Siųsti</button>
+        <span class="small">Limitas: iki 3 unikalių įmonių iš šios naršyklės per 24 h (apsauga).</span>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap" style="justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <div>© <span id="y"></span> Nova Concierge. WhatsApp: +370 681 95678 · Email: <a href="mailto:zoe.lirel@gmail.com">zoe.lirel@gmail.com</a></div>
+    <div>💙 Privatumas pirmiausia · <a href="/privacy.html">Privatumo politika</a></div>
+  </div>
+</footer>
+
+<script>
+// Year
+document.getElementById('y').textContent = new Date().getFullYear();
+
+// Affiliate ID generator (SHA-256(email) -> 8 simboliai)
+async function sha256(t){const enc=new TextEncoder().encode(t);const h=await crypto.subtle.digest('SHA-256',enc);return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('');}
+const emailInp=document.getElementById('aff-email'), btnGen=document.getElementById('btn-gen');
+const out=document.getElementById('gen-out'), idSpan=document.getElementById('aff-id'), linkA=document.getElementById('aff-link');
+const btnCopy=document.getElementById('btn-copy');
+
+btnGen.addEventListener('click', async ()=>{
+  const v=(emailInp.value||"").trim().toLowerCase();
+  if(!v.includes('@')){alert('Įveskite el. paštą'); return;}
+  const hash = await sha256(v); const id = hash.slice(0,8);
+  localStorage.setItem('nc_aff_id', id);
+  idSpan.textContent = id;
+  const url = new URL(location.origin); url.searchParams.set('ref', id);
+  linkA.textContent = url.toString(); linkA.href = url.toString();
+  out.style.display='block';
+});
+btnCopy.addEventListener('click', ()=>{
+  if(!linkA.href) return;
+  navigator.clipboard.writeText(linkA.href);
+  btnCopy.textContent='Nukopijuota ✓'; setTimeout(()=>btnCopy.textContent='Kopijuoti',1500);
+});
+
+// Anti-spam + ref persiuntimas
+let start = Date.now();
+function fp(){ // paprastas fingerprint
+  let id = localStorage.getItem('nc_fp');
+  if(!id){ id = (Math.random().toString(36).slice(2)+Date.now().toString(36)).slice(0,16); localStorage.setItem('nc_fp', id); }
+  return id + '|' + navigator.userAgent.split(' ').slice(0,4).join('_') + '|' + (navigator.language||'');
+}
+const form = document.getElementById('aff-form');
+form.addEventListener('submit', (e)=>{
+  // throttle: max 3 įmonės per 24h
+  const key='nc_aff_count_'+(new Date().toISOString().slice(0,10));
+  const cnt = +(localStorage.getItem(key)||0);
+  if(cnt>=3){ e.preventDefault(); alert('Per daug pateikimų iš šios naršyklės. Bandykite rytoj.'); return; }
+  localStorage.setItem(key, String(cnt+1));
+
+  document.getElementById('f-time').value = Math.round((Date.now()-start)/1000);
+  document.getElementById('f-fp').value = fp();
+  const ref = localStorage.getItem('nc_aff_ref') || localStorage.getItem('nc_aff_id') || '';
+  document.getElementById('f-ref').value = ref;
+});
+
+// LIVE lyderių lenta iš /data/leaders.json (jei nėra — paslepiam kortelę)
+(async function(){
+  const card = document.getElementById('leaders-card');
+  const box  = document.getElementById('leaders');
+  try{
+    const res = await fetch('/data/leaders.json', {cache:'no-store'});
+    if(!res.ok) throw 0;
+    const data = await res.json();
+    if(!Array.isArray(data) || data.length===0){ card.style.display='none'; return; }
+    data.sort((a,b)=>(+b.earnings||0)-(+a.earnings||0));
+    box.innerHTML = data.slice(0,20).map((it,i)=>`
+      <div class="row" style="justify-content:space-between; margin:6px 0">
+        <div>${i+1}. <strong>${(it.name||'Partneris')}</strong></div>
+        <div>€${Number(it.earnings||0).toFixed(0)} / mėn · ${(it.invited||0)} įm.</div>
+      </div>`).join('');
+    setInterval(async ()=>{
+      try{
+        const r=await fetch('/data/leaders.json',{cache:'no-store'}); if(!r.ok) return;
+        const d=await r.json(); if(!Array.isArray(d)||d.length===0) return;
+        d.sort((a,b)=>(+b.earnings||0)-(+a.earnings||0));
+        box.innerHTML = d.slice(0,20).map((it,i)=>`
+          <div class="row" style="justify-content:space-between; margin:6px 0">
+            <div>${i+1}. <strong>${(it.name||'Partneris')}</strong></div>
+            <div>€${Number(it.earnings||0).toFixed(0)} / mėn · ${(it.invited||0)} įm.</div>
+          </div>`).join('');
+      }catch(e){}
+    }, 15000);
+  }catch(e){ card.style.display='none'; }
+})();
+</script>
+</body>
+</html>
