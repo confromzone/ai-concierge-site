@@ -1,69 +1,95 @@
 <!DOCTYPE html>
 <html lang="lt">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nova Concierge — Kainų aprašymas</title>
-<link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml">
-<meta name="theme-color" content="#0b1220">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kainodara — Nova Concierge</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="theme-color" content="#0b1220">
 <style>
-:root{--bg:#0b1220;--card:#0f172a;--muted:#9aa4b2;--text:#e5eef7;--brand:#4f46e5;--brand2:#7c3aed;--border:#1e293b}
-*{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
-.wrap{max-width:960px;margin:0 auto;padding:18px 20px}
-.card{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px;margin:14px 0}
-h1{font-size:34px;margin:8px 0 12px} h2{font-size:22px;margin:0 0 8px}
-.muted{color:#9aa4b2} ul{margin:8px 0 0 20px;color:#cfe3ff}
-.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);border-radius:999px;padding:6px 10px;background:#0b1220;color:#cfe3ff}
-a{color:#cfe2ff;text-decoration:none}
+:root{--bg:#0b1220;--card:#0f172a;--border:#1e293b;--text:#e5eef7;--muted:#9aa4b2;--brand:#6b5cff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui}
+.wrap{max-width:1100px;margin:0 auto;padding:20px}
+h1{margin:8px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px}
+.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);border-radius:999px;padding:6px 10px;color:#a8b3c3}
+.price{font-size:28px;font-weight:700;margin:10px 0}
+ul{margin:10px 0 0 18px;color:#b8c3cf}
+.btn{padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#e5eef7}
+.btn.primary{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0}
+.note{color:#9aa4b2;margin-top:16px}
+@media(max-width:980px){.grid{grid-template-columns:1fr}}
+/* header small */
+.account{position:relative}
+.avatar{width:36px;height:36px;border-radius:999px;background:#1f2a44;border:1px solid #2b3b5a;color:#dbe7ff;font-weight:700;display:grid;place-items:center;cursor:pointer}
+.account .menu{position:absolute;right:0;top:44px;background:#0f172a;border:1px solid #1e293b;border-radius:12px;min-width:220px;display:none;z-index:50}
+.account .menu.open{display:block}
+.account .menu .email{padding:10px 12px;color:#aab5c7;border-bottom:1px solid #1e293b}
+.account .menu a,.account .menu button{display:block;width:100%;text-align:left;background:none;border:0;color:#e7eefb;padding:10px 12px;cursor:pointer}
+.account .menu a:hover,.account .menu button:hover{background:#0b1220}
 </style>
+<script src="/nc-app.js"></script>
+<script>NC.ncRenderHeaderActions();</script>
 </head>
 <body>
-<header class="wrap" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
-  <div style="display:flex;align-items:center;gap:10px"><img src="/favicon.svg?v=4" width="28" height="28" alt=""><strong>Nova Concierge</strong></div>
-  <div class="badge"><a href="/">← Atgal</a></div>
-</header>
+<div class="wrap" style="display:flex;align-items:center;gap:12px;justify-content:space-between">
+  <div style="display:flex;gap:10px;align-items:center"><img src="/favicon.svg" width="28" height="28" alt=""><strong>Kainodara</strong></div>
+  <div id="header-actions"></div>
+</div>
 
-<main class="wrap">
-  <h1>Kainų aprašymas</h1>
-  <div class="card">
-    <h2>Planai ir ribos</h2>
-    <ul>
-      <li><b>Flex (PAYG)</b>: €0/mėn. + <b>€179</b> diegimas; <b>€0.20</b>/pokalbį; min. <b>€29/mėn.</b></li>
-      <li><b>Starter</b>: €199/mėn. — <b>300</b> pok./mėn. (viršlimitis €0.12/pok.).</li>
-      <li><b>Growth</b>: €399/mėn. — <b>800</b> pok./mėn. (viršlimitis €0.12/pok.).</li>
-      <li><b>Scale+</b>: €699/mėn. — <b>1 500</b> pok./mėn., iki 5 asistentų (viršlimitis €0.10/pok.).</li>
-      <li><b>Papildomas asistentas</b>: €50/mėn. (nuo Starter).</li>
-      <li><b>WhatsApp</b>: oficialūs tarifai + 20% admin (perrašoma klientui).</li>
-      <li><b>Auto-upgrade</b>: rekomenduojamas, jei 2 mėn. iš eilės viršijamas planas.</li>
-    </ul>
+<div class="wrap">
+  <div class="grid">
+    <div class="card">
+      <div class="badge">🧩 Flex (PAYG)</div>
+      <div class="price">€0 / mėn</div>
+      <ul>
+        <li>Vienkartinis diegimas: €179</li>
+        <li>€0.20 / pokalbį, min. €29/mėn</li>
+        <li>1 svetainė, 1 asistentas</li>
+        <li>El. pašto kontaktų surinkimas</li>
+      </ul>
+      <div style="height:10px"></div><a class="btn" href="/company.html">Startuoti</a>
+    </div>
+
+    <div class="card">
+      <div class="badge">🚀 Starter</div>
+      <div class="price">€199 / mėn</div>
+      <ul>
+        <li>Įskaičiuota: 300 pokalbių/mėn</li>
+        <li>1 asistentas</li>
+        <li>DUK + el. pašto surinkimas</li>
+        <li>1× turinio atnaujinimas/mėn</li>
+      </ul>
+      <div style="height:10px"></div><a class="btn primary" href="/company.html">Rinktis</a>
+    </div>
+
+    <div class="card">
+      <div class="badge">💼 Growth</div>
+      <div class="price">€399 / mėn</div>
+      <ul>
+        <li>Įskaičiuota: 800 pokalbių/mėn</li>
+        <li>Iki 2 asistentų</li>
+        <li>Rezervacijos, scoring & routing</li>
+        <li>1× optimizacija/mėn</li>
+      </ul>
+      <div style="height:10px"></div><a class="btn primary" href="/company.html">Rinktis</a>
+    </div>
+
+    <div class="card">
+      <div class="badge">🏢 Scale+</div>
+      <div class="price">€699 / mėn</div>
+      <ul>
+        <li>Įskaičiuota: 1 500 pokalbių/mėn</li>
+        <li>Iki 5 asistentų</li>
+        <li>IG/FB DM + WhatsApp</li>
+        <li>2× optimizacijos/mėn, prioritetas</li>
+      </ul>
+      <div style="height:10px"></div><a class="btn primary" href="/company.html">Rinktis</a>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>Atsiperkamumas (pavyzdys)</h2>
-    <p class="muted">Jei 1 000 apsilankymų → 3 % pradeda pokalbį → 300 pokalbių/mėn. → <b>Starter</b> planas atitinka. Jei užklausų ėmimas + kvalifikavimas sugeneruoja bent 2–3 papildomus pardavimus po ~€100 kiekvienas, planas atsiperka.</p>
+  <div class="note">
+    Viršijus limitą: €0.12/pokalbį (Starter/Growth) ir €0.10/pokalbį (Scale+). WhatsApp – oficialūs tarifai + 20% admin. Papildomas asistentas: €50/mėn. Jei 2 mėn. iš eilės viršijate planą – siūlomas automatinis atnaujinimas.
   </div>
-
-  <div class="card">
-    <h2>Kas įskaičiuota</h2>
-    <ul>
-      <li>Valdiklis svetainei (per GTM/CMS), baziniai srautai (DUK, kontaktai, booking, handoff).</li>
-      <li>7 d. optimizacija po starto, monitoringas / ataskaita.</li>
-      <li>Privatumas pirmiausia — duomenys siunčiami tik į suderintus adresus.</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h2>Kliento pasiruošimas</h2>
-    <ul>
-      <li>Prieigos: GTM / CMS „Editor/Collaborator“, Meta „Partner Access“ (FB Page, IG, WA Manager).</li>
-      <li>Turinys: logotipas, brand spalva, 10 DUK, trumpas pasiūlymas, booking nuoroda (Calendly/Google).</li>
-    </ul>
-  </div>
-</main>
-
-<footer class="wrap" style="border-top:1px solid var(--border);color:#a7b2c1">
-  © <span id="y"></span> Nova Concierge · <a href="/privacy.html">Privatumas</a> · <a href="/policy.html">Taisyklės</a>
-</footer>
-<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+</div>
 </body>
 </html>
