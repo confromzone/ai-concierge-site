@@ -5,7 +5,6 @@
 <title>Nova Concierge — AI asistentai</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="theme-color" content="#0b1220">
 <meta name="description" content="AI asistentai jūsų svetainei ir žinutėms. Daugiau užklausų, greitesni atsakymai, mažiau rutinos.">
-
 <style>
 :root{--bg:#0b1220;--card:#0f172a;--border:#1e293b;--text:#e5eef7;--muted:#9aa4b2;--brand:#6b5cff;--brand2:#22d3ee}
 *{box-sizing:border-box}html,body{margin:0}body{font-family:Inter,system-ui,Segoe UI,Arial;background:var(--bg);color:var(--text)}
@@ -41,7 +40,6 @@ h1{margin:12px 0 10px;font-size:42px;line-height:1.1}.lead{color:#b8c3cf;font-si
 
 /* footer */
 footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
-@media(max-width:960px){.hero{grid-template-columns:1fr}.cards{grid-template-columns:1fr}}
 
 /* spalvinis fonas */
 .bgfx{pointer-events:none;position:fixed;inset:-15% -5% auto -5%;height:70vh;z-index:-1;
@@ -58,6 +56,26 @@ footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
 .account .menu .email{padding:10px 12px;color:#aab5c7;border-bottom:1px solid #1e293b}
 .account .menu a,.account .menu button{display:block;width:100%;text-align:left;background:none;border:0;color:#e7eefb;padding:10px 12px;cursor:pointer}
 .account .menu a:hover,.account .menu button:hover{background:#0b1220}
+
+/* === MOBILE POLISH (≤ 720px) === */
+@media (max-width: 720px){
+  .wrap{padding:12px 14px}
+  .hero{grid-template-columns:1fr; gap:18px; padding:28px 14px}
+  h1{font-size:30px; line-height:1.15}
+  .lead{font-size:16px}
+  .cta{gap:10px}
+  .btn{padding:11px 14px; font-size:15px}
+  .cards{grid-template-columns:1fr; gap:12px; padding:0 14px}
+  .card{padding:14px}
+  .drawer{width:88vw}
+  .burger{width:36px; height:34px}
+  .pill{font-size:13px}
+  footer .wrap{flex-direction:column; align-items:flex-start}
+}
+@media (max-width: 420px){
+  #header-actions{display:flex; gap:8px}
+  #header-actions .btn{padding:10px 12px; font-size:14px}
+}
 </style>
 <script src="/nc-app.js"></script>
 </head>
