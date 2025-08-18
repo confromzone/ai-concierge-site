@@ -12,6 +12,7 @@
 input{width:100%;padding:12px;border:1px solid #203049;border-radius:10px;background:#0b1220;color:#eaf0ff}
 .btn{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#fff;cursor:pointer}
 .small{color:#98a6be;font-size:13px}
+/* account mini */
 .account{position:relative}
 .avatar{width:36px;height:36px;border-radius:999px;background:#1f2a44;border:1px solid #2b3b5a;color:#dbe7ff;font-weight:700;display:grid;place-items:center;cursor:pointer}
 .account .menu{position:absolute;right:0;top:44px;background:#0f172a;border:1px solid #1e293b;border-radius:12px;min-width:220px;display:none;z-index:50}
@@ -19,6 +20,11 @@ input{width:100%;padding:12px;border:1px solid #203049;border-radius:10px;backgr
 .account .menu .email{padding:10px 12px;color:#aab5c7;border-bottom:1px solid #1e293b}
 .account .menu a,.account .menu button{display:block;width:100%;text-align:left;background:none;border:0;color:#e7eefb;padding:10px 12px;cursor:pointer}
 .account .menu a:hover,.account .menu button:hover{background:#0b1220}
+/* mobile */
+@media (max-width: 720px){
+  .wrap{padding:12px 14px}
+  .row{display:flex;gap:10px;flex-direction:column}
+}
 </style>
 <script src="/nc-app.js"></script>
 <script>NC.ncRequireAuth();</script>
