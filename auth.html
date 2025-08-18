@@ -15,11 +15,11 @@ input{width:100%;padding:12px;border:1px solid #203049;border-radius:10px;backgr
 .btn{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#fff;cursor:pointer}
 .btn.primary{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0}
 .small{color:#9aa9bf;font-size:13px}
-canvas{width:100%;height:540px;background:#060913;border:1px solid #222;border-radius:12px}
+canvas{width:100%;height:auto;aspect-ratio:5/3;background:#060913;border:1px solid #222;border-radius:12px}
 .row{display:flex;gap:10px;align-items:center}
 a{color:#cfe2ff}
 @media(max-width:980px){.box{grid-template-columns:1fr}}
-/* account menu mini CSS */
+/* account mini */
 .account{position:relative}
 .avatar{width:36px;height:36px;border-radius:999px;background:#1f2a44;border:1px solid #2b3b5a;color:#dbe7ff;font-weight:700;display:grid;place-items:center;cursor:pointer}
 .account .menu{position:absolute;right:0;top:44px;background:#0f172a;border:1px solid #1e293b;border-radius:12px;min-width:220px;display:none;z-index:50}
@@ -27,6 +27,13 @@ a{color:#cfe2ff}
 .account .menu .email{padding:10px 12px;color:#aab5c7;border-bottom:1px solid #1e293b}
 .account .menu a,.account .menu button{display:block;width:100%;text-align:left;background:none;border:0;color:#e7eefb;padding:10px 12px;cursor:pointer}
 .account .menu a:hover,.account .menu button:hover{background:#0b1220}
+
+/* === MOBILE POLISH (≤ 720px) === */
+@media (max-width: 720px){
+  .wrap{padding:12px 14px}
+  .box{gap:14px}
+  .btn{padding:11px 14px; font-size:15px}
+}
 </style>
 <script src="/nc-app.js"></script>
 </head>
@@ -38,27 +45,32 @@ a{color:#cfe2ff}
   </div>
 
   <div class="box">
+    <!-- AUTH -->
     <section class="card">
       <h1>Prisijungimas / Registracija</h1>
       <div class="small">Kol neprisijungiate, saugomi puslapiai bus užrakinti.</div>
       <div style="height:10px"></div>
+
       <label>El. paštas</label>
       <input id="email" type="email" placeholder="you@email.com">
       <div style="height:10px"></div>
       <label>Slaptažodis</label>
       <input id="pass" type="password" placeholder="••••••••">
       <div style="height:12px"></div>
+
       <div class="row">
         <button class="btn primary" id="login">Prisijungti</button>
         <button class="btn" id="register">Registruotis</button>
       </div>
+
       <div style="height:12px"></div>
-      <div class="small">Admin (lokali paskyra): <code>admin@novaconcierge.online</code> / <code>NovaAdmin#2025</code>.</div>
+      <div class="small">Admin (lokali): <code>admin@novaconcierge.online</code> / <code>NovaAdmin#2025</code>.</div>
     </section>
 
+    <!-- GAME (HARD MODE) -->
     <section class="card">
-      <h2 style="margin:0 0 8px">Mini žaidimas: „Įveik bosą — 20% nuolaida“</h2>
-      <div class="small">Akys seka pelę. Šaudai tik paspaudęs. Kas 10 pataikymų – širdelė (+1 HP). Boso ugninis kamuolys gali nuimti visas tavo gyvybes.</div>
+      <h2 style="margin:0 0 8px">„Įveik bosą — 20% nuolaida“ (Hard)</h2>
+      <div class="small">Akys seka pelę. Šaudai tik paspaudęs. Kas 12 pataikymų – širdelė (+1 HP). Boso atakos: meteorų lietus, lazerio šluota (su įspėjimu), šarvai, ugniniai kamuoliai (one-shot).</div>
       <div style="height:8px"></div>
       <div class="row" style="gap:8px">
         <button class="btn" id="fs">Per visą ekraną</button>
@@ -71,64 +83,146 @@ a{color:#cfe2ff}
 </div>
 
 <script>
-// Header actions (rodome jei jau login)
+// Header actions
 NC.ncRenderHeaderActions();
-
+// Auth
 function goNext(){ const url=new URL(location.href); const next=url.searchParams.get('next')||'/affiliate.html'; location.href=next; }
-document.getElementById('login').onclick=()=>{const e=email.value.trim(), p=pass.value; if(!e||!p) return alert('Užpildykite laukus'); if(NC.ncDoLogin(e,p)) goNext(); else alert('Neteisingi duomenys');};
-document.getElementById('register').onclick=()=>{const e=email.value.trim(), p=pass.value; if(!e||!p) return alert('Užpildykite laukus'); const r=NC.ncDoRegister(e,p); if(r.ok) goNext(); else alert(r.msg||'Nepavyko')};
+login.onclick=()=>{const e=email.value.trim(), p=pass.value; if(!e||!p) return alert('Užpildykite laukus'); if(NC.ncDoLogin(e,p)) goNext(); else alert('Neteisingi duomenys');};
+register.onclick=()=>{const e=email.value.trim(), p=pass.value; if(!e||!p) return alert('Užpildykite laukus'); const r=NC.ncDoRegister(e,p); if(r.ok) goNext(); else alert(r.msg||'Nepavyko');};
 
-// ======= GAME =======
-const C=document.getElementById('game'), CT=C.getContext('2d'); const W=C.width,H=C.height;
-let mouse={x:W/2,y:H/2,down:false}, t=0;
-const player={x:W/2,y:H-70,hp:3,hits:0}; const boss={x:W/2,y:110,hp:1000,dir:1};
-const bullets=[], fireballs=[], hearts=[];
+// ===== GAME (HARD) =====
+const C=document.getElementById('game'), CT=C.getContext('2d'); let W=900,H=540;
+function fitCanvas(){
+  const aspect=900/540, cssW=Math.min(Math.max(320, window.innerWidth-32), 900);
+  const cssH=Math.round(cssW/aspect), dpr=Math.min(window.devicePixelRatio||1,2);
+  C.style.width=cssW+'px'; C.style.height=cssH+'px';
+  C.width=Math.round(cssW*dpr); C.height=Math.round(cssH*dpr); CT.setTransform(dpr,0,0,dpr,0,0); W=cssW; H=cssH;
+}
+fitCanvas(); addEventListener('resize', fitCanvas);
+fs.onclick=()=>{ if(C.requestFullscreen) C.requestFullscreen(); };
+
+let t=0, mouse={x:W/2,y:H/2,down:false};
+const player={x:W/2,y:H-70,hp:3,hits:0,fireDelay:8,fireTimer:0};
+const boss={x:W/2,y:110,hp:1000,dir:1,phase:1,shield:0,laser:null};
+const bullets=[], fireballs=[], meteors=[], hearts=[], warns=[];
+
 C.addEventListener('pointermove',e=>{const r=C.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
-C.addEventListener('pointerdown',()=>{mouse.down=true; shoot();}); C.addEventListener('pointerup',()=>mouse.down=false);
-document.getElementById('fs').onclick=()=>{ if(C.requestFullscreen) C.requestFullscreen(); };
+C.addEventListener('pointerdown',()=>{mouse.down=true;}); C.addEventListener('pointerup',()=>mouse.down=false);
 
-function shoot(){ bullets.push({x:mouse.x,y:mouse.y-20,v:-8}); }
+function shoot(){ bullets.push({x:player.x,y:player.y-18,v:-8}); }
 function spawnHeart(){ hearts.push({x:Math.random()*(W-60)+30,y:Math.random()*(H-220)+160,ttl:900}); }
-function spawnFireball(){ fireballs.push({x:boss.x,y:boss.y+30,vx:(Math.random()-.5)*2,vy:2.3,r:10}); }
+function spawnFireball(){ fireballs.push({x:boss.x,y:boss.y+30,vx:(Math.random()-.5)*2,vy:2.5,r:10}); }
+function spawnMeteor(){ meteors.push({x:Math.random()*(W-40)+20,y:-20,vy:2+Math.random()*1.5}); }
+function warnLaser(side){ const y=H*0.45; boss.laser={y,dir:side,ttl:160,warn:60}; warns.push({y,ttl:60}); }
 
-function step(){
+function update(){
   t++; CT.clearRect(0,0,W,H);
-  boss.x+=boss.dir*1.2; if(boss.x<80||boss.x>W-80) boss.dir*=-1;
+  // Move player
+  player.x+=(mouse.x-player.x)*0.25; player.y=H-70;
+  // Auto-shoot only when pressed
+  if(mouse.down){ if(player.fireTimer<=0){ shoot(); player.fireTimer=player.fireDelay; } }
+  if(player.fireTimer>0) player.fireTimer--;
 
-  // eyes follow
+  // Boss AI
+  boss.x+=boss.dir*(1.1+Math.min(1,t/3000)); if(boss.x<80||boss.x>W-80) boss.dir*=-1;
+  // Eyes follow
   const ang=Math.atan2(mouse.y-boss.y, mouse.x-boss.x), eyeX=Math.cos(ang)*10, eyeY=Math.sin(ang)*8;
-  CT.fillStyle='#3a3f6b'; CT.beginPath(); CT.arc(boss.x,boss.y,60,0,Math.PI*2); CT.fill();
+
+  // Phase changes by HP
+  const hpPct=boss.hp/1000;
+  if(hpPct<0.75 && boss.phase<2) boss.phase=2;
+  if(hpPct<0.45 && boss.phase<3) boss.phase=3;
+  if(hpPct<0.2  && boss.phase<4) boss.phase=4;
+
+  // Random shield (reduces dmg 80%)
+  if(boss.shield>0) boss.shield--;
+  else if(Math.random()<0.005+0.001*boss.phase) boss.shield=180;
+
+  // Attacks
+  if(t%120===0 && Math.random()<(.45+.1*boss.phase)) spawnFireball();
+  if(t%90===0  && boss.phase>=2){ for(let i=0;i<2;i++) spawnMeteor(); }
+  if(!boss.laser && boss.phase>=3 && Math.random()<0.006) warnLaser(Math.random()<0.5? -1 : 1);
+  if(boss.laser){
+    boss.laser.ttl--;
+    if(boss.laser.warn>0){
+      boss.laser.warn--;
+      // Telegraph line
+      CT.strokeStyle='rgba(255,80,80,.6)'; CT.lineWidth=3; CT.beginPath(); CT.moveTo(0,boss.laser.y); CT.lineTo(W,boss.laser.y); CT.stroke();
+    }else{
+      // Active sweep
+      boss.laser.y += boss.laser.dir*5.5;
+      CT.fillStyle='rgba(255,120,90,.25)'; CT.fillRect(0,boss.laser.y-8,W,16);
+      // Hit player?
+      if(Math.abs(player.y-boss.laser.y)<22){ player.hp=0; }
+      if(boss.laser.y<-20||boss.laser.y>H+20) boss.laser=null;
+    }
+  }
+
+  // Draw boss
+  CT.fillStyle=boss.shield? '#4b4fff' : '#3a3f6b';
+  CT.beginPath(); CT.arc(boss.x,boss.y,60,0,Math.PI*2); CT.fill();
   CT.fillStyle='#fff'; CT.beginPath(); CT.arc(boss.x-18,boss.y-8,14,0,Math.PI*2); CT.arc(boss.x+18,boss.y-8,14,0,Math.PI*2); CT.fill();
   CT.fillStyle='#111'; CT.beginPath(); CT.arc(boss.x-18+eyeX*0.5,boss.y-8+eyeY*0.5,6,0,Math.PI*2); CT.arc(boss.x+18+eyeX*0.5,boss.y-8+eyeY*0.5,6,0,Math.PI*2); CT.fill();
-  CT.fillStyle='#555'; CT.fillRect(20,20,W-40,10); CT.fillStyle='#7c3aed'; CT.fillRect(20,20,(W-40)*(Math.max(boss.hp,0)/1000),10);
+  // Boss HP bar (logo nenaudoja savo HP atvaizdavimo – tik viršuje)
+  CT.fillStyle='#555'; CT.fillRect(20,20,W-40,10);
+  CT.fillStyle='#7c3aed'; CT.fillRect(20,20,(W-40)*(Math.max(boss.hp,0)/1000),10);
 
-  player.x+=(mouse.x-player.x)*0.25; player.y=H-70;
+  // Player
   CT.fillStyle='#18c7f5'; CT.beginPath(); CT.arc(player.x,player.y,16,0,Math.PI*2); CT.fill();
-  if(mouse.down && t%8===0) shoot();
 
+  // Bullets
   CT.fillStyle='#9ae6b4';
-  for(let i=bullets.length;i--;){ const b=bullets[i]; b.y+=b.v; CT.fillRect(b.x-2,b.y,4,10);
-    const dx=b.x-boss.x, dy=b.y-boss.y; if(dx*dx+dy*dy<60*60){ bullets.splice(i,1); boss.hp-=0.5; player.hits++; if(player.hits%10===0) spawnHeart(); continue; }
+  for(let i=bullets.length;i--;){
+    const b=bullets[i]; b.y+=b.v; CT.fillRect(b.x-2,b.y,4,10);
+    const dx=b.x-boss.x, dy=b.y-boss.y;
+    if(dx*dx+dy*dy<60*60){
+      bullets.splice(i,1);
+      const dmg = boss.shield? 0.1 : 0.5; // šarvai sumažina
+      boss.hp -= dmg;
+      player.hits++;
+      if(player.hits%12===0) spawnHeart();
+      continue;
+    }
     if(b.y<-20) bullets.splice(i,1);
   }
+
+  // Hearts
   CT.fillStyle='#f87171';
   hearts.forEach(h=>{ CT.beginPath(); CT.arc(h.x,h.y,8,0,Math.PI*2); CT.fill(); h.ttl--; });
-  for(let i=hearts.length;i--;){ const h=hearts[i]; if((h.x-player.x)**2+(h.y-player.y)**2<20*20){ player.hp=Math.min(player.hp+1,10); hearts.splice(i,1);} else if(h.ttl<=0) hearts.splice(i,1); }
+  for(let i=hearts.length;i--;){
+    const h=hearts[i]; if((h.x-player.x)**2+(h.y-player.y)**2<20*20){ player.hp=Math.min(player.hp+1,10); hearts.splice(i,1); }
+    else if(h.ttl<=0) hearts.splice(i,1);
+  }
 
-  if(t%120===0 && Math.random()<.6) spawnFireball();
+  // Fireballs (one-shot)
   CT.fillStyle='#ff914d';
-  for(let i=fireballs.length;i--;){ const f=fireballs[i]; f.x+=f.vx; f.y+=f.vy; f.r+=0.08;
+  for(let i=fireballs.length;i--;){
+    const f=fireballs[i]; f.x+=f.vx; f.y+=f.vy; f.r+=0.08;
     CT.beginPath(); CT.arc(f.x,f.y,f.r,0,Math.PI*2); CT.fill();
     const dx=f.x-player.x, dy=f.y-player.y; if(dx*dx+dy*dy<(f.r+16)**2){ player.hp=0; fireballs.splice(i,1); }
     if(f.y>H+30) fireballs.splice(i,1);
   }
-  document.getElementById('hud').textContent=`Boso HP: ${Math.max(0,Math.round(boss.hp))} · Tavo HP: ${player.hp} · Pataikymai: ${player.hits}`;
+
+  // Meteors (rain)
+  CT.fillStyle='#cbd5e1';
+  for(let i=meteors.length;i--;){
+    const m=meteors[i]; m.y+=m.vy; CT.fillRect(m.x-2,m.y-8,4,12);
+    if((m.x-player.x)**2+(m.y-player.y)**2<18*18){ player.hp=Math.max(0,player.hp-1); meteors.splice(i,1); }
+    if(m.y>H+12) meteors.splice(i,1);
+  }
+
+  // HUD
+  document.getElementById('hud').textContent=`Boso HP: ${Math.max(0,Math.round(boss.hp))} · Tavo HP: ${player.hp} · Pataikymai: ${player.hits} · Patarimas: venk lazerio linijos (įspėjimas raudona)`;
+
+  // Over
   if(player.hp<=0){ over('Pralaimėjai! Pabandyk dar kartą.'); return; }
   if(boss.hp<=0){ over('Valio! 20% nuolaida pirmajam užsakymui.'); return; }
-  requestAnimationFrame(step);
+
+  requestAnimationFrame(update);
 }
-function over(msg){ CT.fillStyle='rgba(0,0,0,.65)'; CT.fillRect(0,0,W,H); CT.fillStyle='#fff'; CT.font='20px Inter'; CT.fillText(msg,28,H/2); }
-step();
+function over(msg){ CT.fillStyle='rgba(0,0,0,.65)'; CT.fillRect(0,0,W,H); CT.fillStyle='#fff'; CT.font='20px Inter'; CT.fillText(msg, 28, H/2); }
+
+update();
 </script>
 </body>
 </html>
