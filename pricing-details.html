@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nova Concierge — Kainų aprašymas</title>
+<link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml">
+<meta name="theme-color" content="#0b1220">
+<style>
+:root{--bg:#0b1220;--card:#0f172a;--muted:#9aa4b2;--text:#e5eef7;--brand:#4f46e5;--brand2:#7c3aed;--border:#1e293b}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.wrap{max-width:960px;margin:0 auto;padding:18px 20px}
+.card{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px;margin:14px 0}
+h1{font-size:34px;margin:8px 0 12px} h2{font-size:22px;margin:0 0 8px}
+.muted{color:#9aa4b2} ul{margin:8px 0 0 20px;color:#cfe3ff}
+.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);border-radius:999px;padding:6px 10px;background:#0b1220;color:#cfe3ff}
+a{color:#cfe2ff;text-decoration:none}
+</style>
+</head>
+<body>
+<header class="wrap" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+  <div style="display:flex;align-items:center;gap:10px"><img src="/favicon.svg?v=4" width="28" height="28" alt=""><strong>Nova Concierge</strong></div>
+  <div class="badge"><a href="/">← Atgal</a></div>
+</header>
+
+<main class="wrap">
+  <h1>Kainų aprašymas</h1>
+  <div class="card">
+    <h2>Planai ir ribos</h2>
+    <ul>
+      <li><b>Flex (PAYG)</b>: €0/mėn. + <b>€179</b> diegimas; <b>€0.20</b>/pokalbį; min. <b>€29/mėn.</b></li>
+      <li><b>Starter</b>: €199/mėn. — <b>300</b> pok./mėn. (viršlimitis €0.12/pok.).</li>
+      <li><b>Growth</b>: €399/mėn. — <b>800</b> pok./mėn. (viršlimitis €0.12/pok.).</li>
+      <li><b>Scale+</b>: €699/mėn. — <b>1 500</b> pok./mėn., iki 5 asistentų (viršlimitis €0.10/pok.).</li>
+      <li><b>Papildomas asistentas</b>: €50/mėn. (nuo Starter).</li>
+      <li><b>WhatsApp</b>: oficialūs tarifai + 20% admin (perrašoma klientui).</li>
+      <li><b>Auto-upgrade</b>: rekomenduojamas, jei 2 mėn. iš eilės viršijamas planas.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Atsiperkamumas (pavyzdys)</h2>
+    <p class="muted">Jei 1 000 apsilankymų → 3 % pradeda pokalbį → 300 pokalbių/mėn. → <b>Starter</b> planas atitinka. Jei užklausų ėmimas + kvalifikavimas sugeneruoja bent 2–3 papildomus pardavimus po ~€100 kiekvienas, planas atsiperka.</p>
+  </div>
+
+  <div class="card">
+    <h2>Kas įskaičiuota</h2>
+    <ul>
+      <li>Valdiklis svetainei (per GTM/CMS), baziniai srautai (DUK, kontaktai, booking, handoff).</li>
+      <li>7 d. optimizacija po starto, monitoringas / ataskaita.</li>
+      <li>Privatumas pirmiausia — duomenys siunčiami tik į suderintus adresus.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Kliento pasiruošimas</h2>
+    <ul>
+      <li>Prieigos: GTM / CMS „Editor/Collaborator“, Meta „Partner Access“ (FB Page, IG, WA Manager).</li>
+      <li>Turinys: logotipas, brand spalva, 10 DUK, trumpas pasiūlymas, booking nuoroda (Calendly/Google).</li>
+    </ul>
+  </div>
+</main>
+
+<footer class="wrap" style="border-top:1px solid var(--border);color:#a7b2c1">
+  © <span id="y"></span> Nova Concierge · <a href="/privacy.html">Privatumas</a> · <a href="/policy.html">Taisyklės</a>
+</footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+</body>
+</html>
