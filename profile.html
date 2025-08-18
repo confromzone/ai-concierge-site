@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profilis — Nova Concierge</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="theme-color" content="#0b1220">
+<style>
+:root{--bg:#0b1220;--card:#0f172a;--border:#1e293b;--text:#e5eef7;--muted:#9aa4b2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui}
+.wrap{max-width:900px;margin:0 auto;padding:18px 20px}
+.card{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px;margin:14px 0}
+input{width:100%;padding:12px;border:1px solid #203049;border-radius:10px;background:#0b1220;color:#eaf0ff}
+.btn{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#fff;cursor:pointer}
+.small{color:#98a6be;font-size:13px}
+.account{position:relative}
+.avatar{width:36px;height:36px;border-radius:999px;background:#1f2a44;border:1px solid #2b3b5a;color:#dbe7ff;font-weight:700;display:grid;place-items:center;cursor:pointer}
+.account .menu{position:absolute;right:0;top:44px;background:#0f172a;border:1px solid #1e293b;border-radius:12px;min-width:220px;display:none;z-index:50}
+.account .menu.open{display:block}
+.account .menu .email{padding:10px 12px;color:#aab5c7;border-bottom:1px solid #1e293b}
+.account .menu a,.account .menu button{display:block;width:100%;text-align:left;background:none;border:0;color:#e7eefb;padding:10px 12px;cursor:pointer}
+.account .menu a:hover,.account .menu button:hover{background:#0b1220}
+</style>
+<script src="/nc-app.js"></script>
+<script>NC.ncRequireAuth();</script>
+</head>
+<body>
+<div class="wrap">
+  <div style="display:flex;align-items:center;gap:10px;justify-content:space-between">
+    <div class="row" style="display:flex;gap:10px;align-items:center">
+      <img src="/favicon.svg" width="28" height="28" alt=""><strong>Jūsų profilis</strong>
+    </div>
+    <div id="header-actions"></div>
+  </div>
+
+  <div class="card">
+    <h2>Paskyra</h2>
+    <div class="small">El. paštas: <b id="email"></b></div>
+    <div style="height:10px"></div>
+    <div class="row" style="display:flex;gap:10px;align-items:center">
+      <input id="aff" readonly>
+      <button class="btn" id="copy">Kopijuoti nuorodą</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Slaptažodžio keitimas</h2>
+    <div class="small">Admin paskyrai čia nekeičiamas (lokalus demo).</div>
+    <div style="height:6px"></div>
+    <input id="old" type="password" placeholder="Senas slaptažodis">
+    <div style="height:8px"></div>
+    <input id="new" type="password" placeholder="Naujas slaptažodis">
+    <div style="height:12px"></div>
+    <button class="btn" id="chg">Keisti</button>
+    <div class="small" id="msg" style="margin-top:8px"></div>
+  </div>
+</div>
+
+<script>
+NC.ncRenderHeaderActions();
+const u=NC.ncGetUser(); document.getElementById('email').textContent=u?.email||'';
+const link=NC.ncAffiliateLink(); document.getElementById('aff').value=link;
+document.getElementById('copy').onclick=()=>{navigator.clipboard.writeText(link); document.getElementById('copy').textContent='Nukopijuota ✓'; setTimeout(()=>document.getElementById('copy').textContent='Kopijuoti nuorodą',1200);};
+document.getElementById('chg').onclick=()=>{const r=NC.ncChangePassword(old.value,new.value); msg.textContent=r.ok?'Atnaujinta.':'Nepavyko: '+(r.msg||'');};
+</script>
+</body>
+</html>
