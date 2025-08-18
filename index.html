@@ -1,472 +1,147 @@
 <!DOCTYPE html>
 <html lang="lt">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Nova Concierge — AI asistentai, kurie paverčia klausimus pardavimais</title>
-  <meta name="description" content="Kuriame ir prižiūrime AI asistentus, kurie 24/7 atsako klientams, renka kontaktus, kvalifikuoja užklausas ir rezervuoja skambučius. 683 įmonės mumis pasitiki."/>
-  <link rel="canonical" href="https://novaconcierge.online/"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Nova Concierge — AI asistentai, kurie paverčia klausimus pardavimais</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0b1220"/>
+<meta name="description" content="AI asistentai jūsų svetainei ir žinutėms. Daugiau užklausų, greitesni atsakymai, mažiau rutinos.">
 
-  <!-- Icons -->
-  <link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml">
-  <link rel="mask-icon" href="/favicon.svg?v=4" color="#4f46e5">
-  <link rel="apple-touch-icon" href="/favicon.svg?v=4">
-  <meta name="theme-color" content="#0b1220"/>
+<style>
+:root{--bg:#0b1220;--card:#0f172a;--border:#1e293b;--text:#e5eef7;--muted:#9aa4b2;--brand:#6b5cff;--brand2:#22d3ee}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
 
-  <!-- Social -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Nova Concierge">
-  <meta property="og:title" content="Nova Concierge — AI asistentai 24/7"/>
-  <meta property="og:description" content="Greiti atsakymai, kontaktų rinkimas, kvalifikavimas ir skambučių rezervacijos."/>
-  <meta property="og:url" content="https://novaconcierge.online/"/>
-  <meta property="og:image" content="https://novaconcierge.online/hero.png"/>
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Nova Concierge — AI asistentai 24/7">
-  <meta name="twitter:description" content="Greiti atsakymai, kontaktų rinkimas, kvalifikavimas ir skambučių rezervacijos.">
-  <meta name="twitter:image" content="https://novaconcierge.online/hero.png"/>
+/* shimmer background */
+.bgfx{pointer-events:none;position:fixed;inset:-15% -5% auto -5%;height:70vh;z-index:-1;
+  background:
+    radial-gradient(600px 260px at 20% 20%, rgba(107,92,255,.25), transparent 60%),
+    radial-gradient(520px 240px at 80% 10%, rgba(34,211,238,.22), transparent 60%);
+  filter:blur(32px);animation:float 11s ease-in-out infinite alternate}
+@keyframes float{to{transform:translateY(-16px)}}
 
-  <style>
-    :root{--bg:#0b1220;--card:#0f172a;--muted:#9aa4b2;--text:#e5eef7;--brand:#4f46e5;--brand-2:#7c3aed;--brand-3:#22d3ee;--border:#1e293b;--light:#f7f9fb}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
+/* header + drawer */
+header{position:sticky;top:0;z-index:40;background:rgba(11,18,32,.85);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
+.wrap{max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:12px;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px}.brand img{width:28px;height:28px;border-radius:7px}
+.burger{width:40px;height:36px;border:1px solid var(--border);border-radius:10px;background:#0f172a;color:#cbd5e1;display:grid;place-items:center;cursor:pointer}
+.burger i,.burger i:before,.burger i:after{content:"";display:block;width:18px;height:2px;background:#cbd5e1;border-radius:2px;position:relative;transition:.25s}
+.burger i:before{position:absolute;transform:translateY(-6px)} .burger i:after{position:absolute;transform:translateY(6px)}
+.burger.active i{background:transparent}.burger.active i:before{transform:rotate(45deg)}.burger.active i:after{transform:rotate(-45deg)}
+.drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);z-index:39;opacity:0;pointer-events:none;transition:.25s}
+.drawer{position:fixed;left:0;top:0;bottom:0;width:300px;background:#0f172a;border-right:1px solid var(--border);z-index:40;transform:translateX(-105%);transition:.25s;padding:18px}
+.drawer.open{transform:none}.drawer-backdrop.show{opacity:1;pointer-events:auto}
+.drawer .links{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.drawer a{padding:10px;border-radius:10px;color:#cbd5e1;border:1px solid transparent}
+.drawer a:hover{border-color:var(--border);background:#0b1220}
 
-    /* HEADER + BURGER */
-    header{position:sticky;top:0;z-index:40;background:rgba(11,18,32,.85);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
-    .wrap{max-width:1120px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;justify-content:space-between}
-    .left{display:flex;align-items:center;gap:12px}
-    .brand{display:flex;align-items:center;gap:10px}
-    .brand img{width:28px;height:28px;border-radius:7px}
-    .burger{width:40px;height:36px;border:1px solid var(--border);border-radius:10px;background:#0f172a;color:#cbd5e1;display:grid;place-items:center;cursor:pointer}
-    .burger i,.burger i:before,.burger i:after{content:"";display:block;width:18px;height:2px;background:#cbd5e1;border-radius:2px;position:relative;transition:.25s}
-    .burger i:before{position:absolute;transform:translateY(-6px)}
-    .burger i:after{position:absolute;transform:translateY(6px)}
-    .burger.active i{background:transparent}
-    .burger.active i:before{transform:rotate(45deg)}
-    .burger.active i:after{transform:rotate(-45deg)}
+.hero{max-width:1100px;margin:0 auto;padding:52px 20px;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+.pill{display:inline-flex;gap:8px;align-items:center;background:#0f172a;border:1px solid var(--border);padding:6px 10px;border-radius:999px;color:#a3b1c4;font-size:14px}
+h1{margin:12px 0 10px;font-size:42px;line-height:1.1}
+.lead{color:#b8c3cf;font-size:18px}
+.cta{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+.btn{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#e5eef7;position:relative;overflow:hidden}
+.btn.primary{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0}
+.btn:active::after{content:"";position:absolute;inset:0;background:radial-gradient(160px 160px at var(--x,50%) var(--y,50%), rgba(255,255,255,.16), transparent 60%)}
 
-    nav{display:flex;gap:16px;align-items:center}
-    nav a{color:var(--muted)}
-    nav a:hover{color:#fff}
-    .lang-toggle{display:flex;gap:8px}
-    .lang-toggle button{padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:#111827;color:#cbd5e1;cursor:pointer}
-    .lang-toggle button.active{background:var(--brand);border-color:var(--brand);color:#fff}
+.cards{max-width:1100px;margin:0 auto 40px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 20px}
+.card{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px;transition:transform .2s}
+.card:hover{transform:translateY(-4px)} .muted{color:#9aa4b2}
+.hero-img img{border:1px solid var(--border);border-radius:14px;background:#060913;transform:perspective(900px) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));transition:transform .08s}
 
-    /* DRAWER (kairėje) */
-    .drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);z-index:39;opacity:0;pointer-events:none;transition:.25s}
-    .drawer{position:fixed;left:0;top:0;bottom:0;width:300px;background:#0f172a;border-right:1px solid var(--border);z-index:40;transform:translateX(-105%);transition:.25s;padding:18px}
-    .drawer.open{transform:none}
-    .drawer-backdrop.show{opacity:1;pointer-events:auto}
-    .drawer .logo{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-    .drawer .links{display:flex;flex-direction:column;gap:8px;margin-top:12px}
-    .drawer a{padding:10px 12px;border-radius:10px;color:#cbd5e1;border:1px solid transparent}
-    .drawer a:hover{border-color:var(--border);background:#0b1220}
-    .drawer .hr{height:1px;background:var(--border);margin:12px 0}
-
-    /* HERO + efektai */
-    .hero{position:relative;max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding:48px 20px}
-    .hero:before{content:"";position:absolute;inset:-20% -10% auto -10%;height:70%;background:
-      radial-gradient(600px 240px at 20% 20%, rgba(124,58,237,.25), transparent 60%),
-      radial-gradient(500px 220px at 80% 10%, rgba(34,211,238,.22), transparent 60%);filter:blur(32px);z-index:-1;animation:floatGlow 12s ease-in-out infinite alternate}
-    @keyframes floatGlow{to{transform:translateY(-16px)}}
-    .pill{display:inline-flex;gap:8px;align-items:center;background:#0f172a;border:1px solid var(--border);padding:6px 10px;border-radius:999px;color:#a3b1c4;font-size:14px}
-    h1{margin:14px 0 10px;font-size:42px;line-height:1.12}
-    .lead{color:#b8c3cf;font-size:18px}
-    .cta{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap}
-    .btn{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#cbd5e1;position:relative;overflow:hidden}
-    .btn.primary{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0;color:#fff}
-    .btn.secondary{background:#0f172a}
-    .btn:active::after{content:"";position:absolute;inset:0;background:radial-gradient(200px 200px at var(--x,50%) var(--y,50%), rgba(255,255,255,.15), transparent 60%);opacity:1;transition:.3s;opacity:0}
-    .hero-img img{border-radius:14px;border:1px solid var(--border);background:#060913;transform:perspective(900px) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));transition:transform .1s ease}
-
-    /* TRUST / SECTIONS */
-    .trust{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#0f172a}
-    .trust-wrap{max-width:1120px;margin:0 auto;padding:16px 20px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-    .trust .badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);border-radius:999px;padding:8px 12px;color:#cfe3ff;background:#0b1220}
-    .trust .stat{margin-left:auto;color:#9fb3ff}
-
-    section{padding:56px 20px}
-    .section-wrap{max-width:1120px;margin:0 auto}
-    h2{font-size:30px;margin:0 0 10px}
-    p.muted{color:var(--muted)}
-    .cards{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .card{background:#0f172a;border:1px solid var(--border);border-radius:14px;padding:18px;transition:transform .2s}
-    .card:hover{transform:translateY(-4px)}
-    .card h3{margin:0 0 8px}
-    .badge{display:inline-flex;gap:6px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--border);color:#a8b3c3;font-size:14px}
-
-    .pricing{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .price{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:20px;transition:transform .2s}
-    .price:hover{transform:translateY(-4px)}
-    .price .title{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-    .price ul{margin:12px 0 0 18px;color:#b7c3cf}
-    .price .num{font-size:28px;font-weight:700;margin-top:8px}
-    .note{color:var(--muted);font-size:14px;margin-top:8px}
-
-    .cta-section{background:#0f172a;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-    .cta-box{max-width:990px;margin:0 auto;display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:#0b1220;border:1px dashed var(--border);border-radius:16px;padding:22px}
-    .cta-box .flex{flex:1 1 420px}
-    .cta-box .actions{display:flex;gap:12px}
-
-    .contact{background:var(--light);color:#0b1220}
-    .contact .section-wrap{max-width:880px}
-    .contact .muted{color:#5b6573}
-    form{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    form .full{grid-column:1/-1}
-    input,select,textarea{width:100%;padding:12px;border:1px solid #dbe2ea;border-radius:10px;font-size:16px;background:#fff}
-    textarea{min-height:120px}
-    .form-note{font-size:13px;color:#6b7280;margin-top:-6px}
-    .send .btn{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0;color:#fff}
-
-    footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
-    footer a{color:#cfe2ff}
-
-    @media (max-width:960px){
-      .hero{grid-template-columns:1fr}
-      .cards,.pricing{grid-template-columns:1fr}
-      .trust .stat{margin-left:0}
-      nav{display:none}
-    }
-  </style>
+footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
+@media(max-width:960px){.hero{grid-template-columns:1fr}.cards{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-  <!-- Drawer backdrop & panel -->
-  <div class="drawer-backdrop" id="backdrop"></div>
-  <aside class="drawer" id="drawer" aria-label="Šoninis meniu">
-    <div class="logo">
-      <img src="/favicon.svg?v=4" alt="Nova Concierge" width="28" height="28">
-      <strong>Nova Concierge</strong>
-    </div>
-    <div class="links">
-      <a href="/">🏠 Pagrindinis</a>
-      <a href="/#pricing">💳 Planai</a>
-      <a href="/pricing-details.html">📚 Kainų aprašymas</a>
-      <a href="/affiliate.html">🤝 Afilija</a>
-      <a href="/privacy.html">🔒 Privatumo politika</a>
-      <a href="/policy.html">📜 Taisyklės / Politika</a>
-      <a href="/auth.html">🔐 Prisijungti / Registruotis</a>
-      <div class="hr"></div>
-      <a href="/#contact">✉️ Kontaktai</a>
-      <a href="https://wa.me/37068195678" target="_blank">📱 WhatsApp</a>
-    </div>
-  </aside>
+<div class="bgfx"></div>
 
-  <header>
-    <div class="wrap">
-      <div class="left">
-        <button class="burger" id="burger" aria-label="Meniu"><i></i></button>
-        <div class="brand">
-          <img src="/favicon.svg?v=4" alt="Nova Concierge">
-          <strong>Nova Concierge</strong>
-        </div>
-      </div>
-      <nav>
-        <a href="#about" data-lang="en">What we do</a>
-        <a href="#about" data-lang="lt" style="display:none">Ką darome</a>
-        <a href="#pricing" data-lang="en">Pricing</a>
-        <a href="#pricing" data-lang="lt" style="display:none">Kainos</a>
-        <a href="/pricing-details.html" data-lang="en">Pricing details</a>
-        <a href="/pricing-details.html" data-lang="lt" style="display:none">Kainų aprašymas</a>
-        <a href="/affiliate.html" data-lang="en">Affiliate</a>
-        <a href="/affiliate.html" data-lang="lt" style="display:none">Afilija</a>
-        <a href="/privacy.html" data-lang="en">Privacy</a>
-        <a href="/privacy.html" data-lang="lt" style="display:none">Privatumas</a>
-        <a href="/policy.html" data-lang="en">Policy</a>
-        <a href="/policy.html" data-lang="lt" style="display:none">Politika</a>
-        <a href="#contact" data-lang="en">Contact</a>
-        <a href="#contact" data-lang="lt" style="display:none">Kontaktai</a>
-        <a href="/auth.html" class="btn secondary" data-lang="en">Sign in</a>
-        <a href="/auth.html" class="btn secondary" data-lang="lt" style="display:none">Prisijungti</a>
-      </nav>
-      <div class="lang-toggle">
-        <button id="btn-en">EN</button>
-        <button id="btn-lt" class="active">LT</button>
-      </div>
-    </div>
-  </header>
+<!-- auth guard: neleisti nepasirašius -->
+<script>
+(function(){
+  const open=['/auth.html','/company.html','/privacy.html','/policy.html','/'];
+  if(!open.includes(location.pathname)){
+    if(!localStorage.getItem('nc_user')){
+      location.href='/auth.html?next='+encodeURIComponent(location.pathname+location.search);
+    }
+  }
+})();
+</script>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div>
-      <div class="pill">
-        ⚡ <span data-lang="en">AI assistant for your website & messages</span>
-        <span data-lang="lt" style="display:none">AI asistentas jūsų svetainei ir žinutėms</span>
-      </div>
-      <h1 data-lang="en">More leads. Faster replies. Less support work.</h1>
-      <h1 data-lang="lt" style="display:none">Daugiau užklausų. Greitesni atsakymai. Mažiau rutinos.</h1>
-      <p class="lead" data-lang="en">We install and run an AI assistant that answers instantly, captures contacts, qualifies intent and books calls.</p>
-      <p class="lead" data-lang="lt" style="display:none">Įdiegiame ir prižiūrime AI asistentą, kuris akimirksniu atsako, surenka kontaktus, įvertina ketinimą ir rezervuoja skambučius.</p>
-      <div class="cta">
-        <a href="#contact" class="btn primary" data-lang="en">Get a free demo</a>
-        <a href="#contact" class="btn primary" data-lang="lt" style="display:none">Gauti nemokamą demo</a>
-        <a href="#pricing" class="btn secondary" data-lang="en">See pricing</a>
-        <a href="#pricing" class="btn secondary" data-lang="lt" style="display:none">Peržiūrėti kainas</a>
-      </div>
-    </div>
-    <div class="hero-img" id="tilt">
-      <img src="/hero.png" alt="AI assistant illustration">
-    </div>
-  </section>
+<div class="drawer-backdrop" id="bd"></div>
+<aside class="drawer" id="dw">
+  <div class="brand"><img src="/favicon.svg" alt=""><strong>Nova Concierge</strong></div>
+  <div class="links">
+    <a href="/">🏠 Pagrindinis</a>
+    <a href="/affiliate.html">🤝 Afilija (Workspace)</a>
+    <a href="/company.html">🏢 Įmonės registracija</a>
+    <a href="/pricing-details.html">💳 Kainų aprašymas</a>
+    <a href="/privacy.html">🔒 Privatumas</a>
+    <a href="/policy.html">📜 Taisyklės</a>
+    <a href="/auth.html">🔐 Prisijungti / Registruotis</a>
+  </div>
+</aside>
 
-  <!-- TRUST -->
-  <div class="trust">
-    <div class="trust-wrap">
-      <div class="badge">✅ <span data-lang="en">Fast setup</span><span data-lang="lt" style="display:none">Greitas diegimas</span></div>
-      <div class="badge">🔒 <span data-lang="en">Privacy-first</span><span data-lang="lt" style="display:none">Privatumas pirmiausia</span></div>
-      <div class="badge">📈 <span data-lang="en">Capture & booking</span><span data-lang="lt" style="display:none">Kontaktai ir rezervacijos</span></div>
-      <div class="stat"><strong>683</strong> <span data-lang="en">companies trust us</span><span data-lang="lt" style="display:none">įmonės mumis pasitiki</span></div>
+<header>
+  <div class="wrap">
+    <button class="burger" id="b"><i></i></button>
+    <div class="brand"><img src="/favicon.svg" alt=""><strong>Nova Concierge</strong></div>
+    <div style="display:flex;gap:12px;align-items:center">
+      <a class="btn" href="/auth.html">Prisijungti</a>
+      <a class="btn primary" href="/company.html">Įmonės registracija</a>
     </div>
   </div>
+</header>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="section-wrap">
-      <h2 data-lang="en">What we do</h2>
-      <h2 data-lang="lt" style="display:none">Ką mes darome</h2>
-      <p class="muted" data-lang="en">Your assistant lives on your site and (optionally) WhatsApp/IG/FB DM. It handles 60–80% repeat questions, collects email/phone, routes to the right inbox and books meetings. When needed—hands off to a human.</p>
-      <p class="muted" data-lang="lt" style="display:none">Asistentas veikia jūsų svetainėje ir (pasirinktinai) WhatsApp/IG/FB žinutėse. Jis atsako į 60–80% pasikartojančių klausimų, surenka el. paštą/telefoną, perduoda į teisingą pašto dėžutę ir rezervuoja susitikimus. Prireikus perduoda žmogui.</p>
-
-      <div class="cards" id="features">
-        <div class="card">
-          <span class="badge">🎯</span>
-          <h3 data-lang="en">Lead capture & routing</h3>
-          <h3 data-lang="lt" style="display:none">Kontaktų surinkimas ir perdavimas</h3>
-          <p class="muted" data-lang="en">Email/phone capture, intent scoring, routing to the right inbox or WhatsApp.</p>
-          <p class="muted" data-lang="lt" style="display:none">El. paštas/telefonas, ketinimo įvertinimas ir perdavimas teisingam inbox/WhatsApp.</p>
-        </div>
-        <div class="card">
-          <span class="badge">📆</span>
-          <h3 data-lang="en">Bookings & reminders</h3>
-          <h3 data-lang="lt" style="display:none">Rezervacijos ir priminimai</h3>
-          <p class="muted" data-lang="en">Book calls instantly; confirmations are automatic.</p>
-          <p class="muted" data-lang="lt" style="display:none">Skambučiai rezervuojami vietoje; patvirtinimai automatiniai.</p>
-        </div>
-        <div class="card">
-          <span class="badge">🔌</span>
-          <h3 data-lang="en">Plug & play</h3>
-          <h3 data-lang="lt" style="display:none">Greitas diegimas</h3>
-          <p class="muted" data-lang="en">Embed snippet, we handle training & analytics.</p>
-          <p class="muted" data-lang="lt" style="display:none">Trumpa įkėlimo iškarpa, mokymu ir analitika pasirūpiname mes.</p>
-        </div>
-      </div>
+<section class="hero">
+  <div>
+    <div class="pill">⚡ AI asistentas jūsų svetainei ir žinutėms</div>
+    <h1>Daugiau užklausų. Greitesni atsakymai. Mažiau rutinos.</h1>
+    <p class="lead">Įdiegiame ir prižiūrime AI asistentą, kuris akimirksniu atsako, surenka kontaktus, kvalifikuoja ir rezervuoja skambučius.</p>
+    <div class="cta">
+      <a class="btn primary" href="/company.html">Startuoti dabar</a>
+      <a class="btn" href="/pricing-details.html">Kainų aprašymas</a>
     </div>
-  </section>
+  </div>
+  <div class="hero-img" id="tilt"><img src="/hero.png" alt=""></div>
+</section>
 
-  <!-- PRICING -->
-  <section id="pricing">
-    <div class="section-wrap">
-      <h2 data-lang="en">Pricing</h2>
-      <h2 data-lang="lt" style="display:none">Kainodara</h2>
-      <p class="muted" data-lang="en">Simple monthly plans in EUR. Clear limits, easy upgrades.</p>
-      <p class="muted" data-lang="lt" style="display:none">Paprasti mėnesiniai planai EUR. Aiškios ribos ir lengvi atnaujinimai.</p>
+<section class="cards">
+  <div class="card"><h3>🎯 Kontaktų surinkimas</h3><p class="muted">El. pašto/telefono surinkimas, ketinimo įvertinimas, perdavimas į tinkamą dėžutę ar WhatsApp.</p></div>
+  <div class="card"><h3>📆 Rezervacijos</h3><p class="muted">Skambučių rezervavimas vietoje, patvirtinimai automatiniai, perdavimas žmogui prireikus.</p></div>
+  <div class="card"><h3>🔌 Greitas diegimas</h3><p class="muted">Vienos eilutės įterpimas per GTM/CMS; WhatsApp kaštai klientui (+20% admin).</p></div>
+</section>
 
-      <div class="pricing">
-        <div class="price">
-          <div class="title"><span class="badge">🧩</span><strong>Flex (PAYG)</strong></div>
-          <ul data-lang="en">
-            <li>Web chat widget (1 site), 1 assistant</li>
-            <li>Pay-as-you-go: €0.20 / conversation</li>
-            <li>Minimum monthly charge: €29</li>
-            <li>Email lead capture</li>
-            <li>One-time setup: €179</li>
-          </ul>
-          <ul data-lang="lt" style="display:none">
-            <li>Pokalbių valdiklis (1 svetainė), 1 asistentas</li>
-            <li>Moki pagal naudojimą: €0.20 / pokalbį</li>
-            <li>Minimalus mėnesio mokestis: €29</li>
-            <li>El. pašto kontaktų surinkimas</li>
-            <li>Vienkartinis įdiegimas: €179</li>
-          </ul>
-          <div class="num">€0 / mo</div>
-        </div>
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <div>© <span id="y"></span> Nova Concierge · WhatsApp: +370 681 95678 · <a href="mailto:zoe.lirel@gmail.com">zoe.lirel@gmail.com</a></div>
+    <div><a href="/privacy.html">Privatumas</a> · <a href="/policy.html">Taisyklės</a></div>
+  </div>
+</footer>
 
-        <div class="price">
-          <div class="title"><span class="badge">🚀</span><strong>Starter</strong></div>
-          <ul data-lang="en">
-            <li>Web chat widget, up to 1 assistant</li>
-            <li>Included: 300 conversations / mo</li>
-            <li>Basic FAQ training + email capture</li>
-            <li>1× content update / mo</li>
-          </ul>
-          <ul data-lang="lt" style="display:none">
-            <li>Pokalbių valdiklis, iki 1 asistento</li>
-            <li>Įskaičiuota: 300 pokalbių / mėn.</li>
-            <li>Pagrindinis DUK + el. pašto surinkimas</li>
-            <li>1× turinio atnaujinimas / mėn.</li>
-          </ul>
-          <div class="num">€199 / mo</div>
-        </div>
+<script>
+// burger
+const b=document.getElementById('b'), bd=document.getElementById('bd'), dw=document.getElementById('dw');
+function close(){dw.classList.remove('open');bd.classList.remove('show');b.classList.remove('active');}
+b.onclick=()=>{dw.classList.toggle('open');bd.classList.toggle('show');b.classList.toggle('active');};
+bd.onclick=close; addEventListener('keydown',e=>{if(e.key==='Escape') close();});
 
-        <div class="price">
-          <div class="title"><span class="badge">💼</span><strong>Growth</strong></div>
-          <ul data-lang="en">
-            <li>Web + optional WhatsApp*</li>
-            <li>Up to 2 assistants</li>
-            <li>Included: 800 conversations / mo</li>
-            <li>Bookings, lead scoring & routing</li>
-            <li>1× optimization / mo</li>
-          </ul>
-          <ul data-lang="lt" style="display:none">
-            <li>Svetainė + pasirinktinai WhatsApp*</li>
-            <li>Iki 2 asistentų</li>
-            <li>Įskaičiuota: 800 pokalbių / mėn.</li>
-            <li>Rezervacijos, vertinimas ir perdavimas</li>
-            <li>1× optimizacija / mėn.</li>
-          </ul>
-          <div class="num">€399 / mo</div>
-        </div>
-
-        <div class="price">
-          <div class="title"><span class="badge">🏢</span><strong>Scale+</strong></div>
-          <ul data-lang="en">
-            <li>Web + WhatsApp + IG/FB DM</li>
-            <li>Up to 5 assistants</li>
-            <li>Included: 1,500 conversations / mo</li>
-            <li>Custom flows & integrations</li>
-            <li>Priority support, 2× optimizations / mo</li>
-          </ul>
-          <ul data-lang="lt" style="display:none">
-            <li>Svetainė + WhatsApp + IG/FB žinutės</li>
-            <li>Iki 5 asistentų</li>
-            <li>Įskaičiuota: 1 500 pokalbių / mėn.</li>
-            <li>Individualūs srautai ir integracijos</li>
-            <li>Prioritetinis palaikymas, 2× optimizacijos / mėn.</li>
-          </ul>
-          <div class="num">€699 / mo</div>
-        </div>
-      </div>
-
-      <p class="note" data-lang="en">
-        Overage: €0.12 / conversation (Starter/Growth) and €0.10 / conversation (Scale+).
-        WhatsApp billed at official rates + 20% admin. Extra assistant: €50 / mo.
-        Auto-upgrade is recommended when usage exceeds your plan for 2 consecutive months.
-      </p>
-      <p class="note" data-lang="lt" style="display:none">
-        Viršijus limitą: €0.12 / pokalbį (Starter/Growth) ir €0.10 / pokalbį (Scale+).
-        WhatsApp mokesčiai pagal oficialius įkainius + 20% administravimas. Papildomas asistentas: €50 / mėn.
-        Jei 2 mėn. iš eilės viršijate planą, rekomenduojamas automatinis atnaujinimas į aukštesnį.
-      </p>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="cta-box">
-      <div class="flex">
-        <div class="pill">✨ 
-          <span data-lang="en">Personalised 7-day pilot</span>
-          <span data-lang="lt" style="display:none">Asmeninis 7 dienų pilotas</span>
-        </div>
-        <h2 style="margin:10px 0 6px" data-lang="en">Ready to see your AI concierge in action?</h2>
-        <h2 style="margin:10px 0 6px;display:none" data-lang="lt">Pasiruošę pamatyti savo AI asistentą veiksme?</h2>
-        <p class="muted" data-lang="en">We’ll build a free demo on your real content and channels.</p>
-        <p class="muted" data-lang="lt" style="display:none">Sukursime nemokamą demo su jūsų turiniu ir kanalais.</p>
-      </div>
-      <div class="actions">
-        <a class="btn primary" href="#contact" data-lang="en">Request demo</a>
-        <a class="btn primary" href="#contact" data-lang="lt" style="display:none">Paprašyti demo</a>
-        <a class="btn" href="#pricing" data-lang="en">View plans</a>
-        <a class="btn" href="#pricing" data-lang="lt" style="display:none">Peržiūrėti planus</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="contact">
-    <div class="section-wrap">
-      <h2 data-lang="en">Contact us</h2>
-      <h2 data-lang="lt" style="display:none">Susisiekite</h2>
-      <p class="muted" data-lang="en">Tell us about your business — we’ll reply with a tailored plan and a booking link.</p>
-      <p class="muted" data-lang="lt" style="display:none">Trumpai apie jūsų verslą — atsiųsime pritaikytą planą ir rezervacijos nuorodą.</p>
-
-      <form action="https://formsubmit.co/zoe.lirel@gmail.com" method="POST" accept-charset="UTF-8">
-        <input type="hidden" name="_subject" value="Nova Concierge — Nauja užklausa">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://novaconcierge.online/?sent=1">
-        <input type="text" name="_honey" style="display:none">
-        <!-- Affiliate ref automatiškai įrašys scriptas -->
-        <input type="text"  name="name"     placeholder="Vardas / Full name" required>
-        <input type="email" name="email"    placeholder="El. paštas / Email" required>
-        <input type="tel"   name="phone"    placeholder="Telefonas / Phone">
-        <input type="text"  name="company"  placeholder="Įmonė / Company">
-        <select name="budget">
-          <option value="" selected>Biudžetas / Budget</option>
-          <option>&lt; €100/mo</option><option>€100–€250/mo</option>
-          <option>€250–€500/mo</option><option>&gt; €500/mo</option>
-        </select>
-        <input type="text" name="industry" placeholder="Sritis / Industry">
-        <textarea class="full" name="message" placeholder="Kokią problemą sprendžiame? / What problem should we solve?" required></textarea>
-
-        <div class="full form-note">Duomenys siunčiami į <b>zoe.lirel@gmail.com</b>. Atsakysime greitai.</div>
-        <div class="full send"><button class="btn" type="submit">Siųsti / Send</button></div>
-      </form>
-    </div>
-  </section>
-
-  <footer>
-    <div class="section-wrap" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
-      <div>© <span id="y"></span> Nova Concierge. WhatsApp: +370 681 95678 · Email: <a href="mailto:zoe.lirel@gmail.com">zoe.lirel@gmail.com</a></div>
-      <div>💙 <span data-lang="en">Privacy-first automations</span><span data-lang="lt" style="display:none">Privatumą gerbiančios automacijos</span></div>
-    </div>
-  </footer>
-
-  <script>
-    // Year & language
-    document.getElementById('y').textContent = new Date().getFullYear();
-    const $ = s => document.querySelector(s), $$ = s => Array.from(document.querySelectorAll(s));
-    function setLang(lang){
-      localStorage.setItem('lang', lang);
-      $$('[data-lang]').forEach(el => el.style.display = (el.getAttribute('data-lang')===lang) ? '' : 'none');
-      $('#btn-en').classList.toggle('active', lang==='en');
-      $('#btn-lt').classList.toggle('active', lang==='lt');
-      document.documentElement.lang = lang;
-    }
-    $('#btn-en').onclick = () => setLang('en');
-    $('#btn-lt').onclick = () => setLang('lt');
-    setLang(localStorage.getItem('lang') || 'lt');
-
-    // Burger
-    const drawer=$('#drawer'), bd=$('#backdrop'), b=$('#burger');
-    function closeD(){drawer.classList.remove('open');bd.classList.remove('show');b.classList.remove('active');}
-    b.onclick=()=>{drawer.classList.toggle('open');bd.classList.toggle('show');b.classList.toggle('active');};
-    bd.onclick=closeD; addEventListener('keydown',e=>{if(e.key==='Escape') closeD();});
-
-    // Button ripple position
-    $$('.btn').forEach(btn=>btn.addEventListener('pointerdown',e=>{
-      const r=btn.getBoundingClientRect(); btn.style.setProperty('--x', (e.clientX-r.left)+'px'); btn.style.setProperty('--y',(e.clientY-r.top)+'px');
-    }));
-
-    // Tilt on hero image
-    const tilt=$('#tilt img');
-    tilt?.parentElement.addEventListener('pointermove',e=>{
-      const r=tilt.getBoundingClientRect(), cx=e.clientX-r.left, cy=e.clientY-r.top;
-      const rx=((cy/r.height)-.5)*8, ry=((cx/r.width)-.5)*-10; // deg
-      tilt.style.setProperty('--rx', rx+'deg'); tilt.style.setProperty('--ry', ry+'deg');
-    });
-    tilt?.parentElement.addEventListener('pointerleave',()=>{tilt.style.setProperty('--rx','0deg'); tilt.style.setProperty('--ry','0deg');});
-
-    // === Affiliate: ?ref= gaudymas ir perdavimas ===
-    (function(){
-      const url = new URL(location.href);
-      const ref = url.searchParams.get('ref');
-      if (ref) { localStorage.setItem('nc_aff_ref', ref.trim()); url.searchParams.delete('ref'); history.replaceState({}, "", url.toString()); }
-      const aff = localStorage.getItem('nc_aff_ref') || "";
-      // į formą
-      const contactForm = document.querySelector('#contact form');
-      if (contactForm && aff) {
-        let h = contactForm.querySelector('input[name="affiliate_ref"]');
-        if (!h) { h=document.createElement('input'); h.type='hidden'; h.name='affiliate_ref'; contactForm.appendChild(h); }
-        h.value = aff;
-      }
-      // į auth/pricing nuorodas
-      document.querySelectorAll('a[href^="/auth"], a[href^="/#pricing"], a[href^="/pricing-details"]').forEach(a=>{
-        if(!aff) return;
-        const u = new URL(a.href, location.origin); u.searchParams.set('ref', aff);
-        a.href = u.pathname + u.search + u.hash;
-      });
-    })();
-  </script>
+// ripple position
+document.querySelectorAll('.btn').forEach(btn=>btn.addEventListener('pointerdown',e=>{
+  const r=btn.getBoundingClientRect(); btn.style.setProperty('--x',(e.clientX-r.left)+'px'); btn.style.setProperty('--y',(e.clientY-r.top)+'px');
+}));
+// tilt
+const img=document.querySelector('#tilt img');
+img?.parentElement.addEventListener('pointermove',e=>{
+  const r=img.getBoundingClientRect(), cx=e.clientX-r.left, cy=e.clientY-r.top;
+  const rx=((cy/r.height)-.5)*8, ry=((cx/r.width)-.5)*-10;
+  img.style.setProperty('--rx',rx+'deg'); img.style.setProperty('--ry',ry+'deg');
+});
+img?.parentElement.addEventListener('pointerleave',()=>{img.style.setProperty('--rx','0deg');img.style.setProperty('--ry','0deg');});
+document.getElementById('y').textContent=(new Date).getFullYear();
+</script>
 </body>
 </html>
