@@ -2,52 +2,23 @@
 <html lang="lt">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Taisyklės ir paslaugų sąlygos — Nova Concierge</title>
-<link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml"><meta name="theme-color" content="#0b1220">
+<title>Taisyklės — Nova Concierge</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="theme-color" content="#0b1220">
 <style>
-:root{--bg:#0b1220;--card:#0f172a;--text:#e5eef7;--muted:#9aa4b2;--border:#1e293b}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Arial,sans-serif}
-.wrap{max-width:900px;margin:0 auto;padding:20px}
+:root{--bg:#0b1220;--card:#0f172a;--border:#1e293b;--text:#e5eef7;--muted:#9aa4b2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui}
+.wrap{max-width:900px;margin:0 auto;padding:18px 20px}
 .card{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px;margin:14px 0}
-h1{font-size:32px;margin:8px 0 12px}h2{font-size:20px;margin:0 0 8px}ul{margin:8px 0 0 20px}a{color:#cfe2ff}
 </style>
+<script src="/nc-app.js"></script>
 </head>
 <body>
-<header class="wrap" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
-  <div style="display:flex;align-items:center;gap:10px"><img src="/favicon.svg?v=4" width="28" height="28" alt=""><strong>Nova Concierge</strong></div>
-  <a href="/" style="border:1px solid var(--border);padding:8px 12px;border-radius:10px">← Pagrindinis</a>
-</header>
-<main class="wrap">
-  <h1>Taisyklės / Politika</h1>
+<div class="wrap">
+  <div style="display:flex;gap:10px;align-items:center"><img src="/favicon.svg" width="28" height="28" alt=""><strong>Taisyklės</strong></div>
   <div class="card">
-    <h2>Paslaugų teikimas</h2>
-    <ul>
-      <li>Teikiame AI asistento diegimą ir priežiūrą pagal pasirinktą planą.</li>
-      <li>WhatsApp kaštai — pagal oficialius tarifus + 20% administravimas (perrašoma klientui).</li>
-      <li>Auto-upgrade rekomenduojamas viršijus planą 2 mėn. iš eilės.</li>
-    </ul>
+    <p>Naudodamiesi paslauga sutinkate su sąžiningu naudojimu ir privatumo taisyklėmis. WhatsApp tarifai perrašomi klientui (+20% admin). Viršlimitiniai pokalbiai apmokestinami pagal planą.</p>
   </div>
-  <div class="card">
-    <h2>Apmokėjimas ir grąžinimai</h2>
-    <ul>
-      <li>Planai apmokestinami iš anksto kas mėnesį. Už viršlimitį skaičiuojama mėnesio pabaigoje.</li>
-      <li>Diegimo mokestis (jei taikoma) — vienkartinis, negrąžinamas po darbų pradžios.</li>
-    </ul>
-  </div>
-  <div class="card">
-    <h2>Affiliate programa</h2>
-    <ul>
-      <li>Komisijos: 10–100 €/mėn. pagal kliento planą, kol planas aktyvus.</li>
-      <li>Nedraudžiama reklama, tačiau draudžiama klaidinanti komunikacija, spam ir neteisėti veiksmai.</li>
-      <li>Galime sustabdyti išmokas sukčiavimo atvejais.</li>
-    </ul>
-  </div>
-  <div class="card">
-    <h2>Atsakomybės ribojimas</h2>
-    <p>Dedame pastangas užtikrinti paslaugų veikimą, tačiau negalime garantuoti absoliutaus nepertraukiamumo. Neatsakome už netiesioginius nuostolius.</p>
-  </div>
-</main>
-<footer class="wrap" style="border-top:1px solid var(--border);color:#9aa4b2">© <span id="y"></span> Nova Concierge · <a href="/privacy.html">Privatumas</a></footer>
-<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+</div>
 </body>
 </html>
+
