@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Nova Concierge — AI asistentai, kurie paverčia klausimus pardavimais</title>
-  <meta name="description" content="Kuriame ir prižiūrime AI asistentus, kurie 24/7 atsako klientams, renka kontaktus, kvalifikuoja užklausas ir rezervuoja skambučius. 683 įmonės mumis pasitiki."/>
-  <link rel="canonical" href="https://novaconcierge.online/"/>
+  <title>Nova Concierge — Prisijungimas / Registracija</title>
+  <meta name="description" content="Prisijunkite arba susikurkite paskyrą. Virš formos — mini žaidimas: įveik bosą ir gauk −20% pirmajam užsakymui (kodas NOVA20)."/>
+  <link rel="canonical" href="https://novaconcierge.online/auth.html"/>
 
   <!-- Favicon / App Icons -->
   <link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml">
@@ -16,17 +16,18 @@
   <!-- Social preview -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Nova Concierge">
-  <meta property="og:title" content="Nova Concierge — AI asistentai 24/7"/>
-  <meta property="og:description" content="Greiti atsakymai, kontaktų rinkimas, kvalifikavimas ir skambučių rezervacijos."/>
-  <meta property="og:url" content="https://novaconcierge.online/"/>
+  <meta property="og:title" content="Nova Concierge — Prisijungimas / Registracija"/>
+  <meta property="og:description" content="Mini žaidimas virš formos: įveik bosą ir gauk −20% (NOVA20)."/>
+  <meta property="og:url" content="https://novaconcierge.online/auth.html"/>
   <meta property="og:image" content="https://novaconcierge.online/hero.png"/>
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Nova Concierge — AI asistentai 24/7">
-  <meta name="twitter:description" content="Greiti atsakymai, kontaktų rinkimas, kvalifikavimas ir skambučių rezervacijos.">
+  <meta name="twitter:title" content="Nova Concierge — Prisijungimas / Registracija">
+  <meta name="twitter:description" content="Mini žaidimas virš formos: įveik bosą ir gauk −20% (NOVA20).">
   <meta name="twitter:image" content="https://novaconcierge.online/hero.png"/>
 
   <style>
-    :root{--bg:#0b1220;--card:#0f172a;--muted:#9aa4b2;--text:#e5eef7;--brand:#4f46e5;--brand-2:#22c55e;--border:#1e293b;--light:#f7f9fb}
+    /* ====== Brand tema (tokie pat stiliai kaip tavo index) ====== */
+    :root{--bg:#0b1220;--card:#0f172a;--muted:#9aa4b2;--text:#e5eef7;--brand:#4f46e5;--brand-2:#7c3aed;--accent:#22c55e;--border:#1e293b;--light:#f7f9fb}
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
     a{color:inherit;text-decoration:none}
@@ -43,66 +44,53 @@
     .lang-toggle button{padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:#111827;color:#cbd5e1;cursor:pointer}
     .lang-toggle button.active{background:var(--brand);border-color:var(--brand);color:#fff}
 
-    .hero{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding:48px 20px}
+    main{max-width:960px;margin:0 auto;padding:36px 20px 64px;display:grid;gap:20px}
     .pill{display:inline-flex;gap:8px;align-items:center;background:#0f172a;border:1px solid var(--border);padding:6px 10px;border-radius:999px;color:#a3b1c4;font-size:14px}
-    h1{margin:14px 0 10px;font-size:42px;line-height:1.12}
-    .lead{color:#b8c3cf;font-size:18px}
-    .cta{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap}
+
+    /* ====== Mini žaidimas (virš formų) – priderinta prie temos ====== */
+    #nc-game-wrap{position:relative;margin:0 auto;max-width:min(100%, 960px);isolation:isolate;}
+    /* gradientas kaip svetainės */
+    #nc-game{width:100%;height:auto;aspect-ratio: 940/320;display:block;border-radius:16px;
+      background:linear-gradient(180deg,#090e1a,#11192e);
+      box-shadow:0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.04)}
+    .nc-banner{position:absolute;left:12px;top:-18px;z-index:2;background:linear-gradient(180deg, rgba(34,43,72,.95), rgba(25,32,60,.92));
+      color:#e8ecff;border:1px solid rgba(120,130,160,.35);padding:8px 12px;border-radius:10px;font:600 13px/1.2 system-ui}
+    .nc-banner b{color:var(--brand-2)}
+    .nc-hud{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:8px;min-width:220px;font:600 14px/1.3 system-ui;z-index:2}
+    .nc-hud-row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;background:rgba(20,28,52,.55);
+      border:1px solid rgba(120,130,160,.35);padding:8px 10px;border-radius:10px;color:#e8ecff;backdrop-filter:saturate(120%) blur(4px)}
+    .nc-hud .bar{height:10px;background:rgba(255,255,255,.08);border-radius:20px;overflow:hidden}
+    .nc-hud .bar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--brand-2),#22d3ee)}
+    .nc-hint{position:absolute;left:14px;bottom:10px;color:#aeb7d6;background:rgba(27,36,64,.6);
+      padding:8px 12px;border-radius:10px;border:1px solid rgba(120,130,160,.3);font:500 13px;z-index:2}
+    .nc-win{position:absolute;right:16px;bottom:16px;max-width:360px;z-index:3;background:rgba(18,24,46,.96);color:#e8ecff;
+      border:1px solid rgba(120,130,160,.35);padding:14px 16px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,.35);font:500 14px}
+    .nc-win code{background:rgba(124,58,237,.18);border:1px solid rgba(124,58,237,.45);padding:2px 6px;border-radius:6px;color:#fff;font-weight:700}
+    @media(max-width:640px){#nc-game{border-radius:12px}.nc-hud{min-width:200px}.nc-hint{font-size:12px}}
+
+    /* ====== Auth kortelė ====== */
+    .auth-card{margin:10px auto 0;background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px 18px 22px;max-width:680px}
+    .auth-tabs{display:flex;gap:8px;border-bottom:1px solid var(--border);margin-bottom:12px}
+    .auth-tabs button{background:#101828;border:1px solid var(--border);color:#cbd5e1;padding:10px 14px;border-radius:10px 10px 0 0;cursor:pointer}
+    .auth-tabs button.active{background:linear-gradient(135deg,var(--brand),var(--brand-2));border-color:transparent;color:#fff}
+    .auth-forms form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+    .auth-forms .full{grid-column:1/-1}
+    .auth-forms label{font-size:14px;color:#bac6d6}
+    .auth-forms input{width:100%;padding:12px;border:1px solid #203049;background:#0b1220;color:#eaf0ff;border-radius:10px}
+    .auth-forms .note{font-size:13px;color:#8ea0b8}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
     .btn{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#cbd5e1}
-    .btn.primary{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0;color:#fff}
-    .btn.secondary{background:#0f172a}
-    .hero-img img{border-radius:14px;border:1px solid var(--border);background:#060913}
-
-    .trust{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#0f172a}
-    .trust-wrap{max-width:1120px;margin:0 auto;padding:16px 20px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-    .trust .badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);border-radius:999px;padding:8px 12px;color:#cfe3ff;background:#0b1220}
-    .trust .stat{margin-left:auto;color:#9fb3ff}
-
-    section{padding:56px 20px}
-    .section-wrap{max-width:1120px;margin:0 auto}
-    h2{font-size:30px;margin:0 0 10px}
-    p.muted{color:var(--muted)}
-
-    .cards{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .card{background:#0f172a;border:1px solid var(--border);border-radius:14px;padding:18px}
-    .card h3{margin:0 0 8px}
-    .badge{display:inline-flex;gap:6px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--border);color:#a8b3c3;font-size:14px}
-
-    .pricing{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .price{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:20px}
-    .price .title{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-    .price ul{margin:12px 0 0 18px;color:#b7c3cf}
-    .price .num{font-size:28px;font-weight:700;margin-top:8px}
-    .note{color:var(--muted);font-size:14px;margin-top:8px}
-
-    .cta-section{background:#0f172a;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-    .cta-box{max-width:990px;margin:0 auto;display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:#0b1220;border:1px dashed var(--border);border-radius:16px;padding:22px}
-    .cta-box .flex{flex:1 1 420px}
-    .cta-box .actions{display:flex;gap:12px}
-
-    .contact{background:var(--light);color:#0b1220}
-    .contact .section-wrap{max-width:880px}
-    .contact .muted{color:#5b6573}
-    form{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    form .full{grid-column:1/-1}
-    input,select,textarea{width:100%;padding:12px;border:1px solid #dbe2ea;border-radius:10px;font-size:16px;background:#fff}
-    textarea{min-height:120px}
-    .form-note{font-size:13px;color:#6b7280;margin-top:-6px}
-    .send .btn{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0;color:#fff}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));border:0;color:#fff}
+    .btn.ghost{background:#0f172a}
+    .help{display:flex;gap:12px;justify-content:space-between;align-items:center;margin-top:8px;color:#9fb3ff}
 
     footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
     footer a{color:#cfe2ff}
-
-    @media (max-width:960px){
-      .hero{grid-template-columns:1fr}
-      .cards,.pricing{grid-template-columns:1fr}
-      .trust .stat{margin-left:0}
-      form{grid-template-columns:1fr}
-      nav{display:none}
-    }
+    @media (max-width:740px){.auth-forms form{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
+  <!-- Header (tas pats brand) -->
   <header>
     <div class="wrap">
       <div class="brand">
@@ -110,12 +98,12 @@
         <strong>Nova Concierge</strong>
       </div>
       <nav>
-        <a href="#about" data-lang="en">What we do</a>
-        <a href="#about" data-lang="lt" style="display:none">Ką darome</a>
-        <a href="#pricing" data-lang="en">Pricing</a>
-        <a href="#pricing" data-lang="lt" style="display:none">Kainos</a>
-        <a href="#contact" data-lang="en">Contact</a>
-        <a href="#contact" data-lang="lt" style="display:none">Kontaktai</a>
+        <a href="/" data-lang="en">Home</a>
+        <a href="/" data-lang="lt" style="display:none">Pagrindinis</a>
+        <a href="/#pricing" data-lang="en">Pricing</a>
+        <a href="/#pricing" data-lang="lt" style="display:none">Kainos</a>
+        <a href="/#contact" data-lang="en">Contact</a>
+        <a href="/#contact" data-lang="lt" style="display:none">Kontaktai</a>
       </nav>
       <div class="lang-toggle">
         <button id="btn-en">EN</button>
@@ -124,250 +112,302 @@
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div>
-      <div class="pill">
-        ⚡ <span data-lang="en">AI assistant for your website & messages</span>
-        <span data-lang="lt" style="display:none">AI asistentas jūsų svetainei ir žinutėms</span>
-      </div>
-      <h1 data-lang="en">More leads. Faster replies. Less support work.</h1>
-      <h1 data-lang="lt" style="display:none">Daugiau užklausų. Greitesni atsakymai. Mažiau rutinos.</h1>
-      <p class="lead" data-lang="en">We install and run an AI assistant that answers instantly, captures contacts, qualifies intent and books calls.</p>
-      <p class="lead" data-lang="lt" style="display:none">Įdiegiame ir prižiūrime AI asistentą, kuris akimirksniu atsako, surenka kontaktus, įvertina ketinimą ir rezervuoja skambučius.</p>
-      <div class="cta">
-        <a href="#contact" class="btn primary" data-lang="en">Get a free demo</a>
-        <a href="#contact" class="btn primary" data-lang="lt" style="display:none">Gauti nemokamą demo</a>
-        <a href="#pricing" class="btn secondary" data-lang="en">See pricing</a>
-        <a href="#pricing" class="btn secondary" data-lang="lt" style="display:none">Peržiūrėti kainas</a>
-      </div>
-    </div>
-    <div class="hero-img">
-      <img src="/hero.png" alt="AI assistant illustration">
-    </div>
-  </section>
+  <main>
+    <!-- Info pill (pasirinktinai) -->
+    <div class="pill" data-lang="en">Sign in or create your account — beat the boss above and grab <b>−20%</b> with code NOVA20</div>
+    <div class="pill" data-lang="lt" style="display:none">Prisijunkite arba susikurkite paskyrą — įveikite bosą viršuje ir gaukite <b>−20%</b> su kodu NOVA20</div>
 
-  <!-- TRUST -->
-  <div class="trust">
-    <div class="trust-wrap">
-      <div class="badge">✅ <span data-lang="en">Fast setup</span><span data-lang="lt" style="display:none">Greitas diegimas</span></div>
-      <div class="badge">🔒 <span data-lang="en">Privacy-first</span><span data-lang="lt" style="display:none">Privatumas pirmiausia</span></div>
-      <div class="badge">📈 <span data-lang="en">Capture & booking</span><span data-lang="lt" style="display:none">Kontaktai ir rezervacijos</span></div>
-      <div class="stat"><strong>683</strong> <span data-lang="en">companies trust us</span><span data-lang="lt" style="display:none">įmonės mumis pasitiki</span></div>
-    </div>
-  </div>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="section-wrap">
-      <h2 data-lang="en">What we do</h2>
-      <h2 data-lang="lt" style="display:none">Ką mes darome</h2>
-      <p class="muted" data-lang="en">Your assistant lives on your site and (optionally) WhatsApp/IG/FB DM. It handles 60–80% repeat questions, collects email/phone, routes to the right inbox and books meetings. When needed—hands off to a human.</p>
-      <p class="muted" data-lang="lt" style="display:none">Asistentas veikia jūsų svetainėje ir (pasirinktinai) WhatsApp/IG/FB žinutėse. Jis atsako į 60–80% pasikartojančių klausimų, surenka el. paštą/telefoną, perduoda į teisingą pašto dėžutę ir rezervuoja susitikimus. Prireikus perduoda žmogui.</p>
-
-      <div class="cards" id="features">
-        <div class="card">
-          <span class="badge">🎯</span>
-          <h3 data-lang="en">Lead capture & routing</h3>
-          <h3 data-lang="lt" style="display:none">Kontaktų surinkimas ir perdavimas</h3>
-          <p class="muted" data-lang="en">Email/phone capture, intent scoring, routing to the right inbox or WhatsApp.</p>
-          <p class="muted" data-lang="lt" style="display:none">El. paštas/telefonas, ketinimo įvertinimas ir perdavimas teisingam inbox/WhatsApp.</p>
-        </div>
-        <div class="card">
-          <span class="badge">📆</span>
-          <h3 data-lang="en">Bookings & reminders</h3>
-          <h3 data-lang="lt" style="display:none">Rezervacijos ir priminimai</h3>
-          <p class="muted" data-lang="en">Book calls instantly; confirmations are automatic.</p>
-          <p class="muted" data-lang="lt" style="display:none">Skambučiai rezervuojami vietoje; patvirtinimai automatiniai.</p>
-        </div>
-        <div class="card">
-          <span class="badge">🔌</span>
-          <h3 data-lang="en">Plug & play</h3>
-          <h3 data-lang="lt" style="display:none">Greitas diegimas</h3>
-          <p class="muted" data-lang="en">Embed snippet, we handle training & analytics.</p>
-          <p class="muted" data-lang="lt" style="display:none">Trumpa įkėlimo iškarpa, mokymu ir analitika pasirūpiname mes.</p>
+    <!-- MINI ŽAIDIMAS virš formų -->
+    <section id="nc-game-wrap" aria-label="Nova Concierge mini-game">
+      <div class="nc-banner">🎯 Įveik bosą – gauk <b>−20%</b> pirmajam užsakymui</div>
+      <canvas id="nc-game" data-css-width="940" data-css-height="320"></canvas>
+      <div class="nc-hud">
+        <div class="nc-hud-row">
+          <span>🖱️ Pelė</span>
+          <div class="bar"><i id="mouseBar"></i></div>
+          <b id="mouseHP">100</b>
         </div>
       </div>
-    </div>
-  </section>
+      <div class="nc-hint" data-lang="en">Click to shoot. Don’t want to play? Just sign in or register below.</div>
+      <div class="nc-hint" data-lang="lt" style="display:none">Spustelk — šūvis. Nenori žaisti? Žemiau tiesiog prisijunk arba registruokis.</div>
+      <div class="nc-win" hidden>
+        <strong>🎉 Sveikiname! Bosas nugalėtas.</strong><br>
+        Pritaikykite kodą <code>NOVA20</code> ir gaukite <b>−20%</b> pirmajam užsakymui.
+      </div>
+    </section>
 
-  <!-- PRICING -->
-  <section id="pricing">
-    <div class="section-wrap">
-      <h2 data-lang="en">Pricing</h2>
-      <h2 data-lang="lt" style="display:none">Kainodara</h2>
-      <p class="muted" data-lang="en">Simple monthly plans in EUR. Clear limits, easy upgrades.</p>
-      <p class="muted" data-lang="lt" style="display:none">Paprasti mėnesiniai planai EUR. Aiškios ribos ir lengvi atnaujinimai.</p>
-
-      <div class="pricing">
-        <!-- FLEX (PAYG) with setup -->
-        <div class="price">
-          <div class="title"><span class="badge">🧩</span><strong>Flex (PAYG)</strong></div>
-          <ul data-lang="en">
-            <li>Web chat widget (1 site), 1 assistant</li>
-            <li>Pay-as-you-go: €0.20 / conversation</li>
-            <li>Minimum monthly charge: €29</li>
-            <li>Email lead capture</li>
-            <li>One-time setup: €179</li>
-          </ul>
-          <ul data-lang="lt" style="display:none">
-            <li>Pokalbių valdiklis (1 svetainė), 1 asistentas</li>
-            <li>Moki pagal naudojimą: €0.20 / pokalbį</li>
-            <li>Minimalus mėnesio mokestis: €29</li>
-            <li>El. pašto kontaktų surinkimas</li>
-            <li>Vienkartinis įdiegimas: €179</li>
-          </ul>
-          <div class="num">€0 / mo</div>
-        </div>
-
-        <!-- STARTER -->
-        <div class="price">
-          <div class="title"><span class="badge">🚀</span><strong>Starter</strong></div>
-          <ul data-lang="en">
-            <li>Web chat widget, up to 1 assistant</li>
-            <li>Included: 300 conversations / mo</li>
-            <li>Basic FAQ training + email capture</li>
-            <li>1× content update / mo</li>
-          </ul>
-          <ul data-lang="lt" style="display:none">
-            <li>Pokalbių valdiklis, iki 1 asistento</li>
-            <li>Įskaičiuota: 300 pokalbių / mėn.</li>
-            <li>Pagrindinis DUK + el. pašto surinkimas</li>
-            <li>1× turinio atnaujinimas / mėn.</li>
-          </ul>
-          <div class="num">€199 / mo</div>
-        </div>
-
-        <!-- GROWTH -->
-        <div class="price">
-          <div class="title"><span class="badge">💼</span><strong>Growth</strong></div>
-          <ul data-lang="en">
-            <li>Web + optional WhatsApp*</li>
-            <li>Up to 2 assistants</li>
-            <li>Included: 800 conversations / mo</li>
-            <li>Bookings, lead scoring & routing</li>
-            <li>1× optimization / mo</li>
-          </ul>
-          <ul data-lang="lt" style="display:none">
-            <li>Svetainė + pasirinktinai WhatsApp*</li>
-            <li>Iki 2 asistentų</li>
-            <li>Įskaičiuota: 800 pokalbių / mėn.</li>
-            <li>Rezervacijos, vertinimas ir perdavimas</li>
-            <li>1× optimizacija / mėn.</li>
-          </ul>
-          <div class="num">€399 / mo</div>
-        </div>
-
-        <!-- SCALE+ -->
-        <div class="price">
-          <div class="title"><span class="badge">🏢</span><strong>Scale+</strong></div>
-          <ul data-lang="en">
-            <li>Web + WhatsApp + IG/FB DM</li>
-            <li>Up to 5 assistants</li>
-            <li>Included: 1,500 conversations / mo</li>
-            <li>Custom flows & integrations</li>
-            <li>Priority support, 2× optimizations / mo</li>
-          </ul>
-          <ul data-lang="lt" style="display:none">
-            <li>Svetainė + WhatsApp + IG/FB žinutės</li>
-            <li>Iki 5 asistentų</li>
-            <li>Įskaičiuota: 1 500 pokalbių / mėn.</li>
-            <li>Individualūs srautai ir integracijos</li>
-            <li>Prioritetinis palaikymas, 2× optimizacijos / mėn.</li>
-          </ul>
-          <div class="num">€699 / mo</div>
-        </div>
+    <!-- AUTH kortelė su prisijungimu ir registracija -->
+    <section class="auth-card" id="auth">
+      <div class="auth-tabs">
+        <button id="tab-login" class="active" data-lang="en">Sign in</button>
+        <button id="tab-login" class="active" data-lang="lt" style="display:none">Prisijungti</button>
+        <button id="tab-register" data-lang="en">Create account</button>
+        <button id="tab-register" data-lang="lt" style="display:none">Registruotis</button>
       </div>
 
-      <p class="note" data-lang="en">
-        Overage: €0.12 / conversation (Starter/Growth) and €0.10 / conversation (Scale+).
-        WhatsApp billed at official rates + 20% admin. Extra assistant: €50 / mo.
-        Auto-upgrade is recommended when usage exceeds your plan for 2 consecutive months.
-      </p>
-      <p class="note" data-lang="lt" style="display:none">
-        Viršijus limitą: €0.12 / pokalbį (Starter/Growth) ir €0.10 / pokalbį (Scale+).
-        WhatsApp mokesčiai pagal oficialius įkainius + 20% administravimas. Papildomas asistentas: €50 / mėn.
-        Jei 2 mėn. iš eilės viršijate planą, rekomenduojamas automatinis atnaujinimas į aukštesnį.
-      </p>
-    </div>
-  </section>
+      <div class="auth-forms">
+        <!-- Prisijungti -->
+        <form id="form-login" autocomplete="on">
+          <div class="full">
+            <label for="login-email" data-lang="en">Email</label>
+            <label for="login-email" data-lang="lt" style="display:none">El. paštas</label>
+            <input id="login-email" name="email" type="email" placeholder="you@company.com" required>
+          </div>
+          <div class="full">
+            <label for="login-pass" data-lang="en">Password</label>
+            <label for="login-pass" data-lang="lt" style="display:none">Slaptažodis</label>
+            <input id="login-pass" name="password" type="password" placeholder="••••••••" required>
+          </div>
+          <div class="help full">
+            <a href="#" data-lang="en">Forgot password?</a>
+            <a href="#" data-lang="lt" style="display:none">Pamiršai slaptažodį?</a>
+            <div>
+              <a id="switch-to-register" href="#" data-lang="en">Create account</a>
+              <a id="switch-to-register" href="#" data-lang="lt" style="display:none">Sukurti paskyrą</a>
+            </div>
+          </div>
+          <div class="actions full">
+            <button class="btn primary" type="submit" data-lang="en">Sign in</button>
+            <button class="btn primary" type="submit" data-lang="lt" style="display:none">Prisijungti</button>
+            <a class="btn ghost" href="/" data-lang="en">Back to site</a>
+            <a class="btn ghost" href="/" data-lang="lt" style="display:none">Grįžti į svetainę</a>
+          </div>
+          <p class="note full" data-lang="en">By continuing, you agree to our Terms & Privacy.</p>
+          <p class="note full" data-lang="lt" style="display:none">Tęsdami, sutinkate su Taisyklėmis ir Privatumo politika.</p>
+        </form>
 
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="cta-box">
-      <div class="flex">
-        <div class="pill">✨ 
-          <span data-lang="en">Personalised 7-day pilot</span>
-          <span data-lang="lt" style="display:none">Asmeninis 7 dienų pilotas</span>
-        </div>
-        <h2 style="margin:10px 0 6px" data-lang="en">Ready to see your AI concierge in action?</h2>
-        <h2 style="margin:10px 0 6px;display:none" data-lang="lt">Pasiruošę pamatyti savo AI asistentą veiksme?</h2>
-        <p class="muted" data-lang="en">We’ll build a free demo on your real content and channels.</p>
-        <p class="muted" data-lang="lt" style="display:none">Sukursime nemokamą demo su jūsų turiniu ir kanalais.</p>
+        <!-- Registruotis -->
+        <form id="form-register" class="hidden" style="display:none" autocomplete="on">
+          <div>
+            <label for="reg-name" data-lang="en">Name</label>
+            <label for="reg-name" data-lang="lt" style="display:none">Vardas</label>
+            <input id="reg-name" name="name" type="text" placeholder="Vardas, Pavardė" required>
+          </div>
+          <div>
+            <label for="reg-company" data-lang="en">Company</label>
+            <label for="reg-company" data-lang="lt" style="display:none">Įmonė</label>
+            <input id="reg-company" name="company" type="text" placeholder="Įmonės pavadinimas">
+          </div>
+          <div>
+            <label for="reg-email" data-lang="en">Email</label>
+            <label for="reg-email" data-lang="lt" style="display:none">El. paštas</label>
+            <input id="reg-email" name="email" type="email" placeholder="you@company.com" required>
+          </div>
+          <div>
+            <label for="reg-phone" data-lang="en">Phone</label>
+            <label for="reg-phone" data-lang="lt" style="display:none">Telefonas</label>
+            <input id="reg-phone" name="phone" type="tel" placeholder="+370...">
+          </div>
+          <div>
+            <label for="reg-pass" data-lang="en">Password</label>
+            <label for="reg-pass" data-lang="lt" style="display:none">Slaptažodis</label>
+            <input id="reg-pass" name="password" type="password" placeholder="Mažiausiai 8 simboliai" required minlength="8">
+          </div>
+          <div>
+            <label for="reg-pass2" data-lang="en">Confirm password</label>
+            <label for="reg-pass2" data-lang="lt" style="display:none">Pakartok slaptažodį</label>
+            <input id="reg-pass2" name="password2" type="password" placeholder="Pakartok slaptažodį" required minlength="8">
+          </div>
+          <div class="actions full">
+            <button class="btn primary" type="submit" data-lang="en">Create account</button>
+            <button class="btn primary" type="submit" data-lang="lt" style="display:none">Sukurti paskyrą</button>
+            <a class="btn ghost" id="switch-to-login-2" href="#" data-lang="en">Have an account? Sign in</a>
+            <a class="btn ghost" id="switch-to-login-2" href="#" data-lang="lt" style="display:none">Turi paskyrą? Prisijunk</a>
+          </div>
+          <p class="note full" data-lang="en">We’ll never share your data. You can delete your account anytime.</p>
+          <p class="note full" data-lang="lt" style="display:none">Jūsų duomenų niekada neplatinsime. Paskyrą galite ištrinti bet kada.</p>
+        </form>
       </div>
-      <div class="actions">
-        <a class="btn primary" href="#contact" data-lang="en">Request demo</a>
-        <a class="btn primary" href="#contact" data-lang="lt" style="display:none">Paprašyti demo</a>
-        <a class="btn" href="#pricing" data-lang="en">View plans</a>
-        <a class="btn" href="#pricing" data-lang="lt" style="display:none">Peržiūrėti planus</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="contact">
-    <div class="section-wrap">
-      <h2 data-lang="en">Contact us</h2>
-      <h2 data-lang="lt" style="display:none">Susisiekite</h2>
-      <p class="muted" data-lang="en">Tell us about your business — we’ll reply with a tailored plan and a booking link.</p>
-      <p class="muted" data-lang="lt" style="display:none">Trumpai apie jūsų verslą — atsiųsime pritaikytą planą ir rezervacijos nuorodą.</p>
-
-      <!-- Gmail per FormSubmit (palikta kaip buvo) -->
-      <form action="https://formsubmit.co/zoe.lirel@gmail.com" method="POST" accept-charset="UTF-8">
-        <input type="hidden" name="_subject" value="Nova Concierge — Nauja užklausa">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://novaconcierge.online/?sent=1">
-        <input type="text" name="_honey" style="display:none">
-
-        <input type="text"  name="name"     placeholder="Vardas / Full name" required>
-        <input type="email" name="email"    placeholder="El. paštas / Email" required>
-        <input type="tel"   name="phone"    placeholder="Telefonas / Phone">
-        <input type="text"  name="company"  placeholder="Įmonė / Company">
-        <select name="budget">
-          <option value="" selected>Biudžetas / Budget</option>
-          <option>&lt; €100/mo</option><option>€100–€250/mo</option>
-          <option>€250–€500/mo</option><option>&gt; €500/mo</option>
-        </select>
-        <input type="text" name="industry" placeholder="Sritis / Industry">
-        <textarea class="full" name="message" placeholder="Kokią problemą sprendžiame? / What problem should we solve?" required></textarea>
-
-        <div class="full form-note">Duomenys siunčiami į <b>zoe.lirel@gmail.com</b>. Atsakysime greitai.</div>
-        <div class="full send"><button class="btn" type="submit">Siųsti / Send</button></div>
-      </form>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer>
-    <div class="section-wrap" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <div class="wrap" style="max-width:1120px;justify-content:space-between;gap:12px;flex-wrap:wrap">
       <div>© <span id="y"></span> Nova Concierge. WhatsApp: +370 681 95678 · Email: <a href="mailto:zoe.lirel@gmail.com">zoe.lirel@gmail.com</a></div>
       <div>💙 <span data-lang="en">Privacy-first automations</span><span data-lang="lt" style="display:none">Privatumą gerbiančios automacijos</span></div>
     </div>
   </footer>
 
+  <!-- Kalbos valdymas (tas pats principas kaip index) -->
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
-    const $all = s => Array.from(document.querySelectorAll(s));
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
     function setLang(lang){
       localStorage.setItem('lang', lang);
-      $all('[data-lang]').forEach(el => el.style.display = el.getAttribute('data-lang') === lang ? '' : 'none');
-      document.getElementById('btn-en').classList.toggle('active', lang==='en');
-      document.getElementById('btn-lt').classList.toggle('active', lang==='lt');
+      $$('[data-lang]').forEach(el => { el.style.display = (el.getAttribute('data-lang')===lang) ? '' : 'none'; });
+      $('#btn-en').classList.toggle('active', lang==='en');
+      $('#btn-lt').classList.toggle('active', lang==='lt');
       document.documentElement.lang = lang;
     }
-    document.getElementById('btn-en').onclick = () => setLang('en');
-    document.getElementById('btn-lt').onclick = () => setLang('lt');
+    $('#btn-en').onclick = () => setLang('en');
+    $('#btn-lt').onclick = () => setLang('lt');
     setLang(localStorage.getItem('lang') || 'lt');
+
+    // Auth tab'ai
+    const loginForm = $('#form-login');
+    const regForm   = $('#form-register');
+    function showLogin(){ loginForm.style.display='grid'; regForm.style.display='none'; }
+    function showRegister(){ loginForm.style.display='none'; regForm.style.display='grid'; }
+    $$('#switch-to-register').forEach(a => a.addEventListener('click', e => { e.preventDefault(); showRegister(); }));
+    $('#switch-to-login-2').addEventListener('click', e => { e.preventDefault(); showLogin(); });
+
+    // Validacija (paprasta kliento pusėje)
+    regForm?.addEventListener('submit', (e) => {
+      const p1 = $('#reg-pass').value, p2 = $('#reg-pass2').value;
+      if(p1 !== p2){ e.preventDefault(); alert('Slaptažodžiai nesutampa.'); }
+    });
+  </script>
+
+  <!-- Mini-žaidimas (pelė šauna tik SPAUSTELĖJUS; boso HP nerodomas; −20% NOVA20 laimėjus) -->
+  <script>
+  (() => {
+    const wrap = document.getElementById('nc-game-wrap');
+    const C    = document.getElementById('nc-game');
+    const ctx  = C.getContext('2d');
+    const HUD  = { mouseHP:document.getElementById('mouseHP'), mouseBar:document.getElementById('mouseBar') };
+    const WIN  = wrap.querySelector('.nc-win');
+
+    const CFG = {
+      LOGO_HP_MAX: 1_000_000,
+      MOUSE_HP_MAX: 100,
+      LOGO_DMG_PCT: 1.0,     // logo -> 1% nuo pelės max HP
+      MOUSE_DMG_PCT: 0.0001, // pelė -> 0.0001% nuo logo max HP (1HP)
+      LOGO_FIRE_MS: 450,
+      BULLET_SPEED: 560,
+      WIN_SHOW_MS: 6000
+    };
+
+    // Canvas @ DPR
+    const cssW = Number(C.dataset.cssWidth || 940), cssH = Number(C.dataset.cssHeight || 320);
+    function resizeCanvas(){
+      const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      C.width = Math.round(cssW*dpr); C.height = Math.round(cssH*dpr);
+      C.style.width='100%'; C.style.height='auto';
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    resizeCanvas(); addEventListener('resize', resizeCanvas);
+
+    let engaged = false;
+    let mouse = { x: cssW*0.8, y: cssH*0.6, hp: CFG.MOUSE_HP_MAX };
+    let logo  = { x: cssW*0.22, y: cssH*0.5, hp: CFG.LOGO_HP_MAX };
+    let bullets = [];
+    let lastL = 0, then = performance.now(), boom = 0, winTimer = null;
+
+    function toCanvas(e){
+      const r = C.getBoundingClientRect();
+      return { x:(e.clientX-r.left)/(r.width/cssW), y:(e.clientY-r.top)/(r.height/cssH) };
+    }
+    C.addEventListener('mousemove', e => { const p=toCanvas(e); mouse.x=p.x; mouse.y=p.y; });
+    function shootOnce(){
+      engaged = true; // nuo pirmo paspaudimo pradeda šaudyti ir bosas
+      spawnBullet('mouse', logo.x, logo.y);
+    }
+    C.addEventListener('mousedown', shootOnce);
+    C.addEventListener('touchstart', e => { e.preventDefault(); shootOnce(); }, {passive:false});
+
+    function spawnBullet(from, tx, ty){
+      const s = (from==='logo')? {x:logo.x,y:logo.y} : {x:mouse.x,y:mouse.y};
+      const dx = tx - s.x, dy = ty - s.y, d = Math.hypot(dx,dy)||1, v = CFG.BULLET_SPEED;
+      bullets.push({x:s.x,y:s.y,vx:dx/d*v,vy:dy/d*v,from, r:(from==='logo'?4:3)});
+    }
+    function updateHP(target, dmg){
+      target.hp = Math.max(0, target.hp - dmg);
+      if(target===mouse){
+        HUD.mouseHP.textContent = Math.ceil(target.hp);
+        HUD.mouseBar.style.width = (target.hp/CFG.MOUSE_HP_MAX*100)+'%';
+      }
+      if(target.hp<=0){
+        boom = 1;
+        if(target===logo){
+          WIN.hidden = false; clearTimeout(winTimer);
+          winTimer = setTimeout(()=> WIN.hidden = true, CFG.WIN_SHOW_MS);
+        }
+        setTimeout(resetRound, 1200);
+      }
+    }
+    function resetRound(){
+      mouse.hp = CFG.MOUSE_HP_MAX; logo.hp = CFG.LOGO_HP_MAX; bullets = []; boom = 0;
+      HUD.mouseHP.textContent = CFG.MOUSE_HP_MAX; HUD.mouseBar.style.width = '100%';
+    }
+
+    function glow(x,y,r,c1=[124,58,237],c2=[34,211,238],a1=.7,a2=.06){
+      const g = ctx.createRadialGradient(x,y,4,x,y,r);
+      g.addColorStop(0,`rgba(${c1[0]},${c1[1]},${c1[2]},${a1})`);
+      g.addColorStop(1,`rgba(${c2[0]},${c2[1]},${c2[2]},${a2})`);
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,r,0,6.283); ctx.fill();
+    }
+    function drawGhost(x,y,tx,ty){
+      ctx.save(); ctx.translate(x,y);
+      glow(0,0,80);
+      ctx.fillStyle='#f5f7ff';
+      ctx.beginPath(); ctx.roundRect(-30,-34,60,48,18); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(-30,14);
+      ctx.quadraticCurveTo(-18,28,-6,14); ctx.quadraticCurveTo(6,28,18,14);
+      ctx.quadraticCurveTo(28,24,30,18); ctx.lineTo(30,34); ctx.lineTo(-30,34); ctx.closePath(); ctx.fill();
+      const v = Math.atan2(ty-y, tx-x), ex=Math.cos(v)*5, ey=Math.sin(v)*5;
+      ctx.fillStyle='#2d3748'; ctx.beginPath(); ctx.arc(-10+ex,-12+ey,4,0,6.283); ctx.arc(10+ex,-12+ey,4,0,6.283); ctx.fill();
+      ctx.restore();
+    }
+    function drawMouse(x,y){
+      glow(x,y,20,[34,211,238],[124,58,237],.35,.02);
+      ctx.fillStyle='#a0b4ff'; ctx.beginPath(); ctx.arc(x,y,10,0,6.283); ctx.fill();
+      ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.lineWidth=2; ctx.stroke();
+    }
+    function drawExplosion(x,y,t){
+      for(let i=0;i<40;i++){
+        const a=(i/40)*Math.PI*2, r=8+t*90;
+        const px=x+Math.cos(a)*r, py=y+Math.sin(a)*r;
+        ctx.fillStyle=`rgba(${200+t*55|0},${80+t*140|0},255,${1-t})`;
+        ctx.fillRect(px,py,2,2);
+      }
+    }
+
+    function loop(now){
+      const dt = Math.min(0.04,(now-then)/1000); then = now;
+      ctx.clearRect(0,0,cssW,cssH);
+
+      // sklandus bosso sekimas
+      const lerp = 1 - Math.pow(0.0001, dt);
+      logo.x += (mouse.x - logo.x)*lerp*0.6;
+      logo.y += (mouse.y - logo.y)*lerp*0.6;
+
+      // bosas pradeda šaudyti tik po pirmo spustelėjimo
+      if(engaged && now - lastL > CFG.LOGO_FIRE_MS){ lastL = now; spawnBullet('logo', mouse.x, mouse.y); }
+
+      // kulkos
+      for(let i=bullets.length-1;i>=0;i--){
+        const b=bullets[i]; b.x += b.vx*dt; b.y += b.vy*dt;
+        ctx.fillStyle = (b.from==='logo') ? '#7c3aed' : '#22d3ee';
+        ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,6.283); ctx.fill();
+        if(b.from==='logo'){
+          if(Math.hypot(b.x-mouse.x, b.y-mouse.y) < 12){
+            bullets.splice(i,1); updateHP(mouse, CFG.MOUSE_HP_MAX*(CFG.LOGO_DMG_PCT/100)); continue;
+          }
+        } else {
+          if(Math.hypot(b.x-logo.x, b.y-logo.y) < 22){
+            bullets.splice(i,1); updateHP(logo, CFG.LOGO_HP_MAX*(CFG.MOUSE_DMG_PCT/100)); continue;
+          }
+        }
+        if(b.x<0||b.y<0||b.x>cssW||b.y>cssH) bullets.splice(i,1);
+      }
+
+      drawGhost(logo.x,logo.y, mouse.x,mouse.y);
+      drawMouse(mouse.x,mouse.y);
+
+      if(boom){
+        const t=Math.min(1,(performance.now()-(then-now))/800);
+        const ex=(mouse.hp<=0)?{x:mouse.x,y:mouse.y}:{x:logo.x,y:logo.y};
+        drawExplosion(ex.x,ex.y,t);
+      }
+      requestAnimationFrame(loop);
+    }
+
+    // start
+    HUD.mouseHP.textContent = CFG.MOUSE_HP_MAX; HUD.mouseBar.style.width = '100%';
+    document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible'){ then = performance.now(); }});
+    requestAnimationFrame(t=>{ then=t; loop(t); });
+  })();
   </script>
 </body>
 </html>
