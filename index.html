@@ -1,32 +1,21 @@
 <!DOCTYPE html>
 <html lang="lt">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Nova Concierge — AI asistentai, kurie paverčia klausimus pardavimais</title>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#0b1220"/>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nova Concierge — AI asistentai</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="theme-color" content="#0b1220">
 <meta name="description" content="AI asistentai jūsų svetainei ir žinutėms. Daugiau užklausų, greitesni atsakymai, mažiau rutinos.">
 
 <style>
 :root{--bg:#0b1220;--card:#0f172a;--border:#1e293b;--text:#e5eef7;--muted:#9aa4b2;--brand:#6b5cff;--brand2:#22d3ee}
-*{box-sizing:border-box}html,body{margin:0}
-body{font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
-a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
-
-/* shimmer background */
-.bgfx{pointer-events:none;position:fixed;inset:-15% -5% auto -5%;height:70vh;z-index:-1;
-  background:
-    radial-gradient(600px 260px at 20% 20%, rgba(107,92,255,.25), transparent 60%),
-    radial-gradient(520px 240px at 80% 10%, rgba(34,211,238,.22), transparent 60%);
-  filter:blur(32px);animation:float 11s ease-in-out infinite alternate}
-@keyframes float{to{transform:translateY(-16px)}}
-
+*{box-sizing:border-box}html,body{margin:0}body{font-family:Inter,system-ui,Segoe UI,Arial;background:var(--bg);color:var(--text)}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 /* header + drawer */
 header{position:sticky;top:0;z-index:40;background:rgba(11,18,32,.85);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
 .wrap{max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:12px;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:10px}.brand img{width:28px;height:28px;border-radius:7px}
+.btn{padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#e5eef7}
+.btn.primary{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0}
 .burger{width:40px;height:36px;border:1px solid var(--border);border-radius:10px;background:#0f172a;color:#cbd5e1;display:grid;place-items:center;cursor:pointer}
 .burger i,.burger i:before,.burger i:after{content:"";display:block;width:18px;height:2px;background:#cbd5e1;border-radius:2px;position:relative;transition:.25s}
 .burger i:before{position:absolute;transform:translateY(-6px)} .burger i:after{position:absolute;transform:translateY(6px)}
@@ -38,50 +27,54 @@ header{position:sticky;top:0;z-index:40;background:rgba(11,18,32,.85);backdrop-f
 .drawer a{padding:10px;border-radius:10px;color:#cbd5e1;border:1px solid transparent}
 .drawer a:hover{border-color:var(--border);background:#0b1220}
 
+/* hero */
 .hero{max-width:1100px;margin:0 auto;padding:52px 20px;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
 .pill{display:inline-flex;gap:8px;align-items:center;background:#0f172a;border:1px solid var(--border);padding:6px 10px;border-radius:999px;color:#a3b1c4;font-size:14px}
-h1{margin:12px 0 10px;font-size:42px;line-height:1.1}
-.lead{color:#b8c3cf;font-size:18px}
+h1{margin:12px 0 10px;font-size:42px;line-height:1.1}.lead{color:#b8c3cf;font-size:18px}
 .cta{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
-.btn{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#e5eef7;position:relative;overflow:hidden}
-.btn.primary{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0}
-.btn:active::after{content:"";position:absolute;inset:0;background:radial-gradient(160px 160px at var(--x,50%) var(--y,50%), rgba(255,255,255,.16), transparent 60%)}
+.hero-img img{border:1px solid var(--border);border-radius:14px;background:#060913}
 
-.cards{max-width:1100px;margin:0 auto 40px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 20px}
+/* cards */
+.cards{max-width:1100px;margin:0 auto 42px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 20px}
 .card{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px;transition:transform .2s}
 .card:hover{transform:translateY(-4px)} .muted{color:#9aa4b2}
-.hero-img img{border:1px solid var(--border);border-radius:14px;background:#060913;transform:perspective(900px) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));transition:transform .08s}
 
+/* footer */
 footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
 @media(max-width:960px){.hero{grid-template-columns:1fr}.cards{grid-template-columns:1fr}}
+
+/* spalvinis fonas */
+.bgfx{pointer-events:none;position:fixed;inset:-15% -5% auto -5%;height:70vh;z-index:-1;
+  background:radial-gradient(600px 260px at 20% 20%, rgba(107,92,255,.25), transparent 60%),
+             radial-gradient(520px 240px at 80% 10%, rgba(34,211,238,.22), transparent 60%);
+  filter:blur(32px);animation:float 11s ease-in-out infinite alternate}
+@keyframes float{to{transform:translateY(-16px)}}
+
+/* account menu mini CSS */
+.account{position:relative}
+.avatar{width:36px;height:36px;border-radius:999px;background:#1f2a44;border:1px solid #2b3b5a;color:#dbe7ff;font-weight:700;display:grid;place-items:center;cursor:pointer}
+.account .menu{position:absolute;right:0;top:44px;background:#0f172a;border:1px solid #1e293b;border-radius:12px;min-width:220px;display:none;z-index:50}
+.account .menu.open{display:block}
+.account .menu .email{padding:10px 12px;color:#aab5c7;border-bottom:1px solid #1e293b}
+.account .menu a,.account .menu button{display:block;width:100%;text-align:left;background:none;border:0;color:#e7eefb;padding:10px 12px;cursor:pointer}
+.account .menu a:hover,.account .menu button:hover{background:#0b1220}
 </style>
+<script src="/nc-app.js"></script>
 </head>
 <body>
 <div class="bgfx"></div>
-
-<!-- auth guard: neleisti nepasirašius -->
-<script>
-(function(){
-  const open=['/auth.html','/company.html','/privacy.html','/policy.html','/'];
-  if(!open.includes(location.pathname)){
-    if(!localStorage.getItem('nc_user')){
-      location.href='/auth.html?next='+encodeURIComponent(location.pathname+location.search);
-    }
-  }
-})();
-</script>
 
 <div class="drawer-backdrop" id="bd"></div>
 <aside class="drawer" id="dw">
   <div class="brand"><img src="/favicon.svg" alt=""><strong>Nova Concierge</strong></div>
   <div class="links">
     <a href="/">🏠 Pagrindinis</a>
-    <a href="/affiliate.html">🤝 Afilija (Workspace)</a>
-    <a href="/company.html">🏢 Įmonės registracija</a>
     <a href="/pricing-details.html">💳 Kainų aprašymas</a>
     <a href="/privacy.html">🔒 Privatumas</a>
     <a href="/policy.html">📜 Taisyklės</a>
-    <a href="/auth.html">🔐 Prisijungti / Registruotis</a>
+    <a href="/affiliate.html">🤝 Afilija (Workspace)</a>
+    <a href="/company.html">🏢 Įmonės registracija</a>
+    <a href="/auth.html">🔐 Prisijungti</a>
   </div>
 </aside>
 
@@ -89,10 +82,7 @@ footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
   <div class="wrap">
     <button class="burger" id="b"><i></i></button>
     <div class="brand"><img src="/favicon.svg" alt=""><strong>Nova Concierge</strong></div>
-    <div style="display:flex;gap:12px;align-items:center">
-      <a class="btn" href="/auth.html">Prisijungti</a>
-      <a class="btn primary" href="/company.html">Įmonės registracija</a>
-    </div>
+    <div id="header-actions"></div>
   </div>
 </header>
 
@@ -100,18 +90,18 @@ footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
   <div>
     <div class="pill">⚡ AI asistentas jūsų svetainei ir žinutėms</div>
     <h1>Daugiau užklausų. Greitesni atsakymai. Mažiau rutinos.</h1>
-    <p class="lead">Įdiegiame ir prižiūrime AI asistentą, kuris akimirksniu atsako, surenka kontaktus, kvalifikuoja ir rezervuoja skambučius.</p>
+    <p class="lead">Įdiegiame ir prižiūrime AI asistentą, kuris akimirksniu atsako, renka kontaktus, kvalifikuoja ir rezervuoja skambučius.</p>
     <div class="cta">
       <a class="btn primary" href="/company.html">Startuoti dabar</a>
       <a class="btn" href="/pricing-details.html">Kainų aprašymas</a>
     </div>
   </div>
-  <div class="hero-img" id="tilt"><img src="/hero.png" alt=""></div>
+  <div class="hero-img"><img src="/hero.png" alt=""></div>
 </section>
 
 <section class="cards">
-  <div class="card"><h3>🎯 Kontaktų surinkimas</h3><p class="muted">El. pašto/telefono surinkimas, ketinimo įvertinimas, perdavimas į tinkamą dėžutę ar WhatsApp.</p></div>
-  <div class="card"><h3>📆 Rezervacijos</h3><p class="muted">Skambučių rezervavimas vietoje, patvirtinimai automatiniai, perdavimas žmogui prireikus.</p></div>
+  <div class="card"><h3>🎯 Kontaktų surinkimas</h3><p class="muted">El. paštas/telefonas, ketinimo įvertinimas, perdavimas tinkamam žmogui ar WhatsApp.</p></div>
+  <div class="card"><h3>📆 Rezervacijos</h3><p class="muted">Skambučių rezervavimas vietoje, automatiniai patvirtinimai, perdavimas žmogui prireikus.</p></div>
   <div class="card"><h3>🔌 Greitas diegimas</h3><p class="muted">Vienos eilutės įterpimas per GTM/CMS; WhatsApp kaštai klientui (+20% admin).</p></div>
 </section>
 
@@ -123,25 +113,12 @@ footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
 </footer>
 
 <script>
-// burger
+NC.ncRenderHeaderActions(); document.getElementById('y').textContent=new Date().getFullYear();
+// drawer
 const b=document.getElementById('b'), bd=document.getElementById('bd'), dw=document.getElementById('dw');
 function close(){dw.classList.remove('open');bd.classList.remove('show');b.classList.remove('active');}
 b.onclick=()=>{dw.classList.toggle('open');bd.classList.toggle('show');b.classList.toggle('active');};
 bd.onclick=close; addEventListener('keydown',e=>{if(e.key==='Escape') close();});
-
-// ripple position
-document.querySelectorAll('.btn').forEach(btn=>btn.addEventListener('pointerdown',e=>{
-  const r=btn.getBoundingClientRect(); btn.style.setProperty('--x',(e.clientX-r.left)+'px'); btn.style.setProperty('--y',(e.clientY-r.top)+'px');
-}));
-// tilt
-const img=document.querySelector('#tilt img');
-img?.parentElement.addEventListener('pointermove',e=>{
-  const r=img.getBoundingClientRect(), cx=e.clientX-r.left, cy=e.clientY-r.top;
-  const rx=((cy/r.height)-.5)*8, ry=((cx/r.width)-.5)*-10;
-  img.style.setProperty('--rx',rx+'deg'); img.style.setProperty('--ry',ry+'deg');
-});
-img?.parentElement.addEventListener('pointerleave',()=>{img.style.setProperty('--rx','0deg');img.style.setProperty('--ry','0deg');});
-document.getElementById('y').textContent=(new Date).getFullYear();
 </script>
 </body>
 </html>
