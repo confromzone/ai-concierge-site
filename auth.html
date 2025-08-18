@@ -3,7 +3,21 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Prisijungti · Nova Concierge</title>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta name="theme-color" content="#0b1220">
+<link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml">
+<link rel="mask-icon" href="/favicon.svg?v=4" color="#4f46e5">
+<link rel="apple-touch-icon" href="/favicon.png?v=4">
+<meta name="theme-color" content="#0b1220">
+<link rel="canonical" href="https://novaconcierge.online/auth.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nova Concierge">
+<meta property="og:title" content="Prisijungimas · Nova Concierge">
+<meta property="og:description" content="Prisijunkite/užsiregistruokite ir gaukite affiliate nuorodą bei prieigą.">
+<meta property="og:url" content="https://novaconcierge.online/auth.html">
+<meta property="og:image" content="https://novaconcierge.online/hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Prisijungimas · Nova Concierge">
+<meta name="twitter:description" content="Prisijunkite/užsiregistruokite ir gaukite affiliate nuorodą bei prieigą.">
+<meta name="twitter:image" content="https://novaconcierge.online/hero.png">
 <style>
 :root{--bg:#0b1220;--card:#0f172a;--border:#1e293b;--text:#e5eef7;--muted:#9aa4b2;--brand:#6b5cff}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui}
@@ -14,7 +28,11 @@ h1{margin:8px 0 12px}label{font-size:14px;color:#c9d2e3}
 input{width:100%;padding:12px;border:1px solid #203049;border-radius:10px;background:#0b1220;color:#eaf0ff}
 .btn{padding:12px 16px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#fff;cursor:pointer}
 .btn.primary{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0}
+.btn.ghost{background:transparent;border:1px solid var(--border);color:#e5eef7}
+.btn.ghost:hover{background:#0b1220}
 .small{color:#9aa9bf;font-size:13px}
+a.brand{display:flex;align-items:center;gap:10px;color:inherit;text-decoration:none}
+a.brand:hover{opacity:.9}
 canvas{width:100%;height:auto;aspect-ratio:5/3;background:#060913;border:1px solid #222;border-radius:12px}
 .row{display:flex;gap:10px;align-items:center}
 a{color:#cfe2ff}
@@ -40,8 +58,11 @@ a{color:#cfe2ff}
 <body>
 <div class="wrap">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-    <img src="/favicon.svg" width="28" height="28" alt=""><strong>Nova Concierge</strong>
-    <div style="margin-left:auto" id="header-actions"></div>
+    <a class="brand" href="/"><img src="/favicon.svg?v=4" width="28" height="28" alt="Nova Concierge"><strong>Nova Concierge</strong></a>
+    <div style="margin-left:auto;display:flex;gap:8px">
+      <a class="btn ghost" href="/">← Pagrindinis</a>
+      <div id="header-actions"></div>
+    </div>
   </div>
 
   <div class="box">
@@ -119,7 +140,7 @@ function update(){
   t++; CT.clearRect(0,0,W,H);
   // Move player
   player.x+=(mouse.x-player.x)*0.25; player.y=H-70;
-  // Auto-shoot only when pressed
+  // Shooting
   if(mouse.down){ if(player.fireTimer<=0){ shoot(); player.fireTimer=player.fireDelay; } }
   if(player.fireTimer>0) player.fireTimer--;
 
@@ -128,15 +149,14 @@ function update(){
   // Eyes follow
   const ang=Math.atan2(mouse.y-boss.y, mouse.x-boss.x), eyeX=Math.cos(ang)*10, eyeY=Math.sin(ang)*8;
 
-  // Phase changes by HP
+  // Phase by HP
   const hpPct=boss.hp/1000;
   if(hpPct<0.75 && boss.phase<2) boss.phase=2;
   if(hpPct<0.45 && boss.phase<3) boss.phase=3;
   if(hpPct<0.2  && boss.phase<4) boss.phase=4;
 
-  // Random shield (reduces dmg 80%)
-  if(boss.shield>0) boss.shield--;
-  else if(Math.random()<0.005+0.001*boss.phase) boss.shield=180;
+  // Shield (reduces dmg 80%)
+  if(boss.shield>0) boss.shield--; else if(Math.random()<0.005+0.001*boss.phase) boss.shield=180;
 
   // Attacks
   if(t%120===0 && Math.random()<(.45+.1*boss.phase)) spawnFireball();
@@ -146,24 +166,20 @@ function update(){
     boss.laser.ttl--;
     if(boss.laser.warn>0){
       boss.laser.warn--;
-      // Telegraph line
       CT.strokeStyle='rgba(255,80,80,.6)'; CT.lineWidth=3; CT.beginPath(); CT.moveTo(0,boss.laser.y); CT.lineTo(W,boss.laser.y); CT.stroke();
     }else{
-      // Active sweep
       boss.laser.y += boss.laser.dir*5.5;
       CT.fillStyle='rgba(255,120,90,.25)'; CT.fillRect(0,boss.laser.y-8,W,16);
-      // Hit player?
       if(Math.abs(player.y-boss.laser.y)<22){ player.hp=0; }
       if(boss.laser.y<-20||boss.laser.y>H+20) boss.laser=null;
     }
   }
 
-  // Draw boss
+  // Boss body + HP bar
   CT.fillStyle=boss.shield? '#4b4fff' : '#3a3f6b';
   CT.beginPath(); CT.arc(boss.x,boss.y,60,0,Math.PI*2); CT.fill();
   CT.fillStyle='#fff'; CT.beginPath(); CT.arc(boss.x-18,boss.y-8,14,0,Math.PI*2); CT.arc(boss.x+18,boss.y-8,14,0,Math.PI*2); CT.fill();
   CT.fillStyle='#111'; CT.beginPath(); CT.arc(boss.x-18+eyeX*0.5,boss.y-8+eyeY*0.5,6,0,Math.PI*2); CT.arc(boss.x+18+eyeX*0.5,boss.y-8+eyeY*0.5,6,0,Math.PI*2); CT.fill();
-  // Boss HP bar (logo nenaudoja savo HP atvaizdavimo – tik viršuje)
   CT.fillStyle='#555'; CT.fillRect(20,20,W-40,10);
   CT.fillStyle='#7c3aed'; CT.fillRect(20,20,(W-40)*(Math.max(boss.hp,0)/1000),10);
 
@@ -177,7 +193,7 @@ function update(){
     const dx=b.x-boss.x, dy=b.y-boss.y;
     if(dx*dx+dy*dy<60*60){
       bullets.splice(i,1);
-      const dmg = boss.shield? 0.1 : 0.5; // šarvai sumažina
+      const dmg = boss.shield? 0.1 : 0.5;
       boss.hp -= dmg;
       player.hits++;
       if(player.hits%12===0) spawnHeart();
@@ -203,7 +219,7 @@ function update(){
     if(f.y>H+30) fireballs.splice(i,1);
   }
 
-  // Meteors (rain)
+  // Meteors
   CT.fillStyle='#cbd5e1';
   for(let i=meteors.length;i--;){
     const m=meteors[i]; m.y+=m.vy; CT.fillRect(m.x-2,m.y-8,4,12);
