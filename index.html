@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="lt">
 <head>
@@ -167,7 +168,7 @@ footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
 <!-- Custom Bots -->
 <section id="custom-bots" class="custom">
   <div class="pill">🤖 Custom botai pagal užsakymą</div>
-  <h2>Kuriame specializuotus botus — nuo CRM iki (paper) trading</h2>
+  <h2>Kuriame specializuotus botus — nuo CRM iki LIVE trading</h2>
   <p class="muted">Išplečiame standartinį asistento funkcionalumą. <b>Kaina pagal susitarimą</b>, greitas pilotas, aiškūs terminai.</p>
 
   <div class="grid">
@@ -192,26 +193,29 @@ footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
       </ul>
     </div>
 
-    <!-- 2) Trading / Market data -->
+    <!-- 2) Trading / LIVE -->
     <div class="card">
-      <h3>📈 Trading / „paper“ botai*</h3>
+      <h3>📈 Trading botai (LIVE)</h3>
       <ul>
-        <li>Strategijos: DCA, „grid“, paprastas momentum/mean-reversion</li>
-        <li>Backtest + „paper trading“ sandbox (be realių lėšų)</li>
-        <li>API: biržų REST/WebSocket (pvz., Binance/Bybit), kainų tiekėjai</li>
-        <li>Rizikos taisyklės: stop-loss/TP, max pozicija, laiko langai</li>
-        <li>Pranešimai: P/L suvestinės į el. paštą/Telegram</li>
+        <li>Strategijos: DCA, „grid“, momentum/mean-reversion, breakout, laiko langai</li>
+        <li>Live vykdymas per biržų API (pvz., Binance, Bybit, OKX, KuCoin) – <b>trade-only</b> raktai</li>
+        <li>Orderiai: market/limit, OCO, trailing stop (jei palaiko birža)</li>
+        <li>Rizikos valdymas: SL/TP, max pozicijos dydis, dienos P/L limitai, „cooldown“ po nuostolio</li>
+        <li>Monitoringas: realaus laiko suvestinės + pranešimai į el. paštą / Telegram</li>
+        <li>Backtest + (pasirinktinai) forward test su testnet (jei yra)</li>
       </ul>
       <div class="note" style="margin-top:8px">
-        *Ne finansinė konsultacija. Pagal nutylėjimą diegiame tik <b>paper trading</b> (simuliaciją).
-        Jei klientas vėliau pats jungia „live“, rekomenduojame <b>„withdrawal disabled“</b> API raktus, limitus ir auditą. Rizika – kliento.
+        <b>Atsakomybės išlyga:</b> tai nėra finansinė konsultacija. Botai vykdo pavedimus jūsų sąskaitoje ir rizika yra jūsų.
+        Rekomenduojame naudoti API raktus su <b>„withdrawal disabled“</b>, IP „allowlist“ ir kapitalo limitais.
+        Pradėkite mažomis sumomis ir tik po pilnų testų.
       </div>
 
-      <h3 style="margin-top:16px">🗣️ Voice & kanalai</h3>
+      <h3 style="margin-top:16px">🗓️ Diegimo žingsniai</h3>
       <ul>
-        <li>Telefoniniai agentai (in/outbound) su skambučio santraukomis</li>
-        <li>WhatsApp/IG/FB DM integracijos (oficialūs tarifai + 20% admin)</li>
-        <li>Webhook’ų tiltas į vidines sistemas</li>
+        <li>Poreikio sesija (15–30 min) ir strategijos pasirinkimas</li>
+        <li>API raktai (trade-only, be withdrawal) + IP apribojimai</li>
+        <li>MVP diegimas ir „dry-run“ (jei norite – testnet)</li>
+        <li>Go-live su rizikos limitais ir monitoringais</li>
       </ul>
     </div>
 
