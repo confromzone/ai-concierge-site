@@ -1,260 +1,39 @@
-
 <!DOCTYPE html>
 <html lang="lt">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nova Concierge — AI asistentai</title>
-
-<!-- Favicon / Social -->
-<link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml">
-<link rel="mask-icon" href="/favicon.svg?v=4" color="#4f46e5">
-<link rel="apple-touch-icon" href="/favicon.png?v=4">
-<meta name="theme-color" content="#0b1220">
-<link rel="canonical" href="https://novaconcierge.online/">
-<meta name="description" content="AI asistentai jūsų svetainei ir žinutėms. Daugiau užklausų, greitesni atsakymai, mažiau rutinos.">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Nova Concierge">
-<meta property="og:title" content="Nova Concierge — AI asistentai 24/7">
-<meta property="og:description" content="Greiti atsakymai, kontaktų rinkimas, kvalifikavimas ir skambučių rezervacijos.">
-<meta property="og:url" content="https://novaconcierge.online/">
-<meta property="og:image" content="https://novaconcierge.online/hero.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Nova Concierge — AI asistentai 24/7">
-<meta name="twitter:description" content="Greiti atsakymai, kontaktų rinkimas, kvalifikavimas ir skambučių rezervacijos.">
-<meta name="twitter:image" content="https://novaconcierge.online/hero.png">
-
-<style>
-:root{--bg:#0b1220;--card:#0f172a;--border:#1e293b;--text:#e5eef7;--muted:#9aa4b2;--brand:#6b5cff;--brand2:#22d3ee}
-*{box-sizing:border-box}html,body{margin:0}
-body{font-family:Inter,system-ui,Segoe UI,Arial;background:var(--bg);color:var(--text)}
-a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
-
-/* header + drawer */
-header{position:sticky;top:0;z-index:40;background:rgba(11,18,32,.85);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--border)}
-.wrap{max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:12px;justify-content:space-between}
-a.brand{display:flex;align-items:center;gap:10px;color:inherit;text-decoration:none}
-a.brand:hover{opacity:.9}
-.brand img{width:28px;height:28px;border-radius:7px}
-.btn{padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:#101828;color:#e5eef7}
-.btn.primary{background:linear-gradient(135deg,var(--brand),#7c3aed);border:0}
-.btn.ghost{background:transparent;border:1px solid var(--border);color:#e5eef7}
-.btn.ghost:hover{background:#0b1220}
-.burger{width:40px;height:36px;border:1px solid var(--border);border-radius:10px;background:#0f172a;color:#cbd5e1;display:grid;place-items:center;cursor:pointer}
-.burger i,.burger i:before,.burger i:after{content:"";display:block;width:18px;height:2px;background:#cbd5e1;border-radius:2px;position:relative;transition:.25s}
-.burger i:before{position:absolute;transform:translateY(-6px)} .burger i:after{position:absolute;transform:translateY(6px)}
-.burger.active i{background:transparent}.burger.active i:before{transform:rotate(45deg)}.burger.active i:after{transform:rotate(-45deg)}
-.drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);z-index:39;opacity:0;pointer-events:none;transition:.25s}
-.drawer{position:fixed;left:0;top:0;bottom:0;width:300px;background:#0f172a;border-right:1px solid var(--border);z-index:40;transform:translateX(-105%);transition:.25s;padding:18px}
-.drawer.open{transform:none}.drawer-backdrop.show{opacity:1;pointer-events:auto}
-.drawer .links{display:flex;flex-direction:column;gap:8px;margin-top:10px}
-.drawer a{padding:10px;border-radius:10px;color:#cbd5e1;border:1px solid transparent}
-.drawer a:hover{border-color:var(--border);background:#0b1220}
-
-/* hero */
-.hero{max-width:1100px;margin:0 auto;padding:52px 20px;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
-.pill{display:inline-flex;gap:8px;align-items:center;background:#0f172a;border:1px solid var(--border);padding:6px 10px;border-radius:999px;color:#a3b1c4;font-size:14px}
-h1{margin:12px 0 10px;font-size:42px;line-height:1.1}.lead{color:#b8c3cf;font-size:18px}
-.cta{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
-.hero-img img{border:1px solid var(--border);border-radius:14px;background:#060913}
-
-/* feature cards */
-.cards{max-width:1100px;margin:0 auto 42px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 20px}
-.card{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px;transition:transform .2s}
-.card:hover{transform:translateY(-4px)} .muted{color:#9aa4b2}
-
-/* Custom bots sekcija */
-.custom{max-width:1100px;margin:0 auto;padding:42px 20px}
-.custom h2{margin:0 0 10px;font-size:30px}
-.custom .muted{color:var(--muted)}
-.custom .grid{display:grid;grid-template-columns:2fr 2fr 1.2fr;gap:16px;margin-top:16px}
-.custom .card{background:#0f172a;border:1px solid var(--border);border-radius:16px;padding:18px}
-.custom ul{margin:8px 0 0 18px;color:#b8c3cf}
-.custom .pricebox{display:flex;flex-direction:column;gap:10px}
-.custom .note{color:#9aa4b2;font-size:13px}
-
-/* footer */
-footer{border-top:1px solid var(--border);padding:22px 20px;color:#a7b2c1}
-
-/* spalvinis fonas */
-.bgfx{pointer-events:none;position:fixed;inset:-15% -5% auto -5%;height:70vh;z-index:-1;
-  background:radial-gradient(600px 260px at 20% 20%, rgba(107,92,255,.25), transparent 60%),
-             radial-gradient(520px 240px at 80% 10%, rgba(34,211,238,.22), transparent 60%);
-  filter:blur(32px);animation:float 11s ease-in-out infinite alternate}
-@keyframes float{to{transform:translateY(-16px)}}
-
-/* account menu mini CSS */
-.account{position:relative}
-.avatar{width:36px;height:36px;border-radius:999px;background:#1f2a44;border:1px solid #2b3b5a;color:#dbe7ff;font-weight:700;display:grid;place-items:center;cursor:pointer}
-.account .menu{position:absolute;right:0;top:44px;background:#0f172a;border:1px solid #1e293b;border-radius:12px;min-width:220px;display:none;z-index:50}
-.account .menu.open{display:block}
-.account .menu .email{padding:10px 12px;color:#aab5c7;border-bottom:1px solid #1e293b}
-.account .menu a,.account .menu button{display:block;width:100%;text-align:left;background:none;border:0;color:#e7eefb;padding:10px 12px;cursor:pointer}
-.account .menu a:hover,.account .menu button:hover{background:#0b1220}
-
-/* === MOBILE POLISH (≤ 980px / 720px / 420px) === */
-@media (max-width:980px){ .custom .grid{grid-template-columns:1fr} }
-@media (max-width:720px){
-  .wrap{padding:12px 14px}
-  .hero{grid-template-columns:1fr; gap:18px; padding:28px 14px}
-  h1{font-size:30px; line-height:1.15}
-  .lead{font-size:16px}
-  .cta{gap:10px}
-  .btn{padding:11px 14px; font-size:15px}
-  .cards{grid-template-columns:1fr; gap:12px; padding:0 14px}
-  .card{padding:14px}
-  .drawer{width:88vw}
-  .burger{width:36px; height:34px}
-  .pill{font-size:13px}
-  footer .wrap{flex-direction:column; align-items:flex-start}
-}
-@media (max-width:420px){
-  #header-actions{display:flex; gap:8px}
-  #header-actions .btn{padding:10px 12px; font-size:14px}
-}
-</style>
-
-<script src="/nc-app.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kripto Lietuva</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<div class="bgfx"></div>
-
-<!-- Drawer -->
-<div class="drawer-backdrop" id="bd"></div>
-<aside class="drawer" id="dw">
-  <a class="brand" href="/"><img src="/favicon.svg?v=4" alt="Nova Concierge"><strong>Nova Concierge</strong></a>
-  <div class="links">
-    <a href="/">🏠 Pagrindinis</a>
-    <a href="/pricing-details.html">💳 Kainų aprašymas</a>
-    <a href="/privacy.html">🔒 Privatumas</a>
-    <a href="/policy.html">📜 Taisyklės</a>
-    <a href="#custom-bots">🤖 Custom botai</a>
-    <a href="/affiliate.html">🤝 Afilija (Workspace)</a>
-    <a href="/company.html">🏢 Įmonės registracija</a>
-    <a href="/auth.html">🔐 Prisijungti</a>
-  </div>
-</aside>
-
-<!-- Header -->
-<header>
-  <div class="wrap">
-    <button class="burger" id="b"><i></i></button>
-    <a class="brand" href="/"><img src="/favicon.svg?v=4" alt="Nova Concierge"><strong>Nova Concierge</strong></a>
-    <div id="header-actions"></div>
-  </div>
-</header>
-
-<!-- Hero -->
-<section class="hero">
-  <div>
-    <div class="pill">⚡ AI asistentas jūsų svetainei ir žinutėms</div>
-    <h1>Daugiau užklausų. Greitesni atsakymai. Mažiau rutinos.</h1>
-    <p class="lead">Įdiegiame ir prižiūrime AI asistentą, kuris akimirksniu atsako, renka kontaktus, kvalifikuoja ir rezervuoja skambučius.</p>
-    <div class="cta">
-      <a class="btn primary" href="/company.html">Startuoti dabar</a>
-      <a class="btn" href="/pricing-details.html">Kainų aprašymas</a>
-      <a class="btn" href="#custom-bots">Custom botai</a>
-    </div>
-  </div>
-  <div class="hero-img"><img src="/hero.png" alt=""></div>
-</section>
-
-<!-- Feature cards -->
-<section class="cards">
-  <div class="card"><h3>🎯 Kontaktų surinkimas</h3><p class="muted">El. paštas/telefonas, ketinimo įvertinimas, perdavimas tinkamam žmogui ar WhatsApp.</p></div>
-  <div class="card"><h3>📆 Rezervacijos</h3><p class="muted">Skambučių rezervavimas vietoje, automatiniai patvirtinimai, perdavimas žmogui prireikus.</p></div>
-  <div class="card"><h3>🔌 Greitas diegimas</h3><p class="muted">Vienos eilutės įterpimas per GTM/CMS; WhatsApp kaštai klientui (+20% admin).</p></div>
-</section>
-
-<!-- Custom Bots -->
-<section id="custom-bots" class="custom">
-  <div class="pill">🤖 Custom botai pagal užsakymą</div>
-  <h2>Kuriame specializuotus botus — nuo CRM iki LIVE trading</h2>
-  <p class="muted">Išplečiame standartinį asistento funkcionalumą. <b>Kaina pagal susitarimą</b>, greitas pilotas, aiškūs terminai.</p>
-
-  <div class="grid">
-    <!-- 1) Verslas + RPA -->
-    <div class="card">
-      <h3>🔧 Verslo automatizavimas</h3>
-      <ul>
-        <li>Lead → CRM sinchronizacija (HubSpot, Pipedrive, Zoho, Airtable)</li>
-        <li>Užklausų triage + routing į el. paštą/WhatsApp/Slack</li>
-        <li>Booking botai (Calendly/Google) su priminimais</li>
-        <li>Dokumentų/DUK botai (PDF, svetainės, Notion, GDrive)</li>
-        <li>NLP „inbox assistant“: klasifikavimas, santraukos, atsakymų juodraščiai</li>
-        <li>e-komercija: prekių Q&A, likučiai, užsakymo statusas</li>
-        <li>HR/vidiniai botai: onboarding, žinių bazės paieška</li>
-      </ul>
-
-      <h3 style="margin-top:16px">📡 Stebėjimo ir RPA botai</h3>
-      <ul>
-        <li>Web scraping + kainų/konkurentų monitoringas</li>
-        <li>Alertai (el. paštas, Telegram, Slack) su suvestinėm</li>
-        <li>„No-code“ RPA: Sheets ↔ Gmail ↔ Drive ↔ Webhooks</li>
-      </ul>
-    </div>
-
-    <!-- 2) Trading / LIVE -->
-    <div class="card">
-      <h3>📈 Trading botai (LIVE)</h3>
-      <ul>
-        <li>Strategijos: DCA, „grid“, momentum/mean-reversion, breakout, laiko langai</li>
-        <li>Live vykdymas per biržų API (pvz., Binance, Bybit, OKX, KuCoin) – <b>trade-only</b> raktai</li>
-        <li>Orderiai: market/limit, OCO, trailing stop (jei palaiko birža)</li>
-        <li>Rizikos valdymas: SL/TP, max pozicijos dydis, dienos P/L limitai, „cooldown“ po nuostolio</li>
-        <li>Monitoringas: realaus laiko suvestinės + pranešimai į el. paštą / Telegram</li>
-        <li>Backtest + (pasirinktinai) forward test su testnet (jei yra)</li>
-      </ul>
-      <div class="note" style="margin-top:8px">
-        <b>Atsakomybės išlyga:</b> tai nėra finansinė konsultacija. Botai vykdo pavedimus jūsų sąskaitoje ir rizika yra jūsų.
-        Rekomenduojame naudoti API raktus su <b>„withdrawal disabled“</b>, IP „allowlist“ ir kapitalo limitais.
-        Pradėkite mažomis sumomis ir tik po pilnų testų.
-      </div>
-
-      <h3 style="margin-top:16px">🗓️ Diegimo žingsniai</h3>
-      <ul>
-        <li>Poreikio sesija (15–30 min) ir strategijos pasirinkimas</li>
-        <li>API raktai (trade-only, be withdrawal) + IP apribojimai</li>
-        <li>MVP diegimas ir „dry-run“ (jei norite – testnet)</li>
-        <li>Go-live su rizikos limitais ir monitoringais</li>
-      </ul>
-    </div>
-
-    <!-- 3) Kainodara / CTA -->
-    <div class="card pricebox">
-      <h3>💼 Kaina pagal susitarimą</h3>
-      <ul>
-        <li>Nemokamas pirminis įvertinimas (15–30 min)</li>
-        <li>MVP pilotas: dažniausiai 1–2 sav.</li>
-        <li>SLA ir priežiūra pagal poreikį</li>
-        <li>Atsiskaitymas: mėnesinis arba fiksuota už MVP</li>
-      </ul>
-      <div class="note">Pateikus jūsų poreikį, atsiųsime pasiūlymą su gairėmis, terminais ir etapuotu biudžetu.</div>
-      <div style="height:10px"></div>
-      <a class="btn primary" href="/company.html">Paprašyti pasiūlymo</a>
-      <a class="btn" href="/affiliate.html" style="margin-top:8px">Tapti partneriu (afilija)</a>
-    </div>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer>
-  <div class="wrap" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
-    <div>© <span id="y"></span> Nova Concierge · WhatsApp: +370 681 95678 · <a href="mailto:zoe.lirel@gmail.com">zoe.lirel@gmail.com</a></div>
-    <div><a href="/privacy.html">Privatumas</a> · <a href="/policy.html">Taisyklės</a></div>
-  </div>
-</footer>
-
-<script>
-NC.ncRenderHeaderActions(); document.getElementById('y').textContent=new Date().getFullYear();
-// drawer
-const b=document.getElementById('b'), bd=document.getElementById('bd'), dw=document.getElementById('dw');
-function close(){dw.classList.remove('open');bd.classList.remove('show');b.classList.remove('active');}
-b.onclick=()=>{dw.classList.toggle('open');bd.classList.toggle('show');b.classList.toggle('active');};
-bd.onclick=close; addEventListener('keydown',e=>{if(e.key==='Escape') close();});
-// smooth scroll to #custom-bots if came from menu
-document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
-  const id=a.getAttribute('href'); if(id.startsWith('#')){ e.preventDefault(); close(); document.querySelector(id)?.scrollIntoView({behavior:'smooth'}); }
-}));
-</script>
+    <header>
+        <div class="logo">
+            <img src="images/logo.svg" alt="Kripto Lietuva Logo" style="max-width: 100px;">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Pagrindinis</a></li>
+                <li><a href="#">Signalai</a></li>
+                <li><a href="chat.html">Pokalbiai</a></li>
+                <li><a href="#">Narystė</a></li>
+                <li><a href="login.html">Prisijungti</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <h1>Sveiki atvykę į Kripto Lietuva</h1>
+            <p>Jūsų patikimas partneris kriptovaliutų prekyboje.</p>
+            <a href="#" class="cta-button">Prisijunkite dabar</a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Kripto Lietuva. Visos teisės saugomos.</p>
+    </footer>
+    <script src="js/script.js"></script>
 </body>
 </html>

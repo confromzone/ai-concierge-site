@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokalbiai - Kripto Lietuva</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/chat.css">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Channels Sidebar -->
+        <aside class="channels-sidebar">
+            <div class="server-header">
+                <a href="index.html"><img src="images/logo.svg" alt="Kripto Lietuva Logo" class="chat-logo"></a>
+                <h3>Kripto Lietuva</h3>
+            </div>
+            <nav class="channels-nav">
+                <h4>Pokalbių grupės</h4>
+                <ul>
+                    <li class="active"><a href="#"># bendras</a></li>
+                    <li><a href="#"># signalai</a></li>
+                    <li><a href="#"># analizė</a></li>
+                    <li><a href="#"># naujienos</a></li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <span>Vartotojas</span>
+                <button>Atsijungti</button>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-main">
+            <header class="chat-header">
+                <h2># signalai</h2>
+                <p>AI boto siunčiami prekybos signalai.</p>
+            </header>
+            <div class="chat-messages">
+                <!-- Messages will be appended here by JavaScript -->
+                <div class="message bot-message">
+                    <img src="images/bot-avatar.svg" alt="Bot" class="avatar">
+                    <div class="message-content">
+                        <span class="username">AI Botas <span class="timestamp">10:30</span></span>
+                        <p class="text">
+                            <strong>PIRKTI:</strong> BTC/USDT<br>
+                            <strong>Kaina:</strong> 68,500<br>
+                            <strong>Take Profit:</strong> 71,000<br>
+                            <strong>Stop Loss:</strong> 67,000
+                        </p>
+                    </div>
+                </div>
+                <div class="message">
+                    <img src="images/user-avatar.svg" alt="User" class="avatar">
+                    <div class="message-content">
+                        <span class="username">Jonas <span class="timestamp">10:32</span></span>
+                        <p class="text">Supratau, ačiū!</p>
+                    </div>
+                </div>
+                 <div class="message bot-message">
+                    <img src="images/bot-avatar.svg" alt="Bot" class="avatar">
+                    <div class="message-content">
+                        <span class="username">AI Botas <span class="timestamp">11:15</span></span>
+                        <p class="text">
+                            <strong>PARDUOTI:</strong> ETH/USDT<br>
+                            <strong>Kaina:</strong> 3,800<br>
+                            <strong>Take Profit:</strong> 3,700<br>
+                            <strong>Stop Loss:</strong> 3,850
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-box">
+                <input type="text" placeholder="Rašyti žinutę kanale # signalai...">
+                <button>Siųsti</button>
+            </div>
+        </main>
+
+        <!-- Users Sidebar -->
+        <aside class="users-sidebar">
+            <h4>Nariai prisijungę</h4>
+            <ul>
+                <li><img src="images/user-avatar.svg" alt="User" class="avatar"> Jonas</li>
+                <li><img src="images/user-avatar.svg" alt="User" class="avatar"> Petras</li>
+                <li><img src="images/user-avatar.svg" alt="User" class="avatar"> Ona</li>
+            </ul>
+        </aside>
+    </div>
+    <script type="module" src="js/chat.js"></script>
+</body>
+</html>
